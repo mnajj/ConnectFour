@@ -49,6 +49,7 @@
     <Compile Include="ClassLib\DataLayer.cs" />
     <Compile Include="ClassLib\Room.cs" />
     <Compile Include="ClassLib\User.cs" />
+    <Compile Include="ClassLib\Views.cs" />
     <Compile Include="ClosingForm.cs">
       <SubType>Form</SubType>
     </Compile>

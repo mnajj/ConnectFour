@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SimpleServer.ClassLib;
+using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -55,31 +57,42 @@ namespace SimpleServer
 		{
 			while (!quit)
 			{
-				connection = server.AcceptSocket();
-				networkStream = new NetworkStream(connection);
-				bReader = new BinaryReader(networkStream);
-				string req = bReader.ReadString();
-				if (req[0] == '0')
-				{
-					bWriter.Write(SerializeToBytes<ClosingForm>(new ClosingForm()));
-				}
+				TcpClient client = server.AcceptTcpClient();
+				Thread clientThread = new Thread(
+					new ParameterizedThreadStart(AcceptClient)
+					);
+				clientThread.Start(client);
 			}
 		}
 
-		/// <summary>
-		/// function to convert by object to byte
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="obj"></param>
-		/// <returns>byte[]</returns>
-		private byte[] SerializeToBytes<T>(T obj)
+		private void AcceptClient(object clientObj)
 		{
-			var formatter = new BinaryFormatter();
-			using (var stream = new MemoryStream())
+			TcpClient client = clientObj as TcpClient;
+			networkStream = client.GetStream();
+			bReader = new BinaryReader(networkStream);
+			string reqRes = bReader.ReadString();
+			int status = int.Parse(reqRes.Split(',')[0]);
+			switch (status)
 			{
-				formatter.Serialize(stream, obj);
-				stream.Seek(0, SeekOrigin.Begin);
-				return stream.ToArray();
+				// Login Status
+				case 0:
+					LogInUser(reqRes.Split(',')[2]);
+					break;
+				//
+			}
+		}
+
+		private void LogInUser(string userName)
+		{
+			var matches =	DataLayer.Users.Where(u => u.UserName == userName).ToList();
+			bWriter = new BinaryWriter(networkStream);
+			if (matches.Count > 0)
+			{
+				bWriter.Write($"1,{Views.RoomsList}");
+			}
+			else
+			{
+				bWriter.Write("-1,Can't find username.");
 			}
 		}
 	}

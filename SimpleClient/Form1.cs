@@ -19,15 +19,6 @@ namespace SimpleClient
 			InitializeComponent();
 		}
 
-		private object DeserializeFromBytes(byte[] bytes)
-		{
-			var formatter = new BinaryFormatter();
-			using (var stream = new MemoryStream(bytes))
-			{
-				return formatter.Deserialize(stream);
-			}
-		}
-
 		private void ConnectToServer_Click(object sender, System.EventArgs e)
 		{
 			client = new TcpClient();
@@ -35,13 +26,18 @@ namespace SimpleClient
 			networkStream = client.GetStream();
 
 			binaryWriter = new BinaryWriter(networkStream);
-			binaryWriter.Write("0, Asking for Login Form.");
+			binaryWriter.Write($"0,username,{UserNameField.Text}");
 
 			binaryReader = new BinaryReader(networkStream);
-			while (true)
+			string responseRes = binaryReader.ReadString();
+			int status = int.Parse(responseRes.Split(',')[0]);
+			if (status == 1)
 			{
-				byte[] bytes = binaryReader.ReadBytes(120);
-				ClosingForm temp = DeserializeFromBytes(bytes) as ClosingForm;
+
+			}
+			else
+			{
+				MessageBox.Show(responseRes.Split(',')[1]);
 			}
 		}
 	}
