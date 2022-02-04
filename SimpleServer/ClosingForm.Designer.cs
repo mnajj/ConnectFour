@@ -1,6 +1,6 @@
-﻿namespace SimpleClient
+﻿namespace SimpleServer
 {
-	partial class Form1
+	partial class ClosingForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -29,37 +29,37 @@
 		private void InitializeComponent()
 		{
 			this.label1 = new System.Windows.Forms.Label();
-			this.ConnectToServer = new System.Windows.Forms.Button();
+			this.DestroyServer = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(302, 199);
+			this.label1.Location = new System.Drawing.Point(296, 199);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(207, 13);
+			this.label1.Size = new System.Drawing.Size(209, 13);
 			this.label1.TabIndex = 7;
-			this.label1.Text = "Press to Connect to (Connect Four) Server";
+			this.label1.Text = "Press to Disconnect (Connect Four) Server";
 			// 
-			// ConnectToServer
+			// DestroyServer
 			// 
-			this.ConnectToServer.Location = new System.Drawing.Point(327, 229);
-			this.ConnectToServer.Name = "ConnectToServer";
-			this.ConnectToServer.Size = new System.Drawing.Size(135, 23);
-			this.ConnectToServer.TabIndex = 6;
-			this.ConnectToServer.Text = "Connect";
-			this.ConnectToServer.UseVisualStyleBackColor = true;
-			this.ConnectToServer.Click += new System.EventHandler(this.ConnectToServer_Click);
+			this.DestroyServer.Location = new System.Drawing.Point(331, 229);
+			this.DestroyServer.Name = "DestroyServer";
+			this.DestroyServer.Size = new System.Drawing.Size(135, 23);
+			this.DestroyServer.TabIndex = 6;
+			this.DestroyServer.Text = "Destroy Server";
+			this.DestroyServer.UseVisualStyleBackColor = true;
+			this.DestroyServer.Click += new System.EventHandler(this.DestroyServer_Click);
 			// 
-			// Form1
+			// ClosingForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this.ConnectToServer);
-			this.Name = "Form1";
-			this.Text = "Form1";
+			this.Controls.Add(this.DestroyServer);
+			this.Name = "ClosingForm";
+			this.Text = "ClosingForm";
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -68,7 +68,6 @@
 		#endregion
 
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Button ConnectToServer;
+		private System.Windows.Forms.Button DestroyServer;
 	}
 }
-
