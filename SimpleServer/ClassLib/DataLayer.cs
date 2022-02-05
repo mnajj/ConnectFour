@@ -9,6 +9,7 @@ namespace SimpleServer.ClassLib
 	{
 		public static List<User> Users = new List<User>();
 		public static List<Room> Rooms = new List<Room>();
+		public static List<User> ConnectedUsers = new List<User>();
 
 		public static void SeedUsers()
 		{

@@ -1,10 +1,8 @@
 ﻿using SimpleClient.ClassLib;
-using SimpleServer;
 using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace SimpleClient
@@ -74,17 +72,21 @@ namespace SimpleClient
 
 		private void SwitchToRoomsList()
 		{
-
+			RoomsList roomsListForm = new RoomsList();
+			roomsListForm.Show();
+			this.Hide();
 		}
 
 		private void SwitchToWaitingRoom()
 		{
-
+			WaitingRoom waitingRoomForm = new WaitingRoom();
+			waitingRoomForm.Show();
+			this.Hide();
 		}
 
 		private void SwitchToGameRoom()
 		{
-
+			// TO-DO
 		}
 	}
 }

@@ -89,6 +89,7 @@ namespace SimpleServer
 			bWriter = new BinaryWriter(networkStream);
 			if (matches.Count > 0)
 			{
+				DataLayer.ConnectedUsers.AddRange(matches);
 				bWriter.Write($"1,{Views.RoomsList}");
 			}
 			else
