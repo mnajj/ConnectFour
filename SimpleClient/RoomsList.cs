@@ -34,11 +34,7 @@ namespace SimpleClient
       var imageList = new ImageList();
 			imageList.Images.Add("RoomIcon", LoadImage(@"https://png.pngtree.com/png-vector/20191028/ourlarge/pngtree-game-console-glyph-icon-vector-png-image_1903964.jpg"));
 			RoomsListView.SmallImageList = imageList;
-      var listViewItem = new ListViewItem();
-      listViewItem.Text = "group One";
-      listViewItem.SubItems.Add("Player One");
-      listViewItem.ImageKey = "RoomIcon";
-      RoomsListView.Items.Add(listViewItem);
+
             
 		}
 
@@ -67,8 +63,35 @@ namespace SimpleClient
 			}
 			else
 			{
-
+                //ToDo
 			}
 		}
-	}
+
+        private void CreateNewRoomButton_Click(object sender, EventArgs e)
+        {
+            RoomDialog RoomDlg = new RoomDialog();
+            DialogResult Dialog = RoomDlg.ShowDialog();
+            if(Dialog==DialogResult.OK)
+            {
+                string roomName = RoomDlg.RoomName;
+                CreateNewRoom(roomName);
+            }
+            else
+            {
+                //ToDO
+            }
+            
+        }
+
+        private void CreateNewRoom(string roomName)
+        {
+            var listViewItem = new ListViewItem();
+            listViewItem.Text = roomName;
+            listViewItem.SubItems.Add("Player One");
+            listViewItem.ImageKey = "RoomIcon";
+            RoomsListView.Items.Add(listViewItem);
+        }
+
+
+    }
 }
