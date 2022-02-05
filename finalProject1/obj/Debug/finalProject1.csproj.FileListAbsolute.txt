@@ -1,8 +1,0 @@
-C:\Users\ahmed sokary\source\repos\finalProject1\bin\Debug\finalProject1.exe.config
-C:\Users\ahmed sokary\source\repos\finalProject1\bin\Debug\finalProject1.exe
-C:\Users\ahmed sokary\source\repos\finalProject1\bin\Debug\finalProject1.pdb
-C:\Users\ahmed sokary\source\repos\finalProject1\obj\Debug\finalProject1.csproj.AssemblyReference.cache
-C:\Users\ahmed sokary\source\repos\finalProject1\obj\Debug\finalProject1.csproj.SuggestedBindingRedirects.cache
-C:\Users\ahmed sokary\source\repos\finalProject1\obj\Debug\finalProject1.csproj.CoreCompileInputs.cache
-C:\Users\ahmed sokary\source\repos\finalProject1\obj\Debug\finalProject1.exe
-C:\Users\ahmed sokary\source\repos\finalProject1\obj\Debug\finalProject1.pdb
