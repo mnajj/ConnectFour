@@ -84,6 +84,7 @@ namespace SimpleServer
 
 		private void LogInUser(string userName)
 		{
+			DataLayer.SeedUsers();
 			var matches =	DataLayer.Users.Where(u => u.UserName == userName).ToList();
 			bWriter = new BinaryWriter(networkStream);
 			if (matches.Count > 0)
