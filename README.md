@@ -1,1 +1,1 @@
-# CountFour
+# Connect Four
