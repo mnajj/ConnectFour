@@ -13,3 +13,4 @@ C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleClient\bin\Debug\Simp
 C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleClient\bin\Debug\SimpleServer.pdb
 C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleClient\bin\Debug\SimpleServer.exe.config
 C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleClient\obj\Debug\SimpleClient.csproj.CopyComplete
+C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleClient\obj\Debug\SimpleClient.RoomsList.resources

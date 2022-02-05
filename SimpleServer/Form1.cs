@@ -32,6 +32,7 @@ namespace SimpleServer
 			port = 13000;
 			localAddr = IPAddress.Parse("127.0.0.1");
 			server = new TcpListener(localAddr, port);
+			DataLayer.SeedUsers();
 			quit = false;
 
 			// Threads
@@ -84,7 +85,6 @@ namespace SimpleServer
 
 		private void LogInUser(string userName)
 		{
-			DataLayer.SeedUsers();
 			var matches =	DataLayer.Users.Where(u => u.UserName == userName).ToList();
 			bWriter = new BinaryWriter(networkStream);
 			if (matches.Count > 0)
