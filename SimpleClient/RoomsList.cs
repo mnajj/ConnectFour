@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,27 +13,32 @@ namespace SimpleClient
 {
 	public partial class RoomsList : Form
 	{
-		public RoomsList()
+		Form1 clientForm;
+		BinaryReader bReader;
+		BinaryWriter bWriter;
+
+		public RoomsList(Form1 clinetForm)
 		{
 			InitializeComponent();
+			this.clientForm = clinetForm;
 		}
 
 		private void RoomsList_Load(object sender, EventArgs e)
 		{
-            RoomsListView.View = View.Details;
-            RoomsListView.Columns.Add("Group Name", 50);
-            RoomsListView.Columns.Add("Status", 50);
-            RoomsListView.Columns.Add("Players", 50);
-            RoomsListView.Columns.Add("Spectators", 50);
-            RoomsListView.Columns.Add("Details", 50);
-            var imageList = new ImageList();
+      RoomsListView.View = View.Details;
+      RoomsListView.Columns.Add("Group Name", 50);
+      RoomsListView.Columns.Add("Status", 50);
+      RoomsListView.Columns.Add("Players", 50);
+      RoomsListView.Columns.Add("Spectators", 50);
+      RoomsListView.Columns.Add("Details", 50);
+      var imageList = new ImageList();
 			imageList.Images.Add("RoomIcon", LoadImage(@"https://png.pngtree.com/png-vector/20191028/ourlarge/pngtree-game-console-glyph-icon-vector-png-image_1903964.jpg"));
 			RoomsListView.SmallImageList = imageList;
-            var listViewItem = new ListViewItem();
-            listViewItem.Text = "group One";
-            listViewItem.SubItems.Add("Player One");
-            listViewItem.ImageKey = "RoomIcon";
-            RoomsListView.Items.Add(listViewItem);
+      var listViewItem = new ListViewItem();
+      listViewItem.Text = "group One";
+      listViewItem.SubItems.Add("Player One");
+      listViewItem.ImageKey = "RoomIcon";
+      RoomsListView.Items.Add(listViewItem);
             
 		}
 
@@ -44,6 +50,25 @@ namespace SimpleClient
 			Bitmap bmp = new Bitmap(responseStream);
 			responseStream.Dispose();
 			return bmp;
+		}
+
+		private void RoomsListView_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			// SEND
+			bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
+			bWriter.Write("2,Rquest for Waiting room.");
+			// RECEIVE
+			bReader = new BinaryReader(clientForm.ClientNetworkStream);
+			string reqRes = bReader.ReadString();
+			int status = int.Parse(reqRes.Split(',')[0]);
+			if (status == 1)
+			{
+				clientForm.SwitchResponseToForm(reqRes.Split(',')[1]);
+			}
+			else
+			{
+
+			}
 		}
 	}
 }

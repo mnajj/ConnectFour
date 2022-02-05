@@ -68,18 +68,26 @@ namespace SimpleServer
 
 		private void AcceptClient(object clientObj)
 		{
-			TcpClient client = clientObj as TcpClient;
-			networkStream = client.GetStream();
-			bReader = new BinaryReader(networkStream);
-			string reqRes = bReader.ReadString();
-			int status = int.Parse(reqRes.Split(',')[0]);
-			switch (status)
+			while (!quit)
 			{
-				// Login Status
-				case 0:
-					LogInUser(reqRes.Split(',')[2]);
-					break;
-				//
+				TcpClient client = clientObj as TcpClient;
+				networkStream = client.GetStream();
+				if (networkStream.DataAvailable)
+				{
+					bReader = new BinaryReader(networkStream);
+					string reqRes = bReader.ReadString();
+					int status = int.Parse(reqRes.Split(',')[0]);
+					switch (status)
+					{
+						// Login Status
+						case 0:
+							LogInUser(reqRes.Split(',')[2]);
+							break;
+						case 2:
+							RedirectToWaitingRoom();
+							break;
+					}
+				}
 			}
 		}
 
@@ -96,6 +104,12 @@ namespace SimpleServer
 			{
 				bWriter.Write("-1,Can't find username.");
 			}
+		}
+
+		private void RedirectToWaitingRoom()
+		{
+			bWriter = new BinaryWriter(networkStream);
+			bWriter.Write($"1,{Views.WaitingRoom}");
 		}
 	}
 }

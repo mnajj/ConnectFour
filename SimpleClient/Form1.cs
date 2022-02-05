@@ -11,8 +11,12 @@ namespace SimpleClient
 	{
 		TcpClient client;
 		NetworkStream networkStream;
-		BinaryReader binaryReader;
-		BinaryWriter binaryWriter;
+		BinaryReader bReader;
+		BinaryWriter bWriter;
+
+		// Rooms
+		RoomsList roomsListForm;
+		public NetworkStream ClientNetworkStream { get => networkStream; set => networkStream = value; }
 
 		public Form1()
 		{
@@ -37,11 +41,11 @@ namespace SimpleClient
 		private void SendLoginRequestToServer()
 		{
 			// SEND
-			binaryWriter = new BinaryWriter(networkStream);
-			binaryWriter.Write($"0,username,{UserNameField.Text}");
+			bWriter = new BinaryWriter(networkStream);
+			bWriter.Write($"0,username,{UserNameField.Text}");
 			// RECEIVE
-			binaryReader = new BinaryReader(networkStream);
-			string responseRes = binaryReader.ReadString();
+			bReader = new BinaryReader(networkStream);
+			string responseRes = bReader.ReadString();
 			int status = int.Parse(responseRes.Split(',')[0]);
 			if (status == 1)
 			{
@@ -53,7 +57,7 @@ namespace SimpleClient
 			}
 		}
 
-		private void SwitchResponseToForm(string view)
+		public void SwitchResponseToForm(string view)
 		{
 			Views responseView = (Views)Enum.Parse(typeof(Views), view, true);
 			switch (responseView)
@@ -72,7 +76,7 @@ namespace SimpleClient
 
 		private void SwitchToRoomsList()
 		{
-			RoomsList roomsListForm = new RoomsList();
+			roomsListForm = new RoomsList(this);
 			roomsListForm.Show();
 			this.Hide();
 		}
@@ -81,7 +85,7 @@ namespace SimpleClient
 		{
 			WaitingRoom waitingRoomForm = new WaitingRoom();
 			waitingRoomForm.Show();
-			this.Hide();
+			roomsListForm.Hide();
 		}
 
 		private void SwitchToGameRoom()

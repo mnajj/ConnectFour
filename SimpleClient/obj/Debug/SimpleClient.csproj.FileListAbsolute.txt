@@ -30,3 +30,4 @@ C:\Users\Goharista\Desktop\C# Project\ConnectFour\SimpleClient\obj\Debug\SimpleC
 C:\Users\Goharista\Desktop\C# Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.exe
 C:\Users\Goharista\Desktop\C# Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.pdb
 C:\Users\Goharista\Desktop\C# Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.WaitingRoom.resources
+C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleClient\obj\Debug\SimpleClient.WaitingRoom.resources
