@@ -6,3 +6,6 @@ C:\Users\ahmed sokary\source\repos\finalProject1\obj\Debug\finalProject1.csproj.
 C:\Users\ahmed sokary\source\repos\finalProject1\obj\Debug\finalProject1.csproj.CoreCompileInputs.cache
 C:\Users\ahmed sokary\source\repos\finalProject1\obj\Debug\finalProject1.exe
 C:\Users\ahmed sokary\source\repos\finalProject1\obj\Debug\finalProject1.pdb
+C:\Users\DELL\Repos\ConnectFour\CountFour\GameLogic\obj\Debug\finalProject1.csproj.AssemblyReference.cache
+C:\Users\DELL\Repos\ConnectFour\CountFour\GameLogic\obj\Debug\finalProject1.csproj.SuggestedBindingRedirects.cache
+C:\Users\DELL\Repos\ConnectFour\CountFour\GameLogic\obj\Debug\finalProject1.csproj.CoreCompileInputs.cache

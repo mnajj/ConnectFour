@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -51,7 +50,8 @@ namespace SimpleServer
 
 		/// <summary>
 		/// AcceptSocketThread thread method to prevent the system
-		/// from being freezenwhile waiting for clients to connect to the server
+		/// from being freeze while waiting for clients to connect
+		/// to the server
 		/// </summary>
 		private void AcceptSocket()
 		{
