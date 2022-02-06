@@ -37,7 +37,6 @@ namespace SimpleServer.ClassLib
 					int status = int.Parse(reqRes.Split(',')[0]);
 					switch (status)
 					{
-						// Login Status
 						case 0:
 							LogInUser(reqRes.Split(',')[2]);
 							break;
@@ -46,6 +45,9 @@ namespace SimpleServer.ClassLib
 							break;
 						case 3:
 							SaveNewRoomData(reqRes.Split(',')[2]);
+							break;
+						case 4:
+							SendRoomData();
 							break;
 					}
 				}
@@ -129,6 +131,11 @@ namespace SimpleServer.ClassLib
 					clinetBF.Serialize(clientNetWorkStream, DataLayer.Rooms);
 				}
 			}
+		}
+
+		private void SendRoomData()
+		{
+
 		}
 	}
 }

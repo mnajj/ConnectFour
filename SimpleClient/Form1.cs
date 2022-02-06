@@ -21,6 +21,7 @@ namespace SimpleClient
 		BinaryReader bReader;
 		BinaryWriter bWriter;
 		List<Room> roomsList;
+		int WaitingRoomIdex;
 		bool quit;
 		
 
@@ -102,6 +103,9 @@ namespace SimpleClient
 				case Views.GameRoom:
 					SwitchToGameRoom();
 					break;
+				case Views.WaitingRoom:
+					SwitchToWaitingRoom();
+					break;
 			}
 		}
 
@@ -129,6 +133,13 @@ namespace SimpleClient
 			roomsListForm = new RoomsList(this);
 			roomsListForm.Show();
 			this.Hide();
+		}
+
+		private void SwitchToWaitingRoom()
+		{
+			WaitingRoom waitingRoom = new WaitingRoom(this);
+			waitingRoom.Show();
+			roomsListForm.Hide();
 		}
 
 		private void SwitchToGameRoom()

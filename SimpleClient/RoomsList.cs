@@ -50,8 +50,16 @@ namespace SimpleClient
 		{
 			// SEND
 			bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
-			bWriter.Write("2,Rquest for Waiting room.");
+			bWriter.Write($"2,Rquest for Waiting room,{RoomsListView.SelectedIndices[0]}");
 			// RECEIVE
+			//
+			//
+			//  TODO
+			//
+			//
+			//
+			/*
+			OLD
 			bReader = new BinaryReader(clientForm.ClientNetworkStream);
 			string reqRes = bReader.ReadString();
 			int status = int.Parse(reqRes.Split(',')[0]);
@@ -61,11 +69,12 @@ namespace SimpleClient
 			}
 			else
 			{
-                //ToDo
+				//ToDo
 			}
+			*/
 		}
 
-    private void CreateNewRoomButton_Click(object sender, EventArgs e)
+		private void CreateNewRoomButton_Click(object sender, EventArgs e)
     {
       RoomDialog RoomDlg = new RoomDialog();
       DialogResult Dialog = RoomDlg.ShowDialog();

@@ -2,6 +2,5 @@
 1 => redirect to tooms list
 11 => redirect to tooms list + DATA
 111 => new rooms data to append
-2 => Waiting Room by index
+2 => Waiting Room
 3 => Create New Room
-4 => Get Room Data
