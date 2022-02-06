@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 
 namespace SimpleServer.ClassLib
 {
@@ -11,7 +12,8 @@ namespace SimpleServer.ClassLib
 	{
 		public TcpClient Socket { get; set; }
 
-		//
+		string userName;
+		string counter;
 		NetworkStream networkStream;
 		BinaryWriter bWriter;
 		BinaryReader bReader;
@@ -19,6 +21,8 @@ namespace SimpleServer.ClassLib
 		public ClientHandler(TcpClient soc)
 		{
 			Socket = soc;
+			Thread clientThread = new Thread(this.AcceptRequests);
+			clientThread.Start();
 		}
 
 		public void AcceptRequests()
@@ -61,6 +65,7 @@ namespace SimpleServer.ClassLib
 				}
 				else
 				{
+					this.userName = userName;
 					DataLayer.ConnectedUsers.AddRange(matches);
 					if (DataLayer.Rooms.Count > 0)
 					{
@@ -102,6 +107,28 @@ namespace SimpleServer.ClassLib
 					RoomOwner = roomOwner
 				});
 			DataLayer.Rooms[idx].Players.Add(roomOwner);
+
+			/* Check if there are players connected to send new data to them */
+			if (DataLayer.ConnectedUsers.Count > 1)
+			{
+				SendNewCreatedRoomsDataToClients();
+			}
+		}
+
+		private void SendNewCreatedRoomsDataToClients()
+		{
+			for (int i = 0; i < DataLayer.Clients.Count; i++)
+			{
+				NetworkStream clientNetWorkStream = DataLayer.Clients[i].Socket.GetStream();
+				if (clientNetWorkStream != networkStream)
+				{
+					bWriter = new BinaryWriter(clientNetWorkStream);
+					bWriter.Write($"111,new rooms data");
+
+					BinaryFormatter clinetBF = new BinaryFormatter();
+					clinetBF.Serialize(clientNetWorkStream, DataLayer.Rooms);
+				}
+			}
 		}
 	}
 }

@@ -30,7 +30,7 @@ namespace SimpleClient
       RoomsListView.Columns.Add("Details", 100);
       var imageList = new ImageList();
 			imageList.Images.Add("RoomIcon", LoadImage(@"https://www.ala.org/lita/sites/ala.org.lita/files/content/learning/webinars/gamelogo.png"));
-			RoomsListView.SmallImageList = imageList;   
+			RoomsListView.SmallImageList = imageList;
 		}
 
 		private Image LoadImage(string url)

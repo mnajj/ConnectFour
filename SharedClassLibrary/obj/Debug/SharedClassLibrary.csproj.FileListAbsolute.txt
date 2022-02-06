@@ -3,3 +3,9 @@ C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SharedClassLibrary\bin\Debu
 C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.csproj.CoreCompileInputs.cache
 C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.dll
 C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.pdb
+C:\Users\DELL\OneDrive\سطح المكتب\ConnectFour\CountFour\SharedClassLibrary\bin\Debug\SharedClassLibrary.dll
+C:\Users\DELL\OneDrive\سطح المكتب\ConnectFour\CountFour\SharedClassLibrary\bin\Debug\SharedClassLibrary.pdb
+C:\Users\DELL\OneDrive\سطح المكتب\ConnectFour\CountFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.csproj.AssemblyReference.cache
+C:\Users\DELL\OneDrive\سطح المكتب\ConnectFour\CountFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.csproj.CoreCompileInputs.cache
+C:\Users\DELL\OneDrive\سطح المكتب\ConnectFour\CountFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.dll
+C:\Users\DELL\OneDrive\سطح المكتب\ConnectFour\CountFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.pdb

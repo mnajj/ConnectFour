@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="ClassLib\ClientHandler.cs" />
     <Compile Include="ClassLib\DataLayer.cs" />
-    <Compile Include="ClassLib\Views.cs" />
     <Compile Include="ClosingForm.cs">
       <SubType>Form</SubType>
     </Compile>
