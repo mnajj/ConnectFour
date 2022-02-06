@@ -15,12 +15,12 @@ namespace SimpleServer.ClassLib
 
 		public static void SeedUsers()
 		{
-			Users.Add(new User { UserName = "player1"});
-			Users.Add(new User { UserName = "player2"});
-			Users.Add(new User { UserName = "player3"});
-			Users.Add(new User { UserName = "player4"});
-			Users.Add(new User { UserName = "player5"});
-			Users.Add(new User { UserName = "player6"});
+			Users.Add(new User { UserName = "mohab"});
+			Users.Add(new User { UserName = "osama"});
+			Users.Add(new User { UserName = "abdo"});
+			Users.Add(new User { UserName = "sokary"});
+			Users.Add(new User { UserName = "gohary"});
+			Users.Add(new User { UserName = "somaa"});
 		}
 	}
 }

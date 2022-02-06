@@ -54,17 +54,25 @@ namespace SimpleServer.ClassLib
 			bWriter = new BinaryWriter(networkStream);
 			if (matches.Count > 0)
 			{
-				DataLayer.ConnectedUsers.AddRange(matches);
-				if (DataLayer.Rooms.Count > 0)
+				var conntectedMatches = DataLayer.ConnectedUsers.Where(u => u.UserName == userName).ToList();
+				if (conntectedMatches.Count > 0)
 				{
-					bWriter.Write($"11,{Views.RoomsList}");
-
-					BinaryFormatter bf = new BinaryFormatter();
-					bf.Serialize(networkStream, DataLayer.Rooms);
+					bWriter.Write("-1,This User is already connected to server.");
 				}
 				else
 				{
-					bWriter.Write($"1,{Views.RoomsList}");
+					DataLayer.ConnectedUsers.AddRange(matches);
+					if (DataLayer.Rooms.Count > 0)
+					{
+						bWriter.Write($"11,{Views.RoomsList}");
+
+						BinaryFormatter bf = new BinaryFormatter();
+						bf.Serialize(networkStream, DataLayer.Rooms);
+					}
+					else
+					{
+						bWriter.Write($"1,{Views.RoomsList}");
+					}
 				}
 			}
 			else

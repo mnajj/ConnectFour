@@ -48,27 +48,34 @@ namespace SimpleClient
 		private void SendLoginRequestToServer()
 		{
 			// SEND
-			bWriter = new BinaryWriter(networkStream);
-			bWriter.Write($"0,username,{UserNameField.Text}");
-			// RECEIVE
-			bReader = new BinaryReader(networkStream);
-			string responseRes = bReader.ReadString();
-			int status = int.Parse(responseRes.Split(',')[0]);
-			if (status == 1)
+			if (UserNameField.Text == String.Empty)
 			{
-				SwitchResponseToForm(responseRes.Split(',')[1]);
-				UserName = UserNameField.Text;
-			}
-			else if (status == 11)
-			{
-				SwitchResponseToForm(responseRes.Split(',')[1]);
-				BinaryFormatter formatter = new BinaryFormatter();
-				roomsList = (List<Room>)formatter.Deserialize(networkStream);
-				AddRoomsToRoomsListView(roomsList);
+				MessageBox.Show("Please, enter a user name");
 			}
 			else
 			{
-				MessageBox.Show(responseRes.Split(',')[1]);
+				bWriter = new BinaryWriter(networkStream);
+				bWriter.Write($"0,username,{UserNameField.Text}");
+				// RECEIVE
+				bReader = new BinaryReader(networkStream);
+				string responseRes = bReader.ReadString();
+				int status = int.Parse(responseRes.Split(',')[0]);
+				if (status == 1)
+				{
+					SwitchResponseToForm(responseRes.Split(',')[1]);
+					UserName = UserNameField.Text;
+				}
+				else if (status == 11)
+				{
+					SwitchResponseToForm(responseRes.Split(',')[1]);
+					BinaryFormatter formatter = new BinaryFormatter();
+					roomsList = (List<Room>)formatter.Deserialize(networkStream);
+					AddRoomsToRoomsListView(roomsList);
+				}
+				else
+				{
+					MessageBox.Show(responseRes.Split(',')[1]);
+				}
 			}
 		}
 
