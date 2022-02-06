@@ -11,9 +11,9 @@ namespace SimpleServer.ClassLib
 	public class ClientHandler
 	{
 		public TcpClient Socket { get; set; }
+		public string UserName { get; set;}
+		public string Counter { get; set; }
 
-		string userName;
-		string counter;
 		NetworkStream networkStream;
 		BinaryWriter bWriter;
 		BinaryReader bReader;
@@ -65,7 +65,7 @@ namespace SimpleServer.ClassLib
 				}
 				else
 				{
-					this.userName = userName;
+					this.UserName = userName;
 					DataLayer.ConnectedUsers.AddRange(matches);
 					if (DataLayer.Rooms.Count > 0)
 					{

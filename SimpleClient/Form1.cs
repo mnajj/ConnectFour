@@ -99,9 +99,6 @@ namespace SimpleClient
 				case Views.RoomsList:
 					SwitchToRoomsList();
 					break;
-				case Views.WaitingRoom:
-					SwitchToWaitingRoom();
-					break;
 				case Views.GameRoom:
 					SwitchToGameRoom();
 					break;
@@ -132,13 +129,6 @@ namespace SimpleClient
 			roomsListForm = new RoomsList(this);
 			roomsListForm.Show();
 			this.Hide();
-		}
-
-		private void SwitchToWaitingRoom()
-		{
-			WaitingRoom waitingRoomForm = new WaitingRoom();
-			waitingRoomForm.Show();
-			roomsListForm.Hide();
 		}
 
 		private void SwitchToGameRoom()

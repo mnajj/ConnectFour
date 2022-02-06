@@ -13,6 +13,8 @@ namespace SimpleClient
 		int roomIdx;
 
 		public ListView RoomsListControl { get => RoomsListView; }
+		public Form1 ClientForm { get => clientForm; }
+		public string CreatedRoomName { get; set; }
 
 		public RoomsList(Form1 clinetForm)
 		{
@@ -29,7 +31,8 @@ namespace SimpleClient
       RoomsListView.Columns.Add("Spectators", 100);
       RoomsListView.Columns.Add("Details", 100);
       var imageList = new ImageList();
-			imageList.Images.Add("RoomIcon", LoadImage(@"https://www.ala.org/lita/sites/ala.org.lita/files/content/learning/webinars/gamelogo.png"));
+			//imageList.Images.Add("RoomIcon", LoadImage(@"https://www.ala.org/lita/sites/ala.org.lita/files/content/learning/webinars/gamelogo.png"));
+			imageList.Images.Add("RoomIcon", LoadImage(@"https://imgur.com/EjX8Ulb.png"));
 			RoomsListView.SmallImageList = imageList;
 		}
 
@@ -64,31 +67,37 @@ namespace SimpleClient
 
     private void CreateNewRoomButton_Click(object sender, EventArgs e)
     {
-        RoomDialog RoomDlg = new RoomDialog();
-        DialogResult Dialog = RoomDlg.ShowDialog();
-        if(Dialog==DialogResult.OK)
-        {
-            string roomName = RoomDlg.RoomName;
-            CreateNewRoom(roomName);
+      RoomDialog RoomDlg = new RoomDialog();
+      DialogResult Dialog = RoomDlg.ShowDialog();
+      if (Dialog == DialogResult.OK)
+      {
+				CreatedRoomName = RoomDlg.RoomName;
+				CreateNewRoom(CreatedRoomName);
 
-					// SEND Room Data to Server
-					bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
-					bWriter.Write($"3,Rquest for creating new room,{roomIdx};{roomName};{clientForm.UserName}");
-				}
-        else
-        {
-            //ToDO
-        }
-    }
+				// SEND Room Data to Server
+				bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
+				bWriter.Write("3,Rquest for creating new room," +
+					$"{roomIdx};{CreatedRoomName};{clientForm.UserName}");
 
-			private void CreateNewRoom(string roomName)
-			{
-					var listViewItem = new ListViewItem();
-					listViewItem.Text = roomName;
-					listViewItem.SubItems.Add("Player One");
-					listViewItem.ImageKey = "RoomIcon";
-					RoomsListView.Items.Add(listViewItem);
-					roomIdx = listViewItem.Index;
+				// Recieve view
+				WaitingRoom waitingRoom = new WaitingRoom(this);
+				waitingRoom.Show();
+				this.Hide();
 			}
-    }
+			else
+      {
+				//TODO
+			}
+		}
+
+		private void CreateNewRoom(string roomName)
+		{
+			var listViewItem = new ListViewItem();
+			listViewItem.Text = roomName;
+			listViewItem.SubItems.Add(clientForm.UserName);
+			listViewItem.ImageKey = "RoomIcon";
+			RoomsListView.Items.Add(listViewItem);
+			roomIdx = listViewItem.Index;
+		}
+  }
 }
