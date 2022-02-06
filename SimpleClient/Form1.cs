@@ -1,18 +1,25 @@
-﻿using SimpleClient.ClassLib;
+﻿using ShardClassLibrary;
+using SimpleServer.ClassLib;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace SimpleClient
 {
 	public partial class Form1 : Form
 	{
+		public string UserName { get; private set; }
 		TcpClient client;
 		NetworkStream networkStream;
 		BinaryReader bReader;
 		BinaryWriter bWriter;
+		List<User> clientList;
+		List<Room> roomsList;
 
 		// Rooms
 		RoomsList roomsListForm;
@@ -50,6 +57,14 @@ namespace SimpleClient
 			if (status == 1)
 			{
 				SwitchResponseToForm(responseRes.Split(',')[1]);
+				UserName = UserNameField.Text;
+			}
+			else if (status == 11)
+			{
+				SwitchResponseToForm(responseRes.Split(',')[1]);
+				BinaryFormatter formatter = new BinaryFormatter();
+				roomsList = (List<Room>)formatter.Deserialize(networkStream);
+				AddRoomsToRoomsListView(roomsList);
 			}
 			else
 			{
@@ -91,6 +106,33 @@ namespace SimpleClient
 		private void SwitchToGameRoom()
 		{
 			// TO-DO
+		}
+
+		private void AddRoomsToRoomsListView(List<Room> list)
+		{
+			var imageList = new ImageList();
+			imageList.Images.Add("RoomIcon", LoadImage(@"https://www.ala.org/lita/sites/ala.org.lita/files/content/learning/webinars/gamelogo.png"));
+			roomsListForm.RoomsListControl.SmallImageList = imageList;
+			foreach (Room room in list)
+			{
+				ListViewItem item = new ListViewItem();
+				item.Text = room.RoomName;
+				for (int i = 0; i < room.Players.Count; i++)
+				{
+					item.SubItems.Add(room.Players[i].UserName);
+				}
+				roomsListForm.RoomsListControl.Items.Add(item);
+			}
+		}
+
+		private Image LoadImage(string url)
+		{
+			System.Net.WebRequest request = System.Net.WebRequest.Create(url);
+			System.Net.WebResponse response = request.GetResponse();
+			System.IO.Stream responseStream = response.GetResponseStream();
+			Bitmap bmp = new Bitmap(responseStream);
+			responseStream.Dispose();
+			return bmp;
 		}
 	}
 }

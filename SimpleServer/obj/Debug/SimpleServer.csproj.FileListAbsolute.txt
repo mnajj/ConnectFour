@@ -10,3 +10,6 @@ C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleServer\obj\Debug\Simp
 C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleServer\obj\Debug\SimpleServer.exe
 C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleServer\obj\Debug\SimpleServer.pdb
 C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleServer\obj\Debug\SimpleServer.ClosingForm.resources
+C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleServer\bin\Debug\SharedClassLibrary.dll
+C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleServer\bin\Debug\SharedClassLibrary.pdb
+C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SimpleServer\obj\Debug\SimpleServer.csproj.CopyComplete

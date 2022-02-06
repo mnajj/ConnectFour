@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassLib\Views.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +107,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SharedClassLibrary\SharedClassLibrary.csproj">
+      <Project>{503D82D2-D1D0-4F32-89DF-95AF431CD71B}</Project>
+      <Name>SharedClassLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimpleServer\SimpleServer.csproj">
       <Project>{5111695B-E6AA-4DA7-B5BB-0D31239C970A}</Project>
       <Name>SimpleServer</Name>

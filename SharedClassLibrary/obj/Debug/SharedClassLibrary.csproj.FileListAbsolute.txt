@@ -1,0 +1,5 @@
+C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SharedClassLibrary\bin\Debug\SharedClassLibrary.dll
+C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SharedClassLibrary\bin\Debug\SharedClassLibrary.pdb
+C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.csproj.CoreCompileInputs.cache
+C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.dll
+C:\Users\DELL\OneDrive\سطح المكتب\CountFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.pdb

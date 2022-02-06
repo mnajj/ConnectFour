@@ -13,9 +13,12 @@ namespace SimpleClient
 {
 	public partial class RoomsList : Form
 	{
-		Form1 clientForm;
+		Form1 clientForm;	
 		BinaryReader bReader;
 		BinaryWriter bWriter;
+		int roomIdx;
+
+		public ListView RoomsListControl { get => RoomsListView; }
 
 		public RoomsList(Form1 clinetForm)
 		{
@@ -26,16 +29,14 @@ namespace SimpleClient
 		private void RoomsList_Load(object sender, EventArgs e)
 		{
       RoomsListView.View = View.Details;
-      RoomsListView.Columns.Add("Group Name", 50);
-      RoomsListView.Columns.Add("Status", 50);
-      RoomsListView.Columns.Add("Players", 50);
-      RoomsListView.Columns.Add("Spectators", 50);
-      RoomsListView.Columns.Add("Details", 50);
+      RoomsListView.Columns.Add("Group Name", 100);
+      RoomsListView.Columns.Add("Status", 100);
+      RoomsListView.Columns.Add("Players", 100);
+      RoomsListView.Columns.Add("Spectators", 100);
+      RoomsListView.Columns.Add("Details", 100);
       var imageList = new ImageList();
-			imageList.Images.Add("RoomIcon", LoadImage(@"https://png.pngtree.com/png-vector/20191028/ourlarge/pngtree-game-console-glyph-icon-vector-png-image_1903964.jpg"));
-			RoomsListView.SmallImageList = imageList;
-
-            
+			imageList.Images.Add("RoomIcon", LoadImage(@"https://www.ala.org/lita/sites/ala.org.lita/files/content/learning/webinars/gamelogo.png"));
+			RoomsListView.SmallImageList = imageList;   
 		}
 
 		private Image LoadImage(string url)
@@ -67,31 +68,33 @@ namespace SimpleClient
 			}
 		}
 
-        private void CreateNewRoomButton_Click(object sender, EventArgs e)
+    private void CreateNewRoomButton_Click(object sender, EventArgs e)
+    {
+        RoomDialog RoomDlg = new RoomDialog();
+        DialogResult Dialog = RoomDlg.ShowDialog();
+        if(Dialog==DialogResult.OK)
         {
-            RoomDialog RoomDlg = new RoomDialog();
-            DialogResult Dialog = RoomDlg.ShowDialog();
-            if(Dialog==DialogResult.OK)
-            {
-                string roomName = RoomDlg.RoomName;
-                CreateNewRoom(roomName);
-            }
-            else
-            {
-                //ToDO
-            }
-            
-        }
+            string roomName = RoomDlg.RoomName;
+            CreateNewRoom(roomName);
 
-        private void CreateNewRoom(string roomName)
+					// SEND Room Data to Server
+					bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
+					bWriter.Write($"3,Rquest for creating new room,{roomIdx};{roomName};{clientForm.UserName}");
+				}
+        else
         {
-            var listViewItem = new ListViewItem();
-            listViewItem.Text = roomName;
-            listViewItem.SubItems.Add("Player One");
-            listViewItem.ImageKey = "RoomIcon";
-            RoomsListView.Items.Add(listViewItem);
+            //ToDO
         }
+    }
 
-
+			private void CreateNewRoom(string roomName)
+			{
+					var listViewItem = new ListViewItem();
+					listViewItem.Text = roomName;
+					listViewItem.SubItems.Add("Player One");
+					listViewItem.ImageKey = "RoomIcon";
+					RoomsListView.Items.Add(listViewItem);
+					roomIdx = listViewItem.Index;
+			}
     }
 }

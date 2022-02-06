@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ShardClassLibrary;
+using System.Collections.Generic;
 
 namespace SimpleServer.ClassLib
 {
@@ -7,6 +8,7 @@ namespace SimpleServer.ClassLib
 	/// </summary>
 	public static class DataLayer
 	{
+		public static List<ClientHandler> Clients = new List<ClientHandler>();
 		public static List<User> Users = new List<User>();
 		public static List<Room> Rooms = new List<Room>();
 		public static List<User> ConnectedUsers = new List<User>();

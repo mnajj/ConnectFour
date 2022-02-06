@@ -46,9 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassLib\ClientHandler.cs" />
     <Compile Include="ClassLib\DataLayer.cs" />
-    <Compile Include="ClassLib\Room.cs" />
-    <Compile Include="ClassLib\User.cs" />
     <Compile Include="ClassLib\Views.cs" />
     <Compile Include="ClosingForm.cs">
       <SubType>Form</SubType>
@@ -91,6 +90,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharedClassLibrary\SharedClassLibrary.csproj">
+      <Project>{503D82D2-D1D0-4F32-89DF-95AF431CD71B}</Project>
+      <Name>SharedClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
