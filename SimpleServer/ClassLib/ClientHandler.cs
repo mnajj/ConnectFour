@@ -236,15 +236,16 @@ namespace SimpleServer.ClassLib
 
 			for (int i = 0; i < filterdSpecs.Count; i++)
 			{
-
-				if (filterdSpecs[i].UserName != this.UserName)
+				for (int j = 0; j < roomPlayers.Count; j++)
 				{
-					NetworkStream clientNetWorkStream = filterdSpecs[i].Socket.GetStream();
-					bWriter = new BinaryWriter(clientNetWorkStream);
-					bWriter.Write($"555,update room members");
-
-					BinaryFormatter clinetBF = new BinaryFormatter();
-					clinetBF.Serialize(clientNetWorkStream, sendSpectators);
+					if (filterdSpecs[i].UserName != roomPlayers[i].UserName)
+					{
+						NetworkStream clientNetWorkStream = roomPlayers[i].Socket.GetStream();
+						bWriter = new BinaryWriter(clientNetWorkStream);
+						bWriter.Write($"555,update room members");
+						BinaryFormatter clinetBF = new BinaryFormatter();
+						clinetBF.Serialize(clientNetWorkStream, sendSpectators);
+					}
 				}
 			}
 		}
