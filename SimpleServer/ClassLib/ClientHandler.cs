@@ -47,7 +47,8 @@ namespace SimpleServer.ClassLib
 							SaveNewRoomData(reqRes.Split(',')[2]);
 							break;
 						case 4:
-							SendRoomData();
+							SendRoomData(int.Parse(reqRes.Split(',')[2]));
+							AddNewGuestToRoom(int.Parse(reqRes.Split(',')[2]));
 							break;
 					}
 				}
@@ -72,7 +73,6 @@ namespace SimpleServer.ClassLib
 					if (DataLayer.Rooms.Count > 0)
 					{
 						bWriter.Write($"11,{Views.RoomsList}");
-
 						BinaryFormatter bf = new BinaryFormatter();
 						bf.Serialize(networkStream, DataLayer.Rooms);
 					}
@@ -133,9 +133,25 @@ namespace SimpleServer.ClassLib
 			}
 		}
 
-		private void SendRoomData()
+		private void SendRoomData(int roomIdx)
 		{
+			// Get Room
+			Room matchRoom = DataLayer.Rooms[roomIdx];
 
+			// SEND Msg Header
+			bWriter = new BinaryWriter(networkStream);
+			bWriter.Write("44,Accept");
+
+			// SEND Room Object
+			BinaryFormatter bf = new BinaryFormatter();
+			bf.Serialize(networkStream, matchRoom);
+		}
+
+		private void AddNewGuestToRoom(int roomIdx)
+		{
+			DataLayer.Rooms[roomIdx].Players.Add(
+					new User { UserName = this.UserName }
+				);
 		}
 	}
 }

@@ -10,10 +10,12 @@ namespace SimpleClient
 		Form1 clientForm;	
 		BinaryReader bReader;
 		BinaryWriter bWriter;
+		WaitingRoom waitingRoom;
 		int roomIdx;
 
 		public ListView RoomsListControl { get => RoomsListView; }
 		public Form1 ClientForm { get => clientForm; }
+		public WaitingRoom WaitingRoom { get; set; }
 		public string CreatedRoomName { get; set; }
 
 		public RoomsList(Form1 clinetForm)
@@ -48,30 +50,7 @@ namespace SimpleClient
 
 		private void RoomsListView_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
-			// SEND
-			bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
-			bWriter.Write($"2,Rquest for Waiting room,{RoomsListView.SelectedIndices[0]}");
-			// RECEIVE
-			//
-			//
-			//  TODO
-			//
-			//
-			//
-			/*
-			OLD
-			bReader = new BinaryReader(clientForm.ClientNetworkStream);
-			string reqRes = bReader.ReadString();
-			int status = int.Parse(reqRes.Split(',')[0]);
-			if (status == 1)
-			{
-				clientForm.SwitchResponseToForm(reqRes.Split(',')[1]);
-			}
-			else
-			{
-				//ToDo
-			}
-			*/
+			RedirectGuestToRoom(RoomsListView.SelectedIndices[0]);
 		}
 
 		private void CreateNewRoomButton_Click(object sender, EventArgs e)
@@ -89,13 +68,13 @@ namespace SimpleClient
 					$"{roomIdx};{CreatedRoomName};{clientForm.UserName}");
 
 				// Recieve view
-				WaitingRoom waitingRoom = new WaitingRoom(this);
+				waitingRoom = new WaitingRoom(this, false);
 				waitingRoom.Show();
 				this.Hide();
 			}
 			else
       {
-				//TODO
+				//TODO ✅
 			}
 		}
 
@@ -108,5 +87,13 @@ namespace SimpleClient
 			RoomsListView.Items.Add(listViewItem);
 			roomIdx = listViewItem.Index;
 		}
-  }
+
+		private void RedirectGuestToRoom(int roomIdx)
+		{
+			waitingRoom = new WaitingRoom(this, true);
+			waitingRoom.RoomIdx = roomIdx;
+			waitingRoom.Show();
+			this.Hide();
+		}
+	}
 }

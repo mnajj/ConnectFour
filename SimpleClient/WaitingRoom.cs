@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ShardClassLibrary;
+using System;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace SimpleClient
@@ -11,27 +13,21 @@ namespace SimpleClient
 		BinaryWriter bWriter;
 		BinaryReader bReader;
 
-		public bool HasRoomList { get; set; }
+		public bool IsGuest { get; set; }
+		public int RoomIdx { get; set; }
 
-		public WaitingRoom(Form1 clientForm)
-		{
-			InitializeComponent();
-			this.clientForm = clientForm;
-			this.HasRoomList = false;
-		}
-
-		public WaitingRoom(RoomsList roomsListForm)
+		public WaitingRoom(RoomsList roomsListForm, bool isGuest)
 		{
 			InitializeComponent();
 			this.roomsListForm = roomsListForm;
-			this.HasRoomList = true;
+			this.IsGuest = isGuest;
 		}
 
 		private void WaitingRoom_Load(object sender, EventArgs e)
 		{
-			if (HasRoomList)
+			if (!IsGuest)
 			{
-				PlayersListBox.Items.Add(roomsListForm.ClientForm.UserName);
+				PlayersListBox.Items.Add($"👑 {roomsListForm.ClientForm.UserName} (You)");
 				RoomNameLabel.Text = roomsListForm.CreatedRoomName;
 			}
 			else
@@ -40,14 +36,23 @@ namespace SimpleClient
 			}
 		}
 
-		private void GetRoomData()
+		public void GetRoomData()
 		{
 			// SEND
-			bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
-			bWriter.Write("4,Get room data");
+			bWriter = new BinaryWriter(roomsListForm.ClientForm.ClientNetworkStream);
+			bWriter.Write($"4,Get room data,{RoomIdx}");
 
-			// RECEIVE
+			// RECEIVE Room Data
+			BinaryFormatter formatter = new BinaryFormatter();
+			Room roomData = (Room) formatter.Deserialize(roomsListForm.ClientForm.ClientNetworkStream);
+			AddRoomDataToGuestView(roomData);
+		}
 
+		public void AddRoomDataToGuestView(Room roomData)
+		{
+			RoomNameLabel.Text = roomData.RoomName;
+			PlayersListBox.Items.Add($"👑 {roomData.RoomOwner.UserName}");
+			PlayersListBox.Items.Add($"{clientForm.UserName} (You)");
 		}
 	}
 }

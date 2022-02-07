@@ -103,9 +103,9 @@ namespace SimpleClient
 				case Views.GameRoom:
 					SwitchToGameRoom();
 					break;
-				case Views.WaitingRoom:
-					SwitchToWaitingRoom();
-					break;
+				//case Views.WaitingRoom:
+				//	SwitchToWaitingRoom();
+				//	break;
 			}
 		}
 
@@ -135,12 +135,12 @@ namespace SimpleClient
 			this.Hide();
 		}
 
-		private void SwitchToWaitingRoom()
-		{
-			WaitingRoom waitingRoom = new WaitingRoom(this);
-			waitingRoom.Show();
-			roomsListForm.Hide();
-		}
+		//private void SwitchToWaitingRoom()
+		//{
+		//	WaitingRoom waitingRoom = new WaitingRoom(this);
+		//	waitingRoom.Show();
+		//	roomsListForm.Hide();
+		//}
 
 		private void SwitchToGameRoom()
 		{

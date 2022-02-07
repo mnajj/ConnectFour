@@ -4,4 +4,3 @@
 111 => new rooms data to append
 2 => Waiting Room
 3 => Create New Room
-4 => Guest Req for Room Data
