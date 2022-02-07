@@ -13,6 +13,7 @@ namespace SimpleServer.ClassLib
 		public TcpClient Socket { get; set; }
 		public string UserName { get; set;}
 		public string Counter { get; set; }
+		public int CurrentRoomNumber { get; set; }
 
 		NetworkStream networkStream;
 		BinaryWriter bWriter;
@@ -48,6 +49,7 @@ namespace SimpleServer.ClassLib
 							break;
 						case 4:
 							SendRoomData(int.Parse(reqRes.Split(',')[2]));
+							UpdateOnlineMembersToOthers(int.Parse(reqRes.Split(',')[2]));
 							AddNewGuestToRoom(int.Parse(reqRes.Split(',')[2]));
 							break;
 					}
@@ -98,6 +100,7 @@ namespace SimpleServer.ClassLib
 		{
 			string[] splitedData = roomData.Split(';');
 			int idx = int.Parse(splitedData[0]);
+			this.CurrentRoomNumber = idx;
 			User roomOwner = new User { UserName = splitedData[2] };
 			DataLayer.Rooms.Add(
 				new Room
@@ -149,9 +152,35 @@ namespace SimpleServer.ClassLib
 
 		private void AddNewGuestToRoom(int roomIdx)
 		{
+			this.CurrentRoomNumber = roomIdx;
 			DataLayer.Rooms[roomIdx].Players.Add(
 					new User { UserName = this.UserName }
 				);
+		}
+
+		private void UpdateOnlineMembersToOthers(int roomIdx)
+		{
+			List<ClientHandler> roomPlayers = DataLayer.Clients.Where(c => c.CurrentRoomNumber == roomIdx).ToList();
+			List<string> sendPlayers = new List<string>();
+
+			for (int i = 0; i < roomPlayers.Count; i++)
+			{
+				sendPlayers.Add(roomPlayers[i].UserName);
+			}
+
+			for (int i = 0; i < roomPlayers.Count; i++)
+			{
+
+				if (roomPlayers[i].UserName != this.UserName)
+				{
+					NetworkStream clientNetWorkStream = roomPlayers[i].Socket.GetStream();
+					bWriter = new BinaryWriter(clientNetWorkStream);
+					bWriter.Write($"444,update room members");
+
+					BinaryFormatter clinetBF = new BinaryFormatter();
+					clinetBF.Serialize(clientNetWorkStream, sendPlayers);
+				}
+			}
 		}
 	}
 }

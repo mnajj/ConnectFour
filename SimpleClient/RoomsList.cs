@@ -1,6 +1,9 @@
-﻿using System;
+﻿using ShardClassLibrary;
+using System;
 using System.Drawing;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SimpleClient
@@ -10,13 +13,13 @@ namespace SimpleClient
 		Form1 clientForm;	
 		BinaryReader bReader;
 		BinaryWriter bWriter;
-		WaitingRoom waitingRoom;
 		int roomIdx;
 
 		public ListView RoomsListControl { get => RoomsListView; }
 		public Form1 ClientForm { get => clientForm; }
 		public WaitingRoom WaitingRoom { get; set; }
 		public string CreatedRoomName { get; set; }
+		public Room GuestRoomData { get; set; }
 
 		public RoomsList(Form1 clinetForm)
 		{
@@ -50,6 +53,9 @@ namespace SimpleClient
 
 		private void RoomsListView_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
+			bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
+			bWriter.Write($"4,Get room data,{RoomsListView.SelectedIndices[0]}");
+			while (GuestRoomData == null) Thread.Sleep(100);
 			RedirectGuestToRoom(RoomsListView.SelectedIndices[0]);
 		}
 
@@ -68,13 +74,9 @@ namespace SimpleClient
 					$"{roomIdx};{CreatedRoomName};{clientForm.UserName}");
 
 				// Recieve view
-				waitingRoom = new WaitingRoom(this, false);
-				waitingRoom.Show();
+				WaitingRoom = new WaitingRoom(this, false);
+				WaitingRoom.Show();
 				this.Hide();
-			}
-			else
-      {
-				//TODO ✅
 			}
 		}
 
@@ -90,9 +92,9 @@ namespace SimpleClient
 
 		private void RedirectGuestToRoom(int roomIdx)
 		{
-			waitingRoom = new WaitingRoom(this, true);
-			waitingRoom.RoomIdx = roomIdx;
-			waitingRoom.Show();
+			WaitingRoom = new WaitingRoom(this, true, GuestRoomData);
+			WaitingRoom.RoomIdx = roomIdx;
+			WaitingRoom.Show();
 			this.Hide();
 		}
 	}

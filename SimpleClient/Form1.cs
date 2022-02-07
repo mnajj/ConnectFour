@@ -28,6 +28,7 @@ namespace SimpleClient
 		// Rooms
 		RoomsList roomsListForm;
 		public NetworkStream ClientNetworkStream { get => networkStream; set => networkStream = value; }
+		//
 
 		// Threads
 		Thread recieveReqsThread;
@@ -76,10 +77,11 @@ namespace SimpleClient
 				if (status == 1)
 				{
 					SwitchResponseToForm(responseRes.Split(',')[1]);
-					UserName = UserNameField.Text;
+					this.UserName = UserNameField.Text;
 				}
 				else if (status == 11)
 				{
+					this.UserName = UserNameField.Text;
 					SwitchResponseToForm(responseRes.Split(',')[1]);
 					BinaryFormatter formatter = new BinaryFormatter();
 					roomsList = (List<Room>)formatter.Deserialize(networkStream);
@@ -123,6 +125,18 @@ namespace SimpleClient
 						BinaryFormatter formatter = new BinaryFormatter();
 						roomsList = (List<Room>)formatter.Deserialize(networkStream);
 						AddRoomsToRoomsListView(roomsList);
+					}
+					else if (status == 44)
+					{
+						BinaryFormatter formatter = new BinaryFormatter();
+						Room roomData = (Room)formatter.Deserialize(networkStream);
+						roomsListForm.GuestRoomData = roomData;
+					}
+					else if (status == 444)
+					{
+						BinaryFormatter formatter = new BinaryFormatter();
+						var newPlayers = (List<string>)formatter.Deserialize(networkStream);
+						roomsListForm.WaitingRoom.GetMemberChanges(newPlayers);
 					}
 				}
 			}
