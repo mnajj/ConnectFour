@@ -36,6 +36,7 @@
 			this.SpectatorsBox = new System.Windows.Forms.ListBox();
 			this.SpectatorsListBox = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// ChooseDiskColorComboBox
@@ -55,7 +56,7 @@
 			this.RoomNameLabel.AutoSize = true;
 			this.RoomNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.RoomNameLabel.ForeColor = System.Drawing.SystemColors.Control;
-			this.RoomNameLabel.Location = new System.Drawing.Point(12, 9);
+			this.RoomNameLabel.Location = new System.Drawing.Point(385, 9);
 			this.RoomNameLabel.Name = "RoomNameLabel";
 			this.RoomNameLabel.Size = new System.Drawing.Size(0, 20);
 			this.RoomNameLabel.TabIndex = 2;
@@ -64,7 +65,7 @@
 			// 
 			this.label2.AutoSize = true;
 			this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-			this.label2.Location = new System.Drawing.Point(339, 9);
+			this.label2.Location = new System.Drawing.Point(340, 42);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(105, 13);
 			this.label2.TabIndex = 3;
@@ -100,7 +101,7 @@
 			// 
 			this.SpectatorsListBox.AutoSize = true;
 			this.SpectatorsListBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-			this.SpectatorsListBox.Location = new System.Drawing.Point(9, 33);
+			this.SpectatorsListBox.Location = new System.Drawing.Point(45, 39);
 			this.SpectatorsListBox.Name = "SpectatorsListBox";
 			this.SpectatorsListBox.Size = new System.Drawing.Size(77, 13);
 			this.SpectatorsListBox.TabIndex = 7;
@@ -115,12 +116,23 @@
 			this.button1.Text = "Ask The Counter for Game";
 			this.button1.UseVisualStyleBackColor = true;
 			// 
+			// button2
+			// 
+			this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button2.Location = new System.Drawing.Point(2, 3);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(27, 34);
+			this.button2.TabIndex = 9;
+			this.button2.Text = "←";
+			this.button2.UseVisualStyleBackColor = true;
+			// 
 			// WaitingRoom
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.SpectatorsListBox);
 			this.Controls.Add(this.SpectatorsBox);
@@ -146,5 +158,6 @@
         private System.Windows.Forms.ListBox SpectatorsBox;
         private System.Windows.Forms.Label SpectatorsListBox;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button button2;
 	}
 }

@@ -138,6 +138,18 @@ namespace SimpleClient
 						var newPlayers = (List<string>)formatter.Deserialize(networkStream);
 						roomsListForm.WaitingRoom.GetMemberChanges(newPlayers);
 					}
+					else if (status == 55)
+					{
+						BinaryFormatter formatter = new BinaryFormatter();
+						Room spacData = (Room)formatter.Deserialize(networkStream);
+						roomsListForm.SpacRoomData = spacData;
+					}
+					else if (status == 555)
+					{
+						BinaryFormatter formatter = new BinaryFormatter();
+						var newPlayers = (List<string>)formatter.Deserialize(networkStream);
+						roomsListForm.WaitingRoom.GetSpacMemberChanges(newPlayers);
+					}
 				}
 			}
 		}

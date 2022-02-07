@@ -15,6 +15,7 @@ namespace SimpleClient
 		BinaryWriter bWriter;
 		int roomIdx;
 
+		public Room SpacRoomData { get; set; }
 		public ListView RoomsListControl { get => RoomsListView; }
 		public Form1 ClientForm { get => clientForm; }
 		public WaitingRoom WaitingRoom { get; set; }
@@ -36,8 +37,15 @@ namespace SimpleClient
       RoomsListView.Columns.Add("Spectators", 100);
       RoomsListView.Columns.Add("Details", 100);
       var imageList = new ImageList();
-			//imageList.Images.Add("RoomIcon", LoadImage(@"https://www.ala.org/lita/sites/ala.org.lita/files/content/learning/webinars/gamelogo.png"));
-			imageList.Images.Add("RoomIcon", LoadImage(@"https://imgur.com/EjX8Ulb.png"));
+			try
+			{
+				//imageList.Images.Add("RoomIcon", LoadImage(@"https://www.ala.org/lita/sites/ala.org.lita/files/content/learning/webinars/gamelogo.png"));
+				imageList.Images.Add("RoomIcon", LoadImage(@"https://imgur.com/EjX8Ulb.png"));
+			}
+			catch (Exception ex)
+			{
+
+			}
 			RoomsListView.SmallImageList = imageList;
 		}
 
@@ -90,12 +98,30 @@ namespace SimpleClient
 			roomIdx = listViewItem.Index;
 		}
 
-		private void RedirectGuestToRoom(int roomIdx)
+		private void RedirectGuestToRoom(int roomIdx, bool isSpac = false)
 		{
-			WaitingRoom = new WaitingRoom(this, true, GuestRoomData);
+			if (isSpac)
+			{
+				WaitingRoom = new WaitingRoom(this, true, SpacRoomData, false);
+			}
+			else
+			{
+				WaitingRoom = new WaitingRoom(this, true, GuestRoomData);
+			}
 			WaitingRoom.RoomIdx = roomIdx;
 			WaitingRoom.Show();
 			this.Hide();
+		}
+
+		private void RoomsListView_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Right)
+			{
+				bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
+				bWriter.Write($"5,Get room data as spectator,{RoomsListView.SelectedIndices[0]}");
+				while (SpacRoomData == null) Thread.Sleep(100);
+				RedirectGuestToRoom(RoomsListView.SelectedIndices[0], true);
+			}
 		}
 	}
 }

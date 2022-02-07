@@ -11,9 +11,11 @@ namespace SimpleServer.ClassLib
 	public class ClientHandler
 	{
 		public TcpClient Socket { get; set; }
-		public string UserName { get; set;}
+		public string UserName { get; set; }
 		public string Counter { get; set; }
 		public int CurrentRoomNumber { get; set; }
+		public bool IsOwner { get; set; }
+		public bool IsPlayer { get; set; }
 
 		NetworkStream networkStream;
 		BinaryWriter bWriter;
@@ -51,6 +53,11 @@ namespace SimpleServer.ClassLib
 							SendRoomData(int.Parse(reqRes.Split(',')[2]));
 							UpdateOnlineMembersToOthers(int.Parse(reqRes.Split(',')[2]));
 							AddNewGuestToRoom(int.Parse(reqRes.Split(',')[2]));
+							break;
+						case 5:
+							AddNewSpectatorToRoom(int.Parse(reqRes.Split(',')[2]));
+							SendRoomDataToSpectator(int.Parse(reqRes.Split(',')[2]));
+							UpdateOnlineSpectatorToOthers(int.Parse(reqRes.Split(',')[2]));
 							break;
 					}
 				}
@@ -150,10 +157,32 @@ namespace SimpleServer.ClassLib
 			bf.Serialize(networkStream, matchRoom);
 		}
 
+		private void SendRoomDataToSpectator(int roomIdx)
+		{
+			// Get Room
+			Room matchRoom = DataLayer.Rooms[roomIdx];
+
+			// SEND Msg Header
+			bWriter = new BinaryWriter(networkStream);
+			bWriter.Write("55,Accept");
+
+			// SEND Room Object
+			BinaryFormatter bf = new BinaryFormatter();
+			bf.Serialize(networkStream, matchRoom);
+		}
+
 		private void AddNewGuestToRoom(int roomIdx)
 		{
 			this.CurrentRoomNumber = roomIdx;
 			DataLayer.Rooms[roomIdx].Players.Add(
+					new User { UserName = this.UserName }
+				);
+		}
+
+		private void AddNewSpectatorToRoom(int roomIdx)
+		{
+			this.CurrentRoomNumber = roomIdx;
+			DataLayer.Rooms[roomIdx].Spectators.Add(
 					new User { UserName = this.UserName }
 				);
 		}
@@ -179,6 +208,43 @@ namespace SimpleServer.ClassLib
 
 					BinaryFormatter clinetBF = new BinaryFormatter();
 					clinetBF.Serialize(clientNetWorkStream, sendPlayers);
+				}
+			}
+		}
+
+		private void UpdateOnlineSpectatorToOthers(int roomIdx)
+		{
+			List<ClientHandler> roomPlayers = DataLayer.Clients.Where(c => c.CurrentRoomNumber == roomIdx).ToList();
+			List<ClientHandler> filterdSpecs = new List<ClientHandler>();
+
+			for (int i = 0; i < roomPlayers.Count; i++)
+			{
+				for (int j = 0; j < DataLayer.Rooms[roomIdx].Spectators.Count; j++)
+				{
+					if (DataLayer.Rooms[roomIdx].Spectators[j].UserName == roomPlayers[i].UserName)
+					{
+						filterdSpecs.Add(roomPlayers[i]);
+					}
+				}
+			}
+			List<string> sendSpectators = new List<string>();
+
+			for (int i = 0; i < filterdSpecs.Count; i++)
+			{
+				sendSpectators.Add(filterdSpecs[i].UserName);
+			}
+
+			for (int i = 0; i < filterdSpecs.Count; i++)
+			{
+
+				if (filterdSpecs[i].UserName != this.UserName)
+				{
+					NetworkStream clientNetWorkStream = filterdSpecs[i].Socket.GetStream();
+					bWriter = new BinaryWriter(clientNetWorkStream);
+					bWriter.Write($"555,update room members");
+
+					BinaryFormatter clinetBF = new BinaryFormatter();
+					clinetBF.Serialize(clientNetWorkStream, sendSpectators);
 				}
 			}
 		}
