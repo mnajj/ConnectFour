@@ -60,18 +60,18 @@ namespace SimpleClient
 
 		private void RoomsListView_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
-			var splited = RoomsListView.SelectedIndices[2].ToString().Split(',');
-			if (splited.Length < 3)
-			{
-				bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
-				bWriter.Write($"4,Get room data,{RoomsListView.SelectedIndices[0]}");
-				while (GuestRoomData == null) Thread.Sleep(100);
-				RedirectGuestToRoom(RoomsListView.SelectedIndices[0]);
-			}
-			else
-			{
-				SendWatchRequest();
-			}
+			//var splited = RoomsListView.SelectedIndices[2].ToString().Split(',');
+			//if (splited.Length < 3)
+			//{
+			bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
+			bWriter.Write($"4,Get room data,{RoomsListView.SelectedIndices[0]}");
+			while (GuestRoomData == null) Thread.Sleep(100);
+			RedirectGuestToRoom(RoomsListView.SelectedIndices[0]);
+			//}
+			//else
+			//{
+			//SendWatchRequest();
+			//}
 		}
 
 		private void CreateNewRoomButton_Click(object sender, EventArgs e)

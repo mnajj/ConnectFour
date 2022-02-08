@@ -1,4 +1,5 @@
 ﻿using ShardClassLibrary;
+using SimpleClient.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +12,7 @@ namespace SimpleClient
 	{
 		Room roomData;
 		RoomsList roomsListForm;
+		BinaryWriter bWriter;
 
 		public bool IsGuest { get; set; }
 		public bool IsPlayer { get; set; }
@@ -23,6 +25,8 @@ namespace SimpleClient
 			this.IsGuest = isGuest;
 			this.roomData = roomData;
 			this.IsPlayer = isPlayer;
+
+			bWriter = new BinaryWriter(roomsListForm.ClientForm.ClientNetworkStream);
 		}
 
 		private void WaitingRoom_Load(object sender, EventArgs e)
@@ -88,6 +92,26 @@ namespace SimpleClient
 			for (int i = 0; i < newSpec.Count; i++)
 			{
 				SpectatorsBox.Items.Add($"{newSpec[i]}");
+			}
+		}
+
+		public void ShowCounterDialogForm(string counterName)
+		{
+			CounterRequestDialog reqDlg = new CounterRequestDialog(counterName);
+			DialogResult reqDlgRes = reqDlg.ShowDialog();
+		}
+
+		private void AskCounterForGame_Click(object sender, EventArgs e)
+		{
+			
+			if (ChooseDiskColorComboBox.SelectedItem != null)
+			{
+				string diskColor = ChooseDiskColorComboBox.Text;
+				bWriter.Write($"6,send start game request for the counter,{diskColor},{RoomIdx}");
+			}
+			else
+			{
+				MessageBox.Show("Please, chosse your disk color first");
 			}
 		}
 	}

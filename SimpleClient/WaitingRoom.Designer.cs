@@ -35,7 +35,7 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.SpectatorsBox = new System.Windows.Forms.ListBox();
 			this.SpectatorsListBox = new System.Windows.Forms.Label();
-			this.button1 = new System.Windows.Forms.Button();
+			this.AskCounterForGame = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
@@ -107,14 +107,15 @@
 			this.SpectatorsListBox.TabIndex = 7;
 			this.SpectatorsListBox.Text = "Spectators List";
 			// 
-			// button1
+			// AskCounterForGame
 			// 
-			this.button1.Location = new System.Drawing.Point(316, 284);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(161, 23);
-			this.button1.TabIndex = 8;
-			this.button1.Text = "Ask The Counter for Game";
-			this.button1.UseVisualStyleBackColor = true;
+			this.AskCounterForGame.Location = new System.Drawing.Point(316, 284);
+			this.AskCounterForGame.Name = "AskCounterForGame";
+			this.AskCounterForGame.Size = new System.Drawing.Size(161, 23);
+			this.AskCounterForGame.TabIndex = 8;
+			this.AskCounterForGame.Text = "Ask The Counter for Game";
+			this.AskCounterForGame.UseVisualStyleBackColor = true;
+			this.AskCounterForGame.Click += new System.EventHandler(this.AskCounterForGame_Click);
 			// 
 			// button2
 			// 
@@ -133,7 +134,7 @@
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this.button2);
-			this.Controls.Add(this.button1);
+			this.Controls.Add(this.AskCounterForGame);
 			this.Controls.Add(this.SpectatorsListBox);
 			this.Controls.Add(this.SpectatorsBox);
 			this.Controls.Add(this.label1);
@@ -157,7 +158,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox SpectatorsBox;
         private System.Windows.Forms.Label SpectatorsListBox;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button AskCounterForGame;
 		private System.Windows.Forms.Button button2;
 	}
 }

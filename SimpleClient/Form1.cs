@@ -152,6 +152,10 @@ namespace SimpleClient
 							var newPlayers = (List<string>)formatter.Deserialize(networkStream);
 							roomsListForm.WaitingRoom.GetSpacMemberChanges(newPlayers);
 						}
+						else if (status == 66)
+						{
+							roomsListForm.WaitingRoom.ShowCounterDialogForm(msg.Split(',')[2]);
+						}
 					}
 				}
 			}

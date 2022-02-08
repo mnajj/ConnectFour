@@ -1,6 +1,7 @@
 ﻿using ShardClassLibrary;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -18,6 +19,7 @@ namespace SimpleServer.ClassLib
 		public int CurrentRoomNumber { get; set; }
 		public bool IsOwner { get; set; }
 		public bool IsPlayer { get; set; }
+		public Color DiskColor { get; set; }
 
 		NetworkStream networkStream;
 		BinaryWriter bWriter;
@@ -61,9 +63,45 @@ namespace SimpleServer.ClassLib
 							SendRoomDataToSpectator(int.Parse(reqRes.Split(',')[2]));
 							UpdateOnlineSpectatorToOthers(int.Parse(reqRes.Split(',')[2]));
 							break;
+						case 6:
+							SendGameStartRequestForCounter(reqRes.Split(',')[2], int.Parse(reqRes.Split(',')[3]));
+							break;
+							
 					}
 				}
 			}
+		}
+
+		private void SendGameStartRequestForCounter(string strColor, int roomIdx)
+		{
+			switch (strColor)
+			{
+				case "Red":
+					this.DiskColor = Color.Red;
+					break;
+				case "Yellow":
+					this.DiskColor= Color.Yellow;
+					break;
+				case "Blue":
+					this.DiskColor = Color.Blue;
+					break;
+			}
+			//ClientHandler counterClient = DataLayer.Clients
+			//	.Where(c => c.IsPlayer == true && c.UserName != this.UserName).First();
+
+			ClientHandler counterClient;
+			foreach (ClientHandler cln in DataLayer.Clients)
+			{
+				if (cln.IsPlayer == true && cln.UserName != this.UserName && cln.CurrentRoomNumber == roomIdx)
+				{
+					bWriter = new BinaryWriter(cln.Socket.GetStream());
+					bWriter.Write($"66,redirect counter start game request,{this.UserName}");
+				}
+			}
+
+			//bWriter = new BinaryWriter(counterClient.Socket.GetStream());
+			//bWriter.Write($"66,redirect counter start game request,{this.UserName}");
+
 		}
 
 		private void LogInUser(string userName)
@@ -121,6 +159,7 @@ namespace SimpleServer.ClassLib
 					RoomOwner = roomOwner
 				});
 			DataLayer.Rooms[idx].Players.Add(roomOwner);
+			this.IsPlayer = true;
 
 			/* Check if there are players connected to send new data to them */
 			if (DataLayer.ConnectedUsers.Count > 1)
@@ -179,6 +218,7 @@ namespace SimpleServer.ClassLib
 			DataLayer.Rooms[roomIdx].Players.Add(
 					new User { UserName = this.UserName }
 				);
+			this.IsPlayer = true;
 		}
 
 		private void AddNewSpectatorToRoom(int roomIdx)

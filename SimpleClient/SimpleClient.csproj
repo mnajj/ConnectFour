@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dialogs\CounterRequestDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CounterRequestDialog.Designer.cs">
+      <DependentUpon>CounterRequestDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     <Compile Include="WaitingRoom.Designer.cs">
       <DependentUpon>WaitingRoom.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Dialogs\CounterRequestDialog.resx">
+      <DependentUpon>CounterRequestDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
