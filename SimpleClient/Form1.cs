@@ -119,36 +119,39 @@ namespace SimpleClient
 				{
 					bReader = new BinaryReader(networkStream);
 					string msg = bReader.ReadString();
-					int status = int.Parse(msg.Split(',')[0]);
-					if (status == 111)
+					if (msg != String.Empty)
 					{
-						BinaryFormatter formatter = new BinaryFormatter();
-						roomsList = (List<Room>)formatter.Deserialize(networkStream);
-						AddRoomsToRoomsListView(roomsList);
-					}
-					else if (status == 44)
-					{
-						BinaryFormatter formatter = new BinaryFormatter();
-						Room roomData = (Room)formatter.Deserialize(networkStream);
-						roomsListForm.GuestRoomData = roomData;
-					}
-					else if (status == 444)
-					{
-						BinaryFormatter formatter = new BinaryFormatter();
-						var newPlayers = (List<string>)formatter.Deserialize(networkStream);
-						roomsListForm.WaitingRoom.GetMemberChanges(newPlayers);
-					}
-					else if (status == 55)
-					{
-						BinaryFormatter formatter = new BinaryFormatter();
-						Room spacData = (Room)formatter.Deserialize(networkStream);
-						roomsListForm.SpacRoomData = spacData;
-					}
-					else if (status == 555)
-					{
-						BinaryFormatter formatter = new BinaryFormatter();
-						var newPlayers = (List<string>)formatter.Deserialize(networkStream);
-						roomsListForm.WaitingRoom.GetSpacMemberChanges(newPlayers);
+						int status = int.Parse(msg.Split(',')[0]);
+						if (status == 111)
+						{
+							BinaryFormatter formatter = new BinaryFormatter();
+							roomsList = (List<Room>)formatter.Deserialize(networkStream);
+							AddRoomsToRoomsListView(roomsList);
+						}
+						else if (status == 44)
+						{
+							BinaryFormatter formatter = new BinaryFormatter();
+							Room roomData = (Room)formatter.Deserialize(networkStream);
+							roomsListForm.GuestRoomData = roomData;
+						}
+						else if (status == 444)
+						{
+							BinaryFormatter formatter = new BinaryFormatter();
+							var newPlayers = (List<string>)formatter.Deserialize(networkStream);
+							roomsListForm.WaitingRoom.GetMemberChanges(newPlayers);
+						}
+						else if (status == 55)
+						{
+							BinaryFormatter formatter = new BinaryFormatter();
+							Room spacData = (Room)formatter.Deserialize(networkStream);
+							roomsListForm.SpacRoomData = spacData;
+						}
+						else if (status == 555)
+						{
+							BinaryFormatter formatter = new BinaryFormatter();
+							var newPlayers = (List<string>)formatter.Deserialize(networkStream);
+							roomsListForm.WaitingRoom.GetSpacMemberChanges(newPlayers);
+						}
 					}
 				}
 			}
@@ -183,10 +186,25 @@ namespace SimpleClient
 			{
 				ListViewItem item = new ListViewItem();
 				item.Text = room.RoomName;
+				if (room.Players.Count == 2)
+				{
+					item.SubItems.Add("Watch Only");
+				}
+				else
+				{
+					item.SubItems.Add("Available");
+				}
+				string players = String.Empty;
 				for (int i = 0; i < room.Players.Count; i++)
 				{
-					item.SubItems.Add(room.Players[i].UserName);
+					players += room.Players[i].UserName + ", ";
 				}
+				string specs = String.Empty;
+				for (int i = 0; i < room.Spectators.Count; i++)
+				{
+					specs += room.Spectators[i].UserName + ", ";
+				}
+				item.SubItems.Add(specs);
 				roomsListForm.RoomsListControl.Items.Add(item);
 			}
 		}

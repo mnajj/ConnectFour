@@ -35,7 +35,6 @@ namespace SimpleClient
       RoomsListView.Columns.Add("Status", 100);
       RoomsListView.Columns.Add("Players", 100);
       RoomsListView.Columns.Add("Spectators", 100);
-      RoomsListView.Columns.Add("Details", 100);
       var imageList = new ImageList();
 			try
 			{
@@ -61,10 +60,18 @@ namespace SimpleClient
 
 		private void RoomsListView_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
-			bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
-			bWriter.Write($"4,Get room data,{RoomsListView.SelectedIndices[0]}");
-			while (GuestRoomData == null) Thread.Sleep(100);
-			RedirectGuestToRoom(RoomsListView.SelectedIndices[0]);
+			var splited = RoomsListView.SelectedIndices[2].ToString().Split(',');
+			if (splited.Length < 3)
+			{
+				bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
+				bWriter.Write($"4,Get room data,{RoomsListView.SelectedIndices[0]}");
+				while (GuestRoomData == null) Thread.Sleep(100);
+				RedirectGuestToRoom(RoomsListView.SelectedIndices[0]);
+			}
+			else
+			{
+				SendWatchRequest();
+			}
 		}
 
 		private void CreateNewRoomButton_Click(object sender, EventArgs e)
@@ -92,7 +99,9 @@ namespace SimpleClient
 		{
 			var listViewItem = new ListViewItem();
 			listViewItem.Text = roomName;
+			listViewItem.SubItems.Add("Available");
 			listViewItem.SubItems.Add(clientForm.UserName);
+			listViewItem.SubItems.Add("0");
 			listViewItem.ImageKey = "RoomIcon";
 			RoomsListView.Items.Add(listViewItem);
 			roomIdx = listViewItem.Index;
@@ -117,11 +126,16 @@ namespace SimpleClient
 		{
 			if (e.Button == MouseButtons.Right)
 			{
-				bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
-				bWriter.Write($"5,Get room data as spectator,{RoomsListView.SelectedIndices[0]}");
-				while (SpacRoomData == null) Thread.Sleep(100);
-				RedirectGuestToRoom(RoomsListView.SelectedIndices[0], true);
+				SendWatchRequest();
 			}
+		}
+
+		private void SendWatchRequest()
+		{
+			bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
+			bWriter.Write($"5,Get room data as spectator,{RoomsListView.SelectedIndices[0]}");
+			while (SpacRoomData == null) Thread.Sleep(100);
+			RedirectGuestToRoom(RoomsListView.SelectedIndices[0], true);
 		}
 	}
 }
