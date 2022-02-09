@@ -6,6 +6,8 @@ namespace SimpleClient
 	public partial class RoomDialog : Form
     {
         public string RoomName { get => textBox1.Text;  }
+        public string RoomOwnerDiskColor { get => DiskColorComboBox.Text; }
+        public string RoomBoardSize { get => BoardSizeComboBox.Text; }
         public RoomDialog()
         {
             InitializeComponent();

@@ -34,7 +34,7 @@ namespace SimpleClient
 			if (!IsGuest)
 			{
 				PlayersListBox.Items.Add($"👑 {roomsListForm.ClientForm.UserName}");
-				RoomNameLabel.Text = roomsListForm.CreatedRoomName;
+				RoomNameLabel.Text = roomsListForm.CreatedWaitingdRoomName;
 			}
 			else if (!IsPlayer)
 			{
@@ -71,6 +71,7 @@ namespace SimpleClient
 			{
 				SpectatorsBox.Items.Add(roomData.Spectators[i].UserName);
 			}
+			ChooseDiskColorComboBox.Items.Remove(roomData.RoomOwnerDiskColor);
 		}
 
 		public void GetMemberChanges(List<string> newPlayers)
@@ -99,6 +100,29 @@ namespace SimpleClient
 		{
 			CounterRequestDialog reqDlg = new CounterRequestDialog(counterName);
 			DialogResult reqDlgRes = reqDlg.ShowDialog();
+			if (reqDlgRes == DialogResult.OK)
+			{
+				bWriter.Write($"7,I accept your request,{RoomIdx}");
+			}
+			else
+			{
+				bWriter.Write($"-7,I refuse your request,{RoomIdx}");
+			}
+		}
+
+		public void RecieveMyReqResponse(int header, string counterName)
+		{
+			CounterResponseMsgDialog counterRequestDlg;
+
+			if (header == 77)
+			{
+				counterRequestDlg = new CounterResponseMsgDialog(counterName, true);
+			}
+			else
+			{
+				counterRequestDlg = new CounterResponseMsgDialog(counterName, false);
+			}
+			counterRequestDlg.ShowDialog();
 		}
 
 		private void AskCounterForGame_Click(object sender, EventArgs e)

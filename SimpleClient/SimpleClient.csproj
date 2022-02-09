@@ -46,11 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dialogs\ContinueAsSpec.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ContinueAsSpec.Designer.cs">
+      <DependentUpon>ContinueAsSpec.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\CounterRequestDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\CounterRequestDialog.Designer.cs">
       <DependentUpon>CounterRequestDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\CounterResponseMsgDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CounterResponseMsgDialog.Designer.cs">
+      <DependentUpon>CounterResponseMsgDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -58,10 +70,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="RoomDialog.cs">
+    <Compile Include="Dialogs\RoomDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RoomDialog.Designer.cs">
+    <Compile Include="Dialogs\RoomDialog.Designer.cs">
       <DependentUpon>RoomDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -78,8 +90,14 @@
     <Compile Include="WaitingRoom.Designer.cs">
       <DependentUpon>WaitingRoom.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Dialogs\ContinueAsSpec.resx">
+      <DependentUpon>ContinueAsSpec.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\CounterRequestDialog.resx">
       <DependentUpon>CounterRequestDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CounterResponseMsgDialog.resx">
+      <DependentUpon>CounterResponseMsgDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -93,7 +111,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="RoomDialog.resx">
+    <EmbeddedResource Include="Dialogs\RoomDialog.resx">
       <DependentUpon>RoomDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RoomsList.resx">

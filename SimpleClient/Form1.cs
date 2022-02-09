@@ -105,9 +105,6 @@ namespace SimpleClient
 				case Views.GameRoom:
 					SwitchToGameRoom();
 					break;
-				//case Views.WaitingRoom:
-				//	SwitchToWaitingRoom();
-				//	break;
 			}
 		}
 
@@ -156,6 +153,13 @@ namespace SimpleClient
 						{
 							roomsListForm.WaitingRoom.ShowCounterDialogForm(msg.Split(',')[2]);
 						}
+						else if (status == 77 || status == -77)
+						{
+							roomsListForm.WaitingRoom.RecieveMyReqResponse(
+								int.Parse(msg.Split(',')[0]),
+								msg.Split(',')[2]
+								);
+						}
 					}
 				}
 			}
@@ -167,13 +171,6 @@ namespace SimpleClient
 			roomsListForm.Show();
 			this.Hide();
 		}
-
-		//private void SwitchToWaitingRoom()
-		//{
-		//	WaitingRoom waitingRoom = new WaitingRoom(this);
-		//	waitingRoom.Show();
-		//	roomsListForm.Hide();
-		//}
 
 		private void SwitchToGameRoom()
 		{
@@ -203,6 +200,7 @@ namespace SimpleClient
 				{
 					players += room.Players[i].UserName + ", ";
 				}
+				item.SubItems.Add(players);
 				string specs = String.Empty;
 				for (int i = 0; i < room.Spectators.Count; i++)
 				{

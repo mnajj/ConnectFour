@@ -12,7 +12,6 @@ namespace SimpleClient.Dialogs
 {
 	public partial class CounterRequestDialog : Form
 	{
-		string counterName;
 		public CounterRequestDialog(string counterName)
 		{
 			InitializeComponent();

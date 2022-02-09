@@ -64,7 +64,17 @@ namespace SimpleServer.ClassLib
 							UpdateOnlineSpectatorToOthers(int.Parse(reqRes.Split(',')[2]));
 							break;
 						case 6:
-							SendGameStartRequestForCounter(reqRes.Split(',')[2], int.Parse(reqRes.Split(',')[3]));
+							SendGameStartRequestForCounter(
+								reqRes.Split(',')[2],
+								int.Parse(reqRes.Split(',')[3])
+								);
+							break;
+						case 7:
+						case -7:
+							ReceiveCounterResponse(
+								int.Parse(reqRes.Split(',')[0]),
+								int.Parse(reqRes.Split(',')[2])
+								);
 							break;
 							
 					}
@@ -72,7 +82,26 @@ namespace SimpleServer.ClassLib
 			}
 		}
 
-		private void SendGameStartRequestForCounter(string strColor, int roomIdx)
+		private void ReceiveCounterResponse(int header, int roomIdx)
+		{
+			foreach (ClientHandler cln in DataLayer.Clients)
+			{
+				if (cln.IsPlayer == true && cln.UserName == this.UserName && cln.CurrentRoomNumber == roomIdx)
+				{
+					bWriter = new BinaryWriter(cln.Socket.GetStream());
+					if (header == 7)
+					{
+						bWriter.Write($"77,Your request accepted,{this.UserName}");
+					}
+					else
+					{
+						bWriter.Write($"-77,Your request refused,{this.UserName}");
+					}
+				}
+			}
+		}
+
+		private void PickColor(string strColor)
 		{
 			switch (strColor)
 			{
@@ -80,15 +109,17 @@ namespace SimpleServer.ClassLib
 					this.DiskColor = Color.Red;
 					break;
 				case "Yellow":
-					this.DiskColor= Color.Yellow;
+					this.DiskColor = Color.Yellow;
 					break;
 				case "Blue":
 					this.DiskColor = Color.Blue;
 					break;
 			}
-			//ClientHandler counterClient = DataLayer.Clients
-			//	.Where(c => c.IsPlayer == true && c.UserName != this.UserName).First();
+		}
 
+		private void SendGameStartRequestForCounter(string strColor, int roomIdx)
+		{
+			PickColor(strColor);
 			ClientHandler counterClient;
 			foreach (ClientHandler cln in DataLayer.Clients)
 			{
@@ -154,12 +185,16 @@ namespace SimpleServer.ClassLib
 				{
 					Index = idx,
 					RoomName = splitedData[1],
+					RoomBoardSize = splitedData[3],
+					RoomOwnerDiskColor = splitedData[4],
 					Players = new List<User>(),
 					Spectators = new List<User>(),
 					RoomOwner = roomOwner
 				});
 			DataLayer.Rooms[idx].Players.Add(roomOwner);
 			this.IsPlayer = true;
+			this.IsOwner = true;
+			PickColor(splitedData[4]);
 
 			/* Check if there are players connected to send new data to them */
 			if (DataLayer.ConnectedUsers.Count > 1)

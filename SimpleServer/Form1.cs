@@ -46,7 +46,15 @@ namespace SimpleServer
 
 		private void EstablishServer_Click(object sender, EventArgs e)
 		{
-			server.Start();
+			try
+			{
+				server.Start();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Server is Already Established!");
+				this.Close();
+			}
 			acceptSocketThread.Start();
 
 			// Closing Form

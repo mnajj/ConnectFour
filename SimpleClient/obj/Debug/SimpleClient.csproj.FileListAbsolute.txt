@@ -76,3 +76,5 @@ C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleClient\obj\Debug\SimpleCl
 C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleClient\obj\Debug\SimpleClient.exe
 C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleClient\obj\Debug\SimpleClient.pdb
 C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleClient\obj\Debug\SimpleClient.Dialogs.CounterRequestDialog.resources
+C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleClient\obj\Debug\SimpleClient.Dialogs.CounterResponseMsgDialog.resources
+C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleClient\obj\Debug\SimpleClient.Dialogs.ContinueAsSpec.resources
