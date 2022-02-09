@@ -5,14 +5,22 @@ namespace SimpleServer
 {
 	public partial class ClosingForm : Form
 	{
-		public ClosingForm()
+		Form1 serverForm;
+		public ClosingForm(Form1 server)
 		{
 			InitializeComponent();
+			this.serverForm = server;
 		}
 
 		private void DestroyServer_Click(object sender, EventArgs e)
 		{
-
+			if (serverForm.Listener != null)
+			{
+				serverForm.Listener.Stop();
+			}
+			serverForm.IsClosed = true;
+			serverForm.Close();
+			this.Close();
 		}
 	}
 }

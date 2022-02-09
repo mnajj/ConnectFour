@@ -44,6 +44,9 @@ namespace SimpleServer.ClassLib
 					int status = int.Parse(reqRes.Split(',')[0]);
 					switch (status)
 					{
+						case -1:
+							LogClientOut();
+							break;
 						case 0:
 							LogInUser(reqRes.Split(',')[2]);
 							break;
@@ -80,6 +83,13 @@ namespace SimpleServer.ClassLib
 					}
 				}
 			}
+		}
+
+		private void LogClientOut()
+		{
+			DataLayer.Clients.RemoveAll(c => c.UserName == this.UserName);
+			int i = DataLayer.Clients.Count;
+			DataLayer.ConnectedUsers.RemoveAll(u => u.UserName == this.UserName);
 		}
 
 		private void ReceiveCounterResponse(int header, int roomIdx)

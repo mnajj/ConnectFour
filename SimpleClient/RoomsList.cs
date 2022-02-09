@@ -28,6 +28,7 @@ namespace SimpleClient
 		{
 			InitializeComponent();
 			this.clientForm = clinetForm;
+			this.FormBorderStyle = FormBorderStyle.None;
 		}
 
 		private void RoomsList_Load(object sender, EventArgs e)
@@ -157,6 +158,14 @@ namespace SimpleClient
 			bWriter.Write($"5,Get room data as spectator,{RoomsListView.SelectedIndices[0]}");
 			while (SpacRoomData == null) Thread.Sleep(100);
 			RedirectGuestToRoom(RoomsListView.SelectedIndices[0], true);
+		}
+
+		private void LogOutButton_Click(object sender, EventArgs e)
+		{
+			bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
+			bWriter.Write("-1,Sign Me Out");
+			clientForm.Show();
+			this.Close();
 		}
 	}
 }

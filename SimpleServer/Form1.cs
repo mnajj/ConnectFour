@@ -1,12 +1,7 @@
-﻿using ShardClassLibrary;
-using SimpleServer.ClassLib;
+﻿using SimpleServer.ClassLib;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -17,22 +12,22 @@ namespace SimpleServer
 	public partial class Form1 : Form
 	{
 		TcpListener server;
-		Socket connection;
-		NetworkStream networkStream;
 		int port;
 		IPAddress localAddr;
-		BinaryWriter bWriter;
-		BinaryReader bReader;
-		Thread clientThread;
 		bool quit;	// Flag to indicate if the server stil running or not.
 
 		// Threads
 		Thread acceptSocketThread;
 		ThrDlg acceptSocketDlg;
 
+		// Props
+		public TcpListener Listener { get; set; }
+		public bool IsClosed { get => quit; set => quit = value; }
+		public Thread AcceptSocketThread { get => acceptSocketThread; }
+
 		public Form1()
 		{
-			InitializeComponent();
+			InitializeComponent();	
 			port = 13000;
 			localAddr = IPAddress.Parse("127.0.0.1");
 			server = new TcpListener(localAddr, port);
@@ -58,7 +53,7 @@ namespace SimpleServer
 			acceptSocketThread.Start();
 
 			// Closing Form
-			ClosingForm clsFrm = new ClosingForm();
+			ClosingForm clsFrm = new ClosingForm(this);
 			clsFrm.Show();
 			this.Hide();
 		}
@@ -73,8 +68,11 @@ namespace SimpleServer
 			while (!quit)
 			{
 				TcpClient client = server.AcceptTcpClient();
-				ClientHandler newClient = new ClientHandler(client);
-				DataLayer.Clients.Add(newClient);
+				if (!quit)
+				{
+					ClientHandler newClient = new ClientHandler(client);
+					DataLayer.Clients.Add(newClient);
+				}
 			}
 		}
 	}

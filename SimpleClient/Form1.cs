@@ -21,7 +21,6 @@ namespace SimpleClient
 		BinaryReader bReader;
 		BinaryWriter bWriter;
 		List<Room> roomsList;
-		int WaitingRoomIdex;
 		bool quit;
 		
 
@@ -46,17 +45,26 @@ namespace SimpleClient
 		private void ConnectToServer_Click(object sender, System.EventArgs e)
 		{
 			client = new TcpClient();
-			try
-			{
+			//try
+			//{
 				client.Connect(IPAddress.Parse("127.0.0.1"), 13000);
 				networkStream = client.GetStream();
 				SendLoginRequestToServer();
-				recieveReqsThread.Start();
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message);
-			}
+				if (recieveReqsThread.IsAlive)
+				{
+					recieveReqsThread.Start();
+				}
+				else
+				{
+					recieveReqsDlg += ListenForMsgs;
+					recieveReqsThread = new Thread(new ThreadStart(recieveReqsDlg));
+				}
+			//}
+			//catch (Exception ex)
+			//{
+			//	MessageBox.Show(ex.Message);
+			//	//MessageBox.Show("Unable to Connect to The Server.\nServer isn't Responding");
+			//}
 		}
 
 		private void SendLoginRequestToServer()
