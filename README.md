@@ -1,4 +1,4 @@
 # Connect Four
 
-![alt text](https://imgur.com/a/2xqco8z.jpg)
+![alt text](https://imgur.com/MPf0jNG.jpg)
 
