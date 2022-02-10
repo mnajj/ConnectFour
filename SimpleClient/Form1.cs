@@ -58,6 +58,7 @@ namespace SimpleClient
 				{
 					recieveReqsDlg += ListenForMsgs;
 					recieveReqsThread = new Thread(new ThreadStart(recieveReqsDlg));
+					recieveReqsThread.Start();
 				}
 			//}
 			//catch (Exception ex)
