@@ -18,6 +18,8 @@ namespace SimpleClient
 		public bool IsPlayer { get; set; }
 		public int RoomIdx { get; set; }
 		public GamingPlayGround GamingPlayGroundForm { get; set; }
+		public RoomsList RoomsListForm { get => roomsListForm; }
+		public bool IsInvitationSender { get; set; }
 
 		public WaitingRoom(RoomsList roomsListForm, bool isGuest, Room roomData = null, bool isPlayer = true)
 		{
@@ -117,8 +119,24 @@ namespace SimpleClient
 
 		private void RedirectToGamingRoom()
 		{
-			GamingPlayGroundForm = new GamingPlayGround(this);
-			GamingPlayGroundForm.Show();
+			if (IsPlayer)
+			{
+				if (IsInvitationSender)
+				{
+					GamingPlayGroundForm = new GamingPlayGround(this, false, true);
+					GamingPlayGroundForm.Show();
+				}
+				else
+				{
+					GamingPlayGroundForm = new GamingPlayGround(this);
+					GamingPlayGroundForm.Show();
+				}
+			}
+			else
+			{
+				GamingPlayGroundForm = new GamingPlayGround(this, true, false);
+				GamingPlayGroundForm.Show();
+			}
 			this.Hide();
 		}
 
@@ -126,9 +144,17 @@ namespace SimpleClient
 		{
 			if (header == 77)
 			{
-				CounterResponseMsgDialog counterRequestDlg = new CounterResponseMsgDialog(counterName, true);
-				counterRequestDlg.ShowDialog();
-				RedirectToGamingRoom();
+				if (IsPlayer)
+				{
+					CounterResponseMsgDialog counterRequestDlg = new CounterResponseMsgDialog(counterName, true);
+					counterRequestDlg.ShowDialog();
+					RedirectToGamingRoom();
+				}
+				else
+				{
+					MessageBox.Show("The Game Start!\nYou Can Watch Now");
+					RedirectToGamingRoom();
+				}
 			}
 			else
 			{
@@ -139,11 +165,11 @@ namespace SimpleClient
 
 		private void AskCounterForGame_Click(object sender, EventArgs e)
 		{
-			
 			if (ChooseDiskColorComboBox.SelectedItem != null)
 			{
 				string diskColor = ChooseDiskColorComboBox.Text;
 				bWriter.Write($"6,send start game request for the counter,{diskColor},{RoomIdx}");
+				IsInvitationSender = true;
 			}
 			else
 			{
@@ -157,6 +183,21 @@ namespace SimpleClient
 			bWriter.Write($"8,leave current room and get avaliab rooms data,{RoomIdx}");
 			roomsListForm.Show();
 			this.Close();
+		}
+
+		internal void GetMembersLeavingChange(Room room)
+		{
+			PlayersListBox.Items.Clear();
+			SpectatorsBox.Items.Clear();
+
+			foreach(var player in room.Players)
+			{
+				PlayersListBox.Items.Add(player.UserName);
+			}
+			foreach (var spec in room.Spectators)
+			{
+				SpectatorsBox.Items.Add(spec.UserName);
+			}
 		}
 	}
 }

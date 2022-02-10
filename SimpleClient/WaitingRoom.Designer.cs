@@ -75,6 +75,7 @@
 			// 
 			// PlayersListBox
 			// 
+			this.PlayersListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(244)))), ((int)(((byte)(109)))));
 			this.PlayersListBox.FormattingEnabled = true;
 			this.PlayersListBox.Location = new System.Drawing.Point(316, 90);
 			this.PlayersListBox.Name = "PlayersListBox";
@@ -93,6 +94,7 @@
 			// 
 			// SpectatorsBox
 			// 
+			this.SpectatorsBox.BackColor = System.Drawing.Color.HotPink;
 			this.SpectatorsBox.FormattingEnabled = true;
 			this.SpectatorsBox.Location = new System.Drawing.Point(661, 29);
 			this.SpectatorsBox.Name = "SpectatorsBox";
@@ -134,7 +136,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(215)))), ((int)(((byte)(112)))));
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(201)))), ((int)(((byte)(123)))));
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this.BackButton);
 			this.Controls.Add(this.AskCounterForGame);

@@ -169,6 +169,12 @@ namespace SimpleClient
 							roomsList = (List<Room>)formatter.Deserialize(networkStream);
 							roomsListForm.GetAvaliableRoomsData(roomsList);
 						}
+						else if (status == 888)
+						{
+							BinaryFormatter formatter = new BinaryFormatter();
+							Room room = (Room)formatter.Deserialize(networkStream);
+							roomsListForm.WaitingRoom.GetMembersLeavingChange(room);
+						}
 					}
 				}
 			}

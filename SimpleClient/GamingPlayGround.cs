@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SimpleClient
@@ -6,11 +7,14 @@ namespace SimpleClient
 	public partial class GamingPlayGround : Form
 	{
 		WaitingRoom waitingRoom;
+    BinaryWriter bWriter;
 		public bool IsSpectator { get; set; }
 		public bool IsMyTurn { get; set; }
+    public bool IsInvitationSender { get; set; }
+		public bool IsGameOver { get; set; }
 
-    //Member data
-    Pen blackPen;//pen for lines
+		//Member data
+		Pen blackPen;//pen for lines
     //for the numbers
     Font drawFont;
     SolidBrush drawBrush;
@@ -44,12 +48,23 @@ namespace SimpleClient
     bool switchPlayer = false;
     SolidBrush playerColor;
 
-    public GamingPlayGround(WaitingRoom waitingRoom, bool isSpec = false)
+    public GamingPlayGround(WaitingRoom waitingRoom, bool isSpec = false, bool isInvitationSender = false)
 		{
 			InitializeComponent();
 			this.waitingRoom = waitingRoom;
 			this.IsSpectator = isSpec;
 			if (isSpec) IsMyTurn = false;
+      IsInvitationSender = isInvitationSender;
+      if (isInvitationSender)
+			{
+        IsMyTurn = true;
+			}
+			else
+			{
+        IsMyTurn = false;
+			}
+      IsGameOver = false;
+      bWriter = new BinaryWriter(waitingRoom.RoomsListForm.ClientForm.ClientNetworkStream);
 
       ///
       blackPen = new Pen(Color.Black, 1);
@@ -65,7 +80,17 @@ namespace SimpleClient
       board[5] = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
     }
 
-		protected override void OnPaint(PaintEventArgs e)
+    private void SendMyMoveToServer()
+		{
+      if (IsMyTurn)
+			{
+        bWriter.Write("9,Send Move to Server");
+        IsMyTurn = false;
+      }
+		}
+
+    // ################ Draw Board GUI ################
+    protected override void OnPaint(PaintEventArgs e)
 		{
 			horzLine();//horz lines of board
 			vertLine();//vert lines of board
@@ -118,5 +143,6 @@ namespace SimpleClient
         g.DrawString(i.ToString(), drawFont, drawBrush, x + count1, 415);
       }
     }
+    // ################ Draw Board GUI END ################
   }
 }

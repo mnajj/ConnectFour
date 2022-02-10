@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleServer.ClassLib;
+using System;
 using System.Collections.Generic;
 
 namespace ShardClassLibrary
@@ -13,5 +14,6 @@ namespace ShardClassLibrary
 		public string RoomBoardSize { get; set; }
 		public List<User> Players { get; set; }
 		public List<User> Spectators { get; set; }
+		public Game Game { get; set; }
 	}
 }

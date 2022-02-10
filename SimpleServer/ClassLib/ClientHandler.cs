@@ -81,16 +81,46 @@ namespace SimpleServer.ClassLib
 						case 8:
 							LogOutFrom(int.Parse(reqRes.Split(',')[2]));
 							SendAvaliableRoomsData();
+							UpdateAllMembersToOthers(int.Parse(reqRes.Split(',')[2]));
+							break;
+						case 9:
+							SaveMoveData();
+							CheckForWinner();
 							break;
 					}
 				}
 			}
 		}
 
+		private void UpdateAllMembersToOthers(int roomIdx)
+		{
+			foreach (ClientHandler cln in DataLayer.Clients)
+			{
+				if (cln.CurrentRoomNumber == roomIdx)
+				{
+					bWriter = new BinaryWriter(networkStream);
+					bWriter.Write("888,Update All Members");
+					BinaryFormatter clinetBF = new BinaryFormatter();
+					clinetBF.Serialize(cln.Socket.GetStream(), DataLayer.Rooms[roomIdx]);
+				}
+			}
+		}
+
+		private void CheckForWinner()
+		{
+			throw new NotImplementedException();
+		}
+
+		private void SaveMoveData()
+		{
+			throw new NotImplementedException();
+		}
+
 		private void LogOutFrom(int roomIdx)
 		{
 			Room currentRoom = DataLayer.Rooms[roomIdx];
 			currentRoom.Players.RemoveAll(p => p.UserName == this.UserName);
+			currentRoom.Spectators.RemoveAll(s => s.UserName == this.UserName);
 			if (currentRoom.RoomOwner.UserName == this.UserName)
 			{
 				currentRoom.RoomOwner = null;
@@ -136,6 +166,16 @@ namespace SimpleServer.ClassLib
 							bWriter.Write($"-77,Your request refused,{this.UserName}");
 						}
 					}
+				}
+			}
+			foreach (ClientHandler cln in DataLayer.Clients)
+			{
+				if (cln.CurrentRoomNumber == roomIdx && (!IsPlayer))
+				{
+					bWriter = new BinaryWriter(cln.Socket.GetStream());
+					bWriter.Write($"77,Your request accepted,{this.UserName}");
+					BinaryFormatter clinetBF = new BinaryFormatter();
+					clinetBF.Serialize(cln.Socket.GetStream(), DataLayer.Rooms);
 				}
 			}
 		}
@@ -301,6 +341,7 @@ namespace SimpleServer.ClassLib
 			DataLayer.Rooms[roomIdx].Spectators.Add(
 					new User { UserName = this.UserName }
 				);
+			this.IsPlayer= false;
 		}
 
 		private void UpdateOnlineMembersToOthers(int roomIdx)
