@@ -57,3 +57,18 @@ C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\S
 C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.csproj.CopyComplete
 C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.exe
 C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.pdb
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\bin\Debug\SimpleServer.exe.config
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\bin\Debug\SimpleServer.exe
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\bin\Debug\SimpleServer.pdb
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\bin\Debug\SharedClassLibrary.dll
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\bin\Debug\SharedClassLibrary.pdb
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.csproj.AssemblyReference.cache
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.csproj.SuggestedBindingRedirects.cache
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.ClosingForm.resources
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.Form1.resources
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.Properties.Resources.resources
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.csproj.GenerateResource.cache
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.csproj.CopyComplete
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.exe
+C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.pdb

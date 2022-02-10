@@ -94,15 +94,23 @@ namespace SimpleServer.ClassLib
 
 		private void UpdateAllMembersToOthers(int roomIdx)
 		{
+			string players = String.Empty;
+			string specs = String.Empty;
 			foreach (ClientHandler cln in DataLayer.Clients)
 			{
 				if (cln.CurrentRoomNumber == roomIdx)
 				{
-					bWriter = new BinaryWriter(networkStream);
-					bWriter.Write("888,Update All Members");
-					BinaryFormatter clinetBF = new BinaryFormatter();
-					clinetBF.Serialize(cln.Socket.GetStream(), DataLayer.Rooms[roomIdx]);
+					if (cln.IsPlayer)
+					{
+						players += cln.UserName + ";";
+					}
+					else
+					{
+						specs += cln.UserName + ";";
+					}
 				}
+				bWriter = new BinaryWriter(networkStream);
+				bWriter.Write($"888,Update All Members,{players},{specs}");
 			}
 		}
 
@@ -121,9 +129,12 @@ namespace SimpleServer.ClassLib
 			Room currentRoom = DataLayer.Rooms[roomIdx];
 			currentRoom.Players.RemoveAll(p => p.UserName == this.UserName);
 			currentRoom.Spectators.RemoveAll(s => s.UserName == this.UserName);
-			if (currentRoom.RoomOwner.UserName == this.UserName)
+			if (this.IsPlayer)
 			{
-				currentRoom.RoomOwner = null;
+				if (currentRoom.RoomOwner.UserName == this.UserName)
+				{
+					currentRoom.RoomOwner.UserName = null;
+				}
 			}
 		}
 

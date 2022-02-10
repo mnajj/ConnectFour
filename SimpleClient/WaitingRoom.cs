@@ -185,18 +185,21 @@ namespace SimpleClient
 			this.Close();
 		}
 
-		internal void GetMembersLeavingChange(Room room)
+		public void GetMembersLeavingChange(string players, string specs)
 		{
 			PlayersListBox.Items.Clear();
 			SpectatorsBox.Items.Clear();
 
-			foreach(var player in room.Players)
+			var splitedPly = players.Split(',');
+			var splitedSpc = specs.Split(',');
+
+			foreach (var player in splitedPly)
 			{
-				PlayersListBox.Items.Add(player.UserName);
+				PlayersListBox.Items.Add(player);
 			}
-			foreach (var spec in room.Spectators)
+			foreach (var spec in splitedSpc)
 			{
-				SpectatorsBox.Items.Add(spec.UserName);
+				SpectatorsBox.Items.Add(spec);
 			}
 		}
 	}
