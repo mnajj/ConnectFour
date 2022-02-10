@@ -28,9 +28,13 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CounterRequestDialog));
 			this.MsgLable = new System.Windows.Forms.Label();
 			this.AcceptRequestButton = new System.Windows.Forms.Button();
 			this.DeclinesRequestButton = new System.Windows.Forms.Button();
+			this.label1 = new System.Windows.Forms.Label();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// MsgLable
@@ -62,17 +66,41 @@
 			this.DeclinesRequestButton.UseVisualStyleBackColor = true;
 			this.DeclinesRequestButton.Click += new System.EventHandler(this.DeclinesRequestButton_Click);
 			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.ForeColor = System.Drawing.Color.Black;
+			this.label1.Location = new System.Drawing.Point(84, 201);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(378, 13);
+			this.label1.TabIndex = 3;
+			this.label1.Text = "If the invitation is not accepted after five seconds, the invitation will be reje" +
+    "cted";
+			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+			this.pictureBox1.Location = new System.Drawing.Point(27, 173);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(51, 63);
+			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+			this.pictureBox1.TabIndex = 4;
+			this.pictureBox1.TabStop = false;
+			// 
 			// CounterRequestDialog
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(488, 276);
+			this.Controls.Add(this.pictureBox1);
+			this.Controls.Add(this.label1);
 			this.Controls.Add(this.DeclinesRequestButton);
 			this.Controls.Add(this.AcceptRequestButton);
 			this.Controls.Add(this.MsgLable);
 			this.Name = "CounterRequestDialog";
 			this.Text = "CounterRequestDialog";
 			this.Load += new System.EventHandler(this.CounterRequestDialog_Load);
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -83,5 +111,7 @@
 		private System.Windows.Forms.Label MsgLable;
 		private System.Windows.Forms.Button AcceptRequestButton;
 		private System.Windows.Forms.Button DeclinesRequestButton;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.PictureBox pictureBox1;
 	}
 }

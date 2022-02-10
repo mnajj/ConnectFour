@@ -16,6 +16,12 @@ namespace SimpleClient.Dialogs
 		{
 			InitializeComponent();
 			MsgLable.Text = $"{counterName} want to play!";
+			Task.Delay(new TimeSpan(0, 0, 5))
+			.ContinueWith(o =>
+			{
+				this.DialogResult = DialogResult.Cancel;
+				this.Close();
+			});
 		}
 
 		private void AcceptRequestButton_Click(object sender, EventArgs e)

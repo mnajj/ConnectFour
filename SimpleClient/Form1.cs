@@ -163,6 +163,12 @@ namespace SimpleClient
 								msg.Split(',')[2]
 								);
 						}
+						else if (status == 88)
+						{
+							BinaryFormatter formatter = new BinaryFormatter();
+							roomsList = (List<Room>)formatter.Deserialize(networkStream);
+							roomsListForm.GetAvaliableRoomsData(roomsList);
+						}
 					}
 				}
 			}

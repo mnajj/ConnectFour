@@ -3,6 +3,7 @@ using SimpleClient.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SimpleClient
@@ -64,7 +65,10 @@ namespace SimpleClient
 		public void AddRoomDataToGuestView(Room roomData)
 		{
 			RoomNameLabel.Text = roomData.RoomName;
-			PlayersListBox.Items.Add($"👑 {roomData.RoomOwner.UserName}");
+			if (roomData.RoomOwner != null)
+			{
+				PlayersListBox.Items.Add($"👑 {roomData.RoomOwner.UserName}");
+			}
 			PlayersListBox.Items.Add($"{roomsListForm.ClientForm.UserName}");
 
 			for(int i = 0; i < roomData.Spectators.Count; i++)
@@ -120,17 +124,17 @@ namespace SimpleClient
 
 		public void RecieveMyReqResponse(int header, string counterName)
 		{
-			CounterResponseMsgDialog counterRequestDlg;
-
 			if (header == 77)
 			{
-				counterRequestDlg = new CounterResponseMsgDialog(counterName, true);
+				CounterResponseMsgDialog counterRequestDlg = new CounterResponseMsgDialog(counterName, true);
+				counterRequestDlg.ShowDialog();
+				RedirectToGamingRoom();
 			}
 			else
 			{
-				counterRequestDlg = new CounterResponseMsgDialog(counterName, false);
+				CounterResponseMsgDialog counterRequestDlg = new CounterResponseMsgDialog(counterName, false);
+				counterRequestDlg.ShowDialog();
 			}
-			counterRequestDlg.ShowDialog();
 		}
 
 		private void AskCounterForGame_Click(object sender, EventArgs e)
@@ -145,6 +149,14 @@ namespace SimpleClient
 			{
 				MessageBox.Show("Please, chosse your disk color first");
 			}
+		}
+
+		private void BackButton_Click(object sender, EventArgs e)
+		{
+			bWriter = new BinaryWriter(roomsListForm.ClientForm.ClientNetworkStream);
+			bWriter.Write($"8,leave current room and get avaliab rooms data,{RoomIdx}");
+			roomsListForm.Show();
+			this.Close();
 		}
 	}
 }

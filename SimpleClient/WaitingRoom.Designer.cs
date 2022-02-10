@@ -37,8 +37,8 @@
 			this.SpectatorsBox = new System.Windows.Forms.ListBox();
 			this.SpectatorsListBox = new System.Windows.Forms.Label();
 			this.AskCounterForGame = new System.Windows.Forms.Button();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			this.BackButton = new System.Windows.Forms.PictureBox();
+			((System.ComponentModel.ISupportInitialize)(this.BackButton)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// ChooseDiskColorComboBox
@@ -66,7 +66,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+			this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
 			this.label2.Location = new System.Drawing.Point(340, 42);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(105, 13);
@@ -84,7 +84,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.ForeColor = System.Drawing.SystemColors.Control;
+			this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
 			this.label1.Location = new System.Drawing.Point(353, 55);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(72, 13);
@@ -94,7 +94,7 @@
 			// SpectatorsBox
 			// 
 			this.SpectatorsBox.FormattingEnabled = true;
-			this.SpectatorsBox.Location = new System.Drawing.Point(12, 55);
+			this.SpectatorsBox.Location = new System.Drawing.Point(661, 29);
 			this.SpectatorsBox.Name = "SpectatorsBox";
 			this.SpectatorsBox.Size = new System.Drawing.Size(127, 381);
 			this.SpectatorsBox.TabIndex = 6;
@@ -102,8 +102,8 @@
 			// SpectatorsListBox
 			// 
 			this.SpectatorsListBox.AutoSize = true;
-			this.SpectatorsListBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-			this.SpectatorsListBox.Location = new System.Drawing.Point(45, 39);
+			this.SpectatorsListBox.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.SpectatorsListBox.Location = new System.Drawing.Point(694, 13);
 			this.SpectatorsListBox.Name = "SpectatorsListBox";
 			this.SpectatorsListBox.Size = new System.Drawing.Size(77, 13);
 			this.SpectatorsListBox.TabIndex = 7;
@@ -119,22 +119,24 @@
 			this.AskCounterForGame.UseVisualStyleBackColor = true;
 			this.AskCounterForGame.Click += new System.EventHandler(this.AskCounterForGame_Click);
 			// 
-			// pictureBox1
+			// BackButton
 			// 
-			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-			this.pictureBox1.Location = new System.Drawing.Point(691, 346);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(97, 92);
-			this.pictureBox1.TabIndex = 9;
-			this.pictureBox1.TabStop = false;
+			this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
+			this.BackButton.Location = new System.Drawing.Point(2, 0);
+			this.BackButton.Name = "BackButton";
+			this.BackButton.Size = new System.Drawing.Size(47, 56);
+			this.BackButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+			this.BackButton.TabIndex = 9;
+			this.BackButton.TabStop = false;
+			this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
 			// 
 			// WaitingRoom
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(215)))), ((int)(((byte)(112)))));
 			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.Controls.Add(this.pictureBox1);
+			this.Controls.Add(this.BackButton);
 			this.Controls.Add(this.AskCounterForGame);
 			this.Controls.Add(this.SpectatorsListBox);
 			this.Controls.Add(this.SpectatorsBox);
@@ -146,7 +148,7 @@
 			this.Name = "WaitingRoom";
 			this.Text = "WaitingRoom";
 			this.Load += new System.EventHandler(this.WaitingRoom_Load);
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.BackButton)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -161,6 +163,6 @@
         private System.Windows.Forms.ListBox SpectatorsBox;
         private System.Windows.Forms.Label SpectatorsListBox;
 		private System.Windows.Forms.Button AskCounterForGame;
-		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.PictureBox BackButton;
 	}
 }

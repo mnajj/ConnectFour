@@ -1,4 +1,5 @@
 ﻿using ShardClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -77,9 +78,32 @@ namespace SimpleServer.ClassLib
 								int.Parse(reqRes.Split(',')[2])
 								);
 							break;
+						case 8:
+							LogOutFrom(int.Parse(reqRes.Split(',')[2]));
+							SendAvaliableRoomsData();
+							break;
 					}
 				}
 			}
+		}
+
+		private void LogOutFrom(int roomIdx)
+		{
+			Room currentRoom = DataLayer.Rooms[roomIdx];
+			currentRoom.Players.RemoveAll(p => p.UserName == this.UserName);
+			if (currentRoom.RoomOwner.UserName == this.UserName)
+			{
+				currentRoom.RoomOwner = null;
+			}
+		}
+
+		private void SendAvaliableRoomsData()
+		{
+			bWriter = new BinaryWriter(this.networkStream);
+			bWriter.Write("88,send rooms data");
+
+			BinaryFormatter bf = new BinaryFormatter();
+			bf.Serialize(networkStream, DataLayer.Rooms);
 		}
 
 		private void LogClientOut()

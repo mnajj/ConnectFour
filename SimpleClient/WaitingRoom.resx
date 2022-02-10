@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BackButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAFsAAABfCAYAAACHp7uPAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wgAADsIBFShKgAAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAABlTSURBVHhe7VwH
+        vgAADr4B6kKxwAAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAABlTSURBVHhe7VwH
         eFRV2raiVCH0IihqRAQVu/jjLqKiYttF2XX/La67Ftb9V1hAQJEmCAoIiogoKEpHBKQFCCGk90J673Um
         ZTIlmUx7//c7MwkBBklYEsCd93leMkzuPfd87/3OV86dzGUeeOCBBx544IEHHnjggQceeOCBBx544IEH
         HnjggQeXLABc6XA4hvHnC/z5NrmIXEN+Q25wvf6Q/AePeYzs5jrVg7OBYl1F4R4h55MhpInvNRs8XhBL

@@ -1,6 +1,7 @@
 ﻿using ShardClassLibrary;
 using SimpleClient.Dialogs;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
@@ -166,6 +167,41 @@ namespace SimpleClient
 			bWriter.Write("-1,Sign Me Out");
 			clientForm.Show();
 			this.Close();
+		}
+
+		public void GetAvaliableRoomsData(List<Room> roomsList)
+		{
+			RoomsListView.Items.Clear();
+			var imageList = new ImageList();
+			imageList.Images.Add("RoomIcon", LoadImage(@"https://www.ala.org/lita/sites/ala.org.lita/files/content/learning/webinars/gamelogo.png"));
+			RoomsListView.SmallImageList = imageList;
+			foreach (Room room in roomsList)
+			{
+				ListViewItem item = new ListViewItem();
+				item.Text = room.RoomName;
+				if (room.Players.Count == 2)
+				{
+					item.SubItems.Add("Watch Only");
+				}
+				else
+				{
+					item.SubItems.Add("Available");
+				}
+				string players = String.Empty;
+				for (int i = 0; i < room.Players.Count; i++)
+				{
+					players += room.Players[i].UserName + ", ";
+				}
+				item.SubItems.Add(players);
+				string specs = String.Empty;
+				for (int i = 0; i < room.Spectators.Count; i++)
+				{
+					specs += room.Spectators[i].UserName + ", ";
+				}
+				item.SubItems.Add(specs);
+				RoomsListView.Items.Add(item);
+			}
+
 		}
 	}
 }
