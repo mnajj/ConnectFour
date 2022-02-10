@@ -3,7 +3,6 @@ using SimpleClient.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace SimpleClient
@@ -17,6 +16,7 @@ namespace SimpleClient
 		public bool IsGuest { get; set; }
 		public bool IsPlayer { get; set; }
 		public int RoomIdx { get; set; }
+		public GamingPlayGround GamingPlayGroundForm { get; set; }
 
 		public WaitingRoom(RoomsList roomsListForm, bool isGuest, Room roomData = null, bool isPlayer = true)
 		{
@@ -103,11 +103,19 @@ namespace SimpleClient
 			if (reqDlgRes == DialogResult.OK)
 			{
 				bWriter.Write($"7,I accept your request,{RoomIdx}");
+				RedirectToGamingRoom();
 			}
 			else
 			{
 				bWriter.Write($"-7,I refuse your request,{RoomIdx}");
 			}
+		}
+
+		private void RedirectToGamingRoom()
+		{
+			GamingPlayGroundForm = new GamingPlayGround(this);
+			GamingPlayGroundForm.Show();
+			this.Hide();
 		}
 
 		public void RecieveMyReqResponse(int header, string counterName)

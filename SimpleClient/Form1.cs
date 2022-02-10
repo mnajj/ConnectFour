@@ -42,31 +42,25 @@ namespace SimpleClient
 			Control.CheckForIllegalCrossThreadCalls = false;
 		}
 
-		private void ConnectToServer_Click(object sender, System.EventArgs e)
+		private void ConnectToServer_Click(object sender, EventArgs e)
 		{
 			client = new TcpClient();
 			//try
 			//{
-				client.Connect(IPAddress.Parse("127.0.0.1"), 13000);
+				client.Connect(IPAddress.Parse("127.0.0.1"), 43659);
 				networkStream = client.GetStream();
 				SendLoginRequestToServer();
-				if (recieveReqsThread.IsAlive)
-				{
-					recieveReqsThread.Start();
-				}
-				else
-				{
-					recieveReqsDlg += ListenForMsgs;
-					recieveReqsThread = new Thread(new ThreadStart(recieveReqsDlg));
-					recieveReqsThread.Start();
-				}
-			//}
-			//catch (Exception ex)
-			//{
-			//	MessageBox.Show(ex.Message);
-			//	//MessageBox.Show("Unable to Connect to The Server.\nServer isn't Responding");
-			//}
-		}
+			if (!recieveReqsThread.IsAlive)
+			{
+				recieveReqsThread.Start();
+			}
+		//}
+		//catch (Exception ex)
+		//{
+		//	MessageBox.Show(ex.Message);
+		//	//MessageBox.Show("Unable to Connect to The Server.\nServer isn't Responding");
+		//}
+	}
 
 		private void SendLoginRequestToServer()
 		{

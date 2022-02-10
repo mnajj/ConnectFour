@@ -1,10 +1,8 @@
 ﻿using ShardClassLibrary;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
@@ -79,7 +77,6 @@ namespace SimpleServer.ClassLib
 								int.Parse(reqRes.Split(',')[2])
 								);
 							break;
-							
 					}
 				}
 			}
@@ -96,16 +93,24 @@ namespace SimpleServer.ClassLib
 		{
 			foreach (ClientHandler cln in DataLayer.Clients)
 			{
-				if (cln.IsPlayer == true && cln.UserName == this.UserName && cln.CurrentRoomNumber == roomIdx)
+				if (cln.IsPlayer == true && cln.CurrentRoomNumber == roomIdx)
 				{
-					bWriter = new BinaryWriter(cln.Socket.GetStream());
-					if (header == 7)
+					if (cln.UserName != this.UserName)
 					{
-						bWriter.Write($"77,Your request accepted,{this.UserName}");
+						this.Counter = cln.UserName;
+						cln.Counter = this.UserName;
 					}
 					else
 					{
-						bWriter.Write($"-77,Your request refused,{this.UserName}");
+						bWriter = new BinaryWriter(cln.Socket.GetStream());
+						if (header == 7)
+						{
+							bWriter.Write($"77,Your request accepted,{this.UserName}");
+						}
+						else
+						{
+							bWriter.Write($"-77,Your request refused,{this.UserName}");
+						}
 					}
 				}
 			}

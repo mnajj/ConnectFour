@@ -13,7 +13,6 @@ namespace SimpleServer
 	{
 		TcpListener server;
 		int port;
-		IPAddress localAddr;
 		bool quit;	// Flag to indicate if the server stil running or not.
 
 		// Threads
@@ -28,9 +27,8 @@ namespace SimpleServer
 		public Form1()
 		{
 			InitializeComponent();	
-			port = 13000;
-			localAddr = IPAddress.Parse("127.0.0.1");
-			server = new TcpListener(localAddr, port);
+			port = 43659;
+			server = new TcpListener(IPAddress.Any, port);
 			DataLayer.SeedUsers();
 			quit = false;
 

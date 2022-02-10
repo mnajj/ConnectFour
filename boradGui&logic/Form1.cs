@@ -213,8 +213,8 @@ namespace boradGui
             horzLine();//horz lines of board
             vertLine();//vert lines of board
             drawString();//numbers
-          
         }
+
         public void horzLine()//horzinatal line
         {
             Graphics g = CreateGraphics();
