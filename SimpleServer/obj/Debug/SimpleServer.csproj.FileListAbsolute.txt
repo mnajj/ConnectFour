@@ -43,3 +43,17 @@ C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleServer\obj\Debug\SimpleSe
 C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleServer\obj\Debug\SimpleServer.csproj.CopyComplete
 C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleServer\obj\Debug\SimpleServer.exe
 C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleServer\obj\Debug\SimpleServer.pdb
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\bin\Debug\SimpleServer.exe.config
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\bin\Debug\SimpleServer.exe
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\bin\Debug\SimpleServer.pdb
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\bin\Debug\SharedClassLibrary.dll
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\bin\Debug\SharedClassLibrary.pdb
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.csprojAssemblyReference.cache
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.ClosingForm.resources
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.Form1.resources
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.Properties.Resources.resources
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.csproj.GenerateResource.cache
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.csproj.CoreCompileInputs.cache
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.csproj.CopyComplete
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.exe
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleServer\obj\Debug\SimpleServer.pdb

@@ -78,3 +78,47 @@ C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleClient\obj\Debug\SimpleCl
 C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleClient\obj\Debug\SimpleClient.Dialogs.CounterRequestDialog.resources
 C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleClient\obj\Debug\SimpleClient.Dialogs.CounterResponseMsgDialog.resources
 C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleClient\obj\Debug\SimpleClient.Dialogs.ContinueAsSpec.resources
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\bin\Debug\SimpleClient.exe.config
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\bin\Debug\SimpleClient.exe
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\bin\Debug\SimpleClient.pdb
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\bin\Debug\SharedClassLibrary.dll
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\bin\Debug\SimpleServer.exe
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\bin\Debug\SharedClassLibrary.pdb
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\bin\Debug\SimpleServer.pdb
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\bin\Debug\SimpleServer.exe.config
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csprojAssemblyReference.cache
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.ContinueAsSpec.resources
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.CounterRequestDialog.resources
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.CounterResponseMsgDialog.resources
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Form1.resources
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Properties.Resources.resources
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.RoomDialog.resources
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.RoomsList.resources
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.WaitingRoom.resources
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.GenerateResource.cache
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.CoreCompileInputs.cache
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.CopyComplete
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.exe
+C:\Users\mohamed ismail\Desktop\connectfour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.pdb
+E:\C sharp project\ConnectFour\SimpleClient\bin\Debug\SimpleClient.exe.config
+E:\C sharp project\ConnectFour\SimpleClient\bin\Debug\SimpleClient.exe
+E:\C sharp project\ConnectFour\SimpleClient\bin\Debug\SimpleClient.pdb
+E:\C sharp project\ConnectFour\SimpleClient\bin\Debug\SharedClassLibrary.dll
+E:\C sharp project\ConnectFour\SimpleClient\bin\Debug\SimpleServer.exe
+E:\C sharp project\ConnectFour\SimpleClient\bin\Debug\SharedClassLibrary.pdb
+E:\C sharp project\ConnectFour\SimpleClient\bin\Debug\SimpleServer.pdb
+E:\C sharp project\ConnectFour\SimpleClient\bin\Debug\SimpleServer.exe.config
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csprojAssemblyReference.cache
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.ContinueAsSpec.resources
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.CounterRequestDialog.resources
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.CounterResponseMsgDialog.resources
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Form1.resources
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Properties.Resources.resources
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.RoomDialog.resources
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.RoomsList.resources
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.WaitingRoom.resources
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.GenerateResource.cache
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.CoreCompileInputs.cache
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.CopyComplete
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.exe
+E:\C sharp project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.pdb

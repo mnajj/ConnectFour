@@ -116,6 +116,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Dialogs\RoomDialog.resx">
       <DependentUpon>RoomDialog.cs</DependentUpon>
@@ -148,6 +149,24 @@
       <Project>{5111695B-E6AA-4DA7-B5BB-0D31239C970A}</Project>
       <Name>SimpleServer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DanYr4AVMAABJ_K.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9695825021544526172-256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blue-Gradient-Blur-Background-For-Free.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ppt-background-blue-gradient-powerpoint-background-abstract1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gradient-blue-white-linear-1920x1080-c2-ffffff-add8e6-a-90-f-14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\islamic-arabic-arabesque-ornament-border-luxury-ab.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

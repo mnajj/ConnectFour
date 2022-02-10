@@ -235,5 +235,22 @@ namespace SimpleClient
 			responseStream.Dispose();
 			return bmp;
 		}
-	}
+
+       
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (UserNameField.Text == "")            {                UserNameField.Text = "Enter Username";                UserNameField.ForeColor = Color.Gray;            }
+
+        }
+
+        private void UserNameField_MouseClick(object sender, MouseEventArgs e)
+        {
+            UserNameField.ForeColor = Color.Black;            if (UserNameField.Text == "Enter Username")            {                UserNameField.Text = "";            }
+
+        }
+
+        public void RemoveText(object sender, EventArgs e)        {            if (UserNameField.Text == "Enter text here...")            {                UserNameField.Text = "";            }        }        public void AddText(object sender, EventArgs e)        {            if (string.IsNullOrWhiteSpace(UserNameField.Text))                UserNameField.Text = "Enter text here...";        }
+
+    }
 }

@@ -35,5 +35,7 @@ namespace SimpleClient
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+        
     }
 }
