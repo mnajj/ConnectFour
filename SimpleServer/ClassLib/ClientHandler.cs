@@ -62,6 +62,11 @@ namespace SimpleServer.ClassLib
 							SendRoomData(int.Parse(reqRes.Split(',')[2]));
 							UpdateOnlineMembersToOthers(int.Parse(reqRes.Split(',')[2]));
 							break;
+						case 45:
+							SendRoomData(int.Parse(reqRes.Split(',')[2]));
+							AddWatchOnlySpec(int.Parse(reqRes.Split(',')[2]));
+							AddNewSpectatorToRoom(int.Parse(reqRes.Split(',')[2]));
+							break;
 						case 5:
 							AddNewSpectatorToRoom(int.Parse(reqRes.Split(',')[2]));
 							SendRoomDataToSpectator(int.Parse(reqRes.Split(',')[2]));
@@ -92,6 +97,21 @@ namespace SimpleServer.ClassLib
 						case 12:
 							SendConnectedUsersToNewLogin();
 							break;
+					}
+				}
+			}
+		}
+
+		private void AddWatchOnlySpec(int roomIdx)
+		{
+			foreach (var cln in DataLayer.Clients)
+			{
+				if (cln.CurrentRoomNumber == roomIdx)
+				{
+					if (cln.UserName != this.UserName)
+					{
+						bWriter = new BinaryWriter(cln.Socket.GetStream());
+						bWriter.Write($"454,Append New watch Only Spec,{this.UserName}");
 					}
 				}
 			}

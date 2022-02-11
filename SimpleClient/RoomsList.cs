@@ -82,9 +82,8 @@ namespace SimpleClient
 				if (dlgRes == DialogResult.OK)
 				{
 					bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
-					bWriter.Write($"4,Get room data,{RoomsListView.SelectedIndices[0]}");
+					bWriter.Write($"45,Get room data and add me as spec,{RoomsListView.SelectedIndices[0]}");
 					while (GuestRoomData == null) Thread.Sleep(100);
-					RedirectGuestToRoom(RoomsListView.SelectedIndices[0]);
 					SendWatchRequest();
 				}
 			}

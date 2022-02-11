@@ -216,6 +216,10 @@ namespace SimpleClient
 						{
 							RemoveNewConnectedUser(msg.Split(',')[2]);
 						}
+						else if (status == 454)
+						{
+							roomsListForm.WaitingRoom.AppendNewWatchOnlySpec(msg.Split(',')[2]);
+						}
 					}
 				}
 			}

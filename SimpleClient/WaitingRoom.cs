@@ -42,11 +42,18 @@ namespace SimpleClient
 			else if (!IsPlayer)
 			{
 				AddSpacsToGuestView(roomData);
+				DimmedSpec();
 			}
 			else
 			{
 				AddRoomDataToGuestView(roomData);
 			}
+		}
+
+		private void DimmedSpec()
+		{
+			AskCounterForGame.Enabled = false;
+			ChooseDiskColorComboBox.Enabled = false;
 		}
 
 		public void AddSpacsToGuestView(Room roomData)
@@ -165,15 +172,18 @@ namespace SimpleClient
 
 		private void AskCounterForGame_Click(object sender, EventArgs e)
 		{
-			if (ChooseDiskColorComboBox.SelectedItem != null)
+			if (IsPlayer)
 			{
-				string diskColor = ChooseDiskColorComboBox.Text;
-				bWriter.Write($"6,send start game request for the counter,{diskColor},{RoomIdx}");
-				IsInvitationSender = true;
-			}
-			else
-			{
-				MessageBox.Show("Please, chosse your disk color first");
+				if (ChooseDiskColorComboBox.SelectedItem != null)
+				{
+					string diskColor = ChooseDiskColorComboBox.Text;
+					bWriter.Write($"6,send start game request for the counter,{diskColor},{RoomIdx}");
+					IsInvitationSender = true;
+				}
+				else
+				{
+					MessageBox.Show("Please, chosse your disk color first");
+				}
 			}
 		}
 
@@ -200,6 +210,14 @@ namespace SimpleClient
 			foreach (var spec in splitedSpc)
 			{
 				SpectatorsBox.Items.Add(spec);
+			}
+		}
+
+		public void AppendNewWatchOnlySpec(string specName)
+		{
+			if (!SpectatorsBox.Items.Contains(specName))
+			{
+				SpectatorsBox.Items.Add(specName);
 			}
 		}
 	}
