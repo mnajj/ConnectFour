@@ -145,3 +145,25 @@ C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.
 C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.CopyComplete
 C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.exe
 C:\Users\DELL\Repos\ConnectFour\ConnectFour\SimpleClient\obj\Debug\SimpleClient.pdb
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\bin\Debug\SimpleClient.exe.config
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\bin\Debug\SimpleClient.exe
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\bin\Debug\SimpleClient.pdb
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\bin\Debug\SharedClassLibrary.dll
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\bin\Debug\SimpleServer.exe
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\bin\Debug\SharedClassLibrary.pdb
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\bin\Debug\SimpleServer.pdb
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\bin\Debug\SimpleServer.exe.config
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csprojAssemblyReference.cache
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.ContinueAsSpec.resources
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.CounterRequestDialog.resources
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.CounterResponseMsgDialog.resources
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Form1.resources
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Properties.Resources.resources
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.RoomDialog.resources
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.RoomsList.resources
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.WaitingRoom.resources
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.GenerateResource.cache
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.CoreCompileInputs.cache
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.CopyComplete
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.exe
+E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.pdb

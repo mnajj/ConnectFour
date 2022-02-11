@@ -38,7 +38,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(284, 165);
+            this.label1.Location = new System.Drawing.Point(298, 165);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 7;
@@ -47,10 +47,12 @@
             // 
             this.ConnectToServer.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ConnectToServer.BackColor = System.Drawing.Color.Red;
+            this.ConnectToServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ConnectToServer.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConnectToServer.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ConnectToServer.Location = new System.Drawing.Point(331, 415);
+            this.ConnectToServer.Location = new System.Drawing.Point(345, 410);
             this.ConnectToServer.Name = "ConnectToServer";
-            this.ConnectToServer.Size = new System.Drawing.Size(135, 23);
+            this.ConnectToServer.Size = new System.Drawing.Size(135, 28);
             this.ConnectToServer.TabIndex = 6;
             this.ConnectToServer.Text = "Connect";
             this.ConnectToServer.UseVisualStyleBackColor = false;
@@ -59,7 +61,7 @@
             // UserNameField
             // 
             this.UserNameField.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.UserNameField.Location = new System.Drawing.Point(308, 374);
+            this.UserNameField.Location = new System.Drawing.Point(322, 374);
             this.UserNameField.Name = "UserNameField";
             this.UserNameField.Size = new System.Drawing.Size(186, 20);
             this.UserNameField.TabIndex = 8;
@@ -74,7 +76,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(201)))), ((int)(((byte)(244)))));
             this.BackgroundImage = global::SimpleClient.Properties.Resources.DanYr4AVMAABJ_K;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(828, 450);
             this.Controls.Add(this.UserNameField);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ConnectToServer);
