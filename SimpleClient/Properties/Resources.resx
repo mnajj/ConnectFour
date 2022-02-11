@@ -121,6 +121,9 @@
   <data name="9695825021544526172-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\9695825021544526172-256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Blue-Gradient-Blur-Background-For-Free" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Blue-Gradient-Blur-Background-For-Free.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="gradient-blue-white-linear-1920x1080-c2-ffffff-add8e6-a-90-f-14" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gradient-blue-white-linear-1920x1080-c2-ffffff-add8e6-a-90-f-14.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -133,10 +136,13 @@
   <data name="Ppt-background-blue-gradient-powerpoint-background-abstract1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Ppt-background-blue-gradient-powerpoint-background-abstract1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Blue-Gradient-Blur-Background-For-Free" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blue-Gradient-Blur-Background-For-Free.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="patterns-ornaments-art-deco-style-calligraphy-page (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\patterns-ornaments-art-deco-style-calligraphy-page (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="333-3337240_showing-gallery-for-vintage-overlay-pngvintage-overlay-transparent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\333-3337240_showing-gallery-for-vintage-overlay-pngvintage-overlay-transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="patterns-ornaments-art-deco-style-calligraphy-page (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\patterns-ornaments-art-deco-style-calligraphy-page (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

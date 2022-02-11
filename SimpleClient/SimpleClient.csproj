@@ -171,5 +171,11 @@
   <ItemGroup>
     <None Include="Resources\333-3337240_showing-gallery-for-vintage-overlay-pngvintage-overlay-transparent.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\patterns-ornaments-art-deco-style-calligraphy-page %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\patterns-ornaments-art-deco-style-calligraphy-page %282%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

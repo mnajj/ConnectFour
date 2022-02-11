@@ -123,6 +123,26 @@ namespace SimpleClient.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap patterns_ornaments_art_deco_style_calligraphy_page__1_ {
+            get {
+                object obj = ResourceManager.GetObject("patterns-ornaments-art-deco-style-calligraphy-page (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap patterns_ornaments_art_deco_style_calligraphy_page__2_ {
+            get {
+                object obj = ResourceManager.GetObject("patterns-ornaments-art-deco-style-calligraphy-page (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Ppt_background_blue_gradient_powerpoint_background_abstract1 {
             get {
                 object obj = ResourceManager.GetObject("Ppt-background-blue-gradient-powerpoint-background-abstract1", resourceCulture);
