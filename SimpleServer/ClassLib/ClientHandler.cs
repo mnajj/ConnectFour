@@ -63,9 +63,9 @@ namespace SimpleServer.ClassLib
 							UpdateOnlineMembersToOthers(int.Parse(reqRes.Split(',')[2]));
 							break;
 						case 45:
+							AddNewSpectatorToRoom(int.Parse(reqRes.Split(',')[2]));
 							SendRoomData(int.Parse(reqRes.Split(',')[2]));
 							AddWatchOnlySpec(int.Parse(reqRes.Split(',')[2]));
-							AddNewSpectatorToRoom(int.Parse(reqRes.Split(',')[2]));
 							break;
 						case 5:
 							AddNewSpectatorToRoom(int.Parse(reqRes.Split(',')[2]));
@@ -261,16 +261,16 @@ namespace SimpleServer.ClassLib
 					}
 				}
 			}
-			foreach (ClientHandler cln in DataLayer.Clients)
-			{
-				if (cln.CurrentRoomNumber == roomIdx && (!IsPlayer))
-				{
-					bWriter = new BinaryWriter(cln.Socket.GetStream());
-					bWriter.Write($"77,Your request accepted,{this.UserName}");
-					BinaryFormatter clinetBF = new BinaryFormatter();
-					clinetBF.Serialize(cln.Socket.GetStream(), DataLayer.Rooms);
-				}
-			}
+			//foreach (ClientHandler cln in DataLayer.Clients)
+			//{
+			//	if (cln.CurrentRoomNumber == roomIdx && (!IsPlayer))
+			//	{
+			//		bWriter = new BinaryWriter(cln.Socket.GetStream());
+			//		bWriter.Write($"77,Your request accepted,{this.UserName}");
+			//		BinaryFormatter clinetBF = new BinaryFormatter();
+			//		clinetBF.Serialize(cln.Socket.GetStream(), DataLayer.Rooms);
+			//	}
+			//}
 		}
 
 		private void PickColor(string strColor)

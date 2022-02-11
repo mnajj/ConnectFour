@@ -84,9 +84,18 @@ namespace SimpleClient
 					bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
 					bWriter.Write($"45,Get room data and add me as spec,{RoomsListView.SelectedIndices[0]}");
 					while (GuestRoomData == null) Thread.Sleep(100);
-					SendWatchRequest();
+					//SendWatchRequest();
+					RedirectWatchOnlySpec(RoomsListView.SelectedIndices[0]);
 				}
 			}
+		}
+
+		private void RedirectWatchOnlySpec(int v)
+		{
+			WaitingRoom = new WaitingRoom(this, true, GuestRoomData, false);
+			WaitingRoom.RoomIdx = roomIdx;
+			WaitingRoom.Show();
+			this.Hide();
 		}
 
 		private void CreateNewRoomButton_Click(object sender, EventArgs e)

@@ -131,19 +131,17 @@ namespace SimpleClient
 				if (IsInvitationSender)
 				{
 					GamingPlayGroundForm = new GamingPlayGround(this, false, true);
-					GamingPlayGroundForm.Show();
 				}
 				else
 				{
 					GamingPlayGroundForm = new GamingPlayGround(this);
-					GamingPlayGroundForm.Show();
 				}
 			}
 			else
 			{
 				GamingPlayGroundForm = new GamingPlayGround(this, true, false);
-				GamingPlayGroundForm.Show();
 			}
+			GamingPlayGroundForm.Show();
 			this.Hide();
 		}
 
@@ -178,7 +176,7 @@ namespace SimpleClient
 				{
 					string diskColor = ChooseDiskColorComboBox.Text;
 					bWriter.Write($"6,send start game request for the counter,{diskColor},{RoomIdx}");
-					IsInvitationSender = true;
+					this.IsInvitationSender = true;
 				}
 				else
 				{
