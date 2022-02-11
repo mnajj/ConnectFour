@@ -109,14 +109,14 @@ namespace SimpleClient
 			}
 		}
 
-		public void ShowCounterDialogForm(string counterName)
+		public void ShowCounterDialogForm(string counterName, string boardSize)
 		{
 			CounterRequestDialog reqDlg = new CounterRequestDialog(counterName);
 			DialogResult reqDlgRes = reqDlg.ShowDialog();
 			if (reqDlgRes == DialogResult.OK)
 			{
 				bWriter.Write($"7,I accept your request,{RoomIdx}");
-				RedirectToGamingRoom();
+				RedirectToGamingRoom(boardSize);
 			}
 			else
 			{
@@ -124,28 +124,28 @@ namespace SimpleClient
 			}
 		}
 
-		private void RedirectToGamingRoom()
+		private void RedirectToGamingRoom(string boardSize)
 		{
 			if (IsPlayer)
 			{
 				if (IsInvitationSender)
 				{
-					GamingPlayGroundForm = new GamingPlayGround(this, false, true);
+					GamingPlayGroundForm = new GamingPlayGround(boardSize, this, false, true);
 				}
 				else
 				{
-					GamingPlayGroundForm = new GamingPlayGround(this);
+					GamingPlayGroundForm = new GamingPlayGround(boardSize, this);
 				}
 			}
 			else
 			{
-				GamingPlayGroundForm = new GamingPlayGround(this, true, false);
+				GamingPlayGroundForm = new GamingPlayGround(boardSize, this, true, false);
 			}
 			GamingPlayGroundForm.Show();
 			this.Hide();
 		}
 
-		public void RecieveMyReqResponse(int header, string counterName)
+		public void RecieveMyReqResponse(int header, string counterName, string boardSize)
 		{
 			if (header == 77)
 			{
@@ -153,12 +153,12 @@ namespace SimpleClient
 				{
 					CounterResponseMsgDialog counterRequestDlg = new CounterResponseMsgDialog(counterName, true);
 					counterRequestDlg.ShowDialog();
-					RedirectToGamingRoom();
+					RedirectToGamingRoom(boardSize);
 				}
 				else
 				{
 					MessageBox.Show("The Game Start!\nYou Can Watch Now");
-					RedirectToGamingRoom();
+					RedirectToGamingRoom(boardSize);
 				}
 			}
 			else
@@ -174,8 +174,16 @@ namespace SimpleClient
 			{
 				if (ChooseDiskColorComboBox.SelectedItem != null)
 				{
-					string diskColor = ChooseDiskColorComboBox.Text;
-					bWriter.Write($"6,send start game request for the counter,{diskColor},{RoomIdx}");
+					if (roomsListForm.IsRoomCreator)
+					{
+						string diskColor = ChooseDiskColorComboBox.Text;
+						bWriter.Write($"6,send start game request for the counter,{diskColor},{RoomIdx}");
+					}
+					else
+					{
+						string diskColor = ChooseDiskColorComboBox.Text;
+						bWriter.Write($"6,send start game request for the counter,{diskColor},{RoomIdx},Bla!");
+					}
 					this.IsInvitationSender = true;
 				}
 				else

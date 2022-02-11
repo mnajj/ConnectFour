@@ -167,3 +167,4 @@ E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\C
 E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.CopyComplete
 E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.exe
 E:\PD and Bi intake 42\Programming Courses\1-C# .net FrameWork\Connect-Project\ConnectFour\SimpleClient\obj\Debug\SimpleClient.pdb
+C:\Users\DELL\OneDrive\سطح المكتب\CMAIN\SimpleClient\obj\Debug\SimpleClient.GamingPlayGround.resources

@@ -238,6 +238,7 @@ namespace SimpleServer.ClassLib
 
 		private void ReceiveCounterResponse(int header, int roomIdx)
 		{
+			var currRoom = DataLayer.Rooms[roomIdx];
 			foreach (ClientHandler cln in DataLayer.Clients)
 			{
 				if (cln.IsPlayer == true && cln.CurrentRoomNumber == roomIdx)
@@ -246,17 +247,15 @@ namespace SimpleServer.ClassLib
 					{
 						this.Counter = cln.UserName;
 						cln.Counter = this.UserName;
-					}
-					else
-					{
+
 						bWriter = new BinaryWriter(cln.Socket.GetStream());
 						if (header == 7)
 						{
-							bWriter.Write($"77,Your request accepted,{this.UserName}");
+							bWriter.Write($"77,Your request accepted,{this.UserName},{currRoom.RoomBoardSize}");
 						}
 						else
 						{
-							bWriter.Write($"-77,Your request refused,{this.UserName}");
+							bWriter.Write($"-77,Your request refused,{this.UserName},{currRoom.RoomBoardSize}");
 						}
 					}
 				}
@@ -292,19 +291,16 @@ namespace SimpleServer.ClassLib
 		private void SendGameStartRequestForCounter(string strColor, int roomIdx)
 		{
 			PickColor(strColor);
+			Room currRoom = DataLayer.Rooms[roomIdx];
 			ClientHandler counterClient;
 			foreach (ClientHandler cln in DataLayer.Clients)
 			{
 				if (cln.IsPlayer == true && cln.UserName != this.UserName && cln.CurrentRoomNumber == roomIdx)
 				{
 					bWriter = new BinaryWriter(cln.Socket.GetStream());
-					bWriter.Write($"66,redirect counter start game request,{this.UserName}");
+					bWriter.Write($"66,redirect counter start game request,{this.UserName},{currRoom.RoomBoardSize}");
 				}
 			}
-
-			//bWriter = new BinaryWriter(counterClient.Socket.GetStream());
-			//bWriter.Write($"66,redirect counter start game request,{this.UserName}");
-
 		}
 
 		private void LogInUser(string userName)

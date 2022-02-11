@@ -25,6 +25,7 @@ namespace SimpleClient
 		public string CreatedWaitingdRoomOwnerDiskColor { get; set; }
 		public string CreatedWaitingdRoomBoardSize { get; set; }
 		public Room GuestRoomData { get; set; }
+		public bool IsRoomCreator { get; set; }
 
 		public RoomsList(Form1 clinetForm)
 		{
@@ -104,6 +105,8 @@ namespace SimpleClient
 			DialogResult Dialog = RoomDlg.ShowDialog();
 			if (Dialog == DialogResult.OK)
 			{
+				this.IsRoomCreator = true;
+
 				CreatedWaitingdRoomName = RoomDlg.RoomName;
 				CreatedWaitingdRoomOwnerDiskColor = RoomDlg.RoomOwnerDiskColor;
 				CreatedWaitingdRoomBoardSize = RoomDlg.RoomBoardSize;
