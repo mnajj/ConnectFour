@@ -45,9 +45,11 @@ namespace SimpleServer.ClassLib
 					{
 						case -1:
 							LogClientOut();
+							RemoveThisUserFromOnlineList();
 							break;
 						case 0:
 							LogInUser(reqRes.Split(',')[2]);
+							SendNewUserToConnected();
 							break;
 						case 2:
 							RedirectToWaitingRoom();
@@ -56,9 +58,9 @@ namespace SimpleServer.ClassLib
 							SaveNewRoomData(reqRes.Split(',')[2]);
 							break;
 						case 4:
+							AddNewGuestToRoom(int.Parse(reqRes.Split(',')[2]));
 							SendRoomData(int.Parse(reqRes.Split(',')[2]));
 							UpdateOnlineMembersToOthers(int.Parse(reqRes.Split(',')[2]));
-							AddNewGuestToRoom(int.Parse(reqRes.Split(',')[2]));
 							break;
 						case 5:
 							AddNewSpectatorToRoom(int.Parse(reqRes.Split(',')[2]));
@@ -95,6 +97,49 @@ namespace SimpleServer.ClassLib
 			}
 		}
 
+		private void RemoveThisUserFromOnlineList()
+		{
+			if (DataLayer.ConnectedUsers.Count > 0)
+			{
+				BinaryFormatter bf = new BinaryFormatter();
+				foreach (var cln in DataLayer.Clients)
+				{
+					if (cln.UserName != this.UserName)
+					{
+						bWriter = new BinaryWriter(cln.Socket.GetStream());
+						bWriter.Write($"1212,New User UnConnected,{this.UserName}");
+					}
+				}
+			}
+		}
+
+		private void SendNewUserToConnected()
+		{
+			if (DataLayer.ConnectedUsers.Count > 1)
+			{
+				BinaryFormatter bf = new BinaryFormatter();
+				foreach (var cln in DataLayer.Clients)
+				{
+					if (cln.UserName != this.UserName)
+					{
+						bWriter = new BinaryWriter(cln.Socket.GetStream());
+						bWriter.Write($"121,New User Connected,{this.UserName}");
+					}
+				}
+			}
+		}
+
+		private void SendNewConnectedToOthers()
+		{
+			BinaryFormatter bf = new BinaryFormatter();
+			foreach (var cln in DataLayer.Clients)
+			{
+				bWriter = new BinaryWriter(cln.Socket.GetStream());
+				bWriter.Write("-11,Client logout");
+				bf.Serialize(networkStream, DataLayer.ConnectedUsers);
+			}
+		}
+
 		private void SendConnectedUsersToNewLogin()
 		{
 			BinaryFormatter bf = new BinaryFormatter();
@@ -118,8 +163,14 @@ namespace SimpleServer.ClassLib
 						specs += cln.UserName + ";";
 					}
 				}
-				bWriter = new BinaryWriter(networkStream);
-				bWriter.Write($"888,Update All Members,{players},{specs}");
+			}
+			foreach (ClientHandler cln in DataLayer.Clients)
+			{
+				if (cln.CurrentRoomNumber == roomIdx)
+				{
+					bWriter = new BinaryWriter(cln.Socket.GetStream());
+					bWriter.Write($"888,Update All Members,{players},{specs}");
+				}
 			}
 		}
 
@@ -145,6 +196,7 @@ namespace SimpleServer.ClassLib
 					currentRoom.RoomOwner.UserName = null;
 				}
 			}
+			this.CurrentRoomNumber = -1;
 		}
 
 		private void SendAvaliableRoomsData()
@@ -277,7 +329,6 @@ namespace SimpleServer.ClassLib
 				if (cln.UserName != this.UserName)
 				{
 					bWriter = new BinaryWriter(cln.Socket.GetStream());
-					//bWriter.Write("1111,append new connected users");
 					BinaryFormatter bf = new BinaryFormatter();
 					bf.Serialize(cln.Socket.GetStream(), DataLayer.ConnectedUsers);
 				}
@@ -379,7 +430,7 @@ namespace SimpleServer.ClassLib
 			DataLayer.Rooms[roomIdx].Spectators.Add(
 					new User { UserName = this.UserName }
 				);
-			this.IsPlayer= false;
+			this.IsPlayer = false;
 		}
 
 		private void UpdateOnlineMembersToOthers(int roomIdx)

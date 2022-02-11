@@ -190,8 +190,8 @@ namespace SimpleClient
 			PlayersListBox.Items.Clear();
 			SpectatorsBox.Items.Clear();
 
-			var splitedPly = players.Split(',');
-			var splitedSpc = specs.Split(',');
+			var splitedPly = players.Split(';');
+			var splitedSpc = specs.Split(';');
 
 			foreach (var player in splitedPly)
 			{

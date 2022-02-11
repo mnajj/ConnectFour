@@ -22,7 +22,7 @@ namespace SimpleClient
 		BinaryWriter bWriter;
 		List<Room> roomsList;
 		bool quit;
-		
+
 
 		// Rooms
 		RoomsList roomsListForm;
@@ -47,20 +47,20 @@ namespace SimpleClient
 			client = new TcpClient();
 			//try
 			//{
-				client.Connect(IPAddress.Parse("127.0.0.1"), 43659);
-				networkStream = client.GetStream();
-				SendLoginRequestToServer();
+			client.Connect(IPAddress.Parse("127.0.0.1"), 43659);
+			networkStream = client.GetStream();
+			SendLoginRequestToServer();
 			if (!recieveReqsThread.IsAlive)
 			{
 				recieveReqsThread.Start();
 			}
-		//}
-		//catch (Exception ex)
-		//{
-		//	MessageBox.Show(ex.Message);
-		//	//MessageBox.Show("Unable to Connect to The Server.\nServer isn't Responding");
-		//}
-	}
+			//}
+			//catch (Exception ex)
+			//{
+			//	MessageBox.Show(ex.Message);
+			//	//MessageBox.Show("Unable to Connect to The Server.\nServer isn't Responding");
+			//}
+		}
 
 		private void SendLoginRequestToServer()
 		{
@@ -129,7 +129,7 @@ namespace SimpleClient
 
 		private void ListenForMsgs()
 		{
-			while(!quit)
+			while (!quit)
 			{
 				if (networkStream.DataAvailable)
 				{
@@ -138,7 +138,17 @@ namespace SimpleClient
 					if (msg != String.Empty)
 					{
 						int status = int.Parse(msg.Split(',')[0]);
-						if (status == 111)
+						if (status == -11)
+						{
+							if (roomsListForm.WaitingRoom == null
+								|| roomsListForm.WaitingRoom.GamingPlayGroundForm == null)
+							{
+								BinaryFormatter formatter = new BinaryFormatter();
+								var conUsers = (List<User>)formatter.Deserialize(networkStream);
+								AddRoomsToRoomsListView(null, conUsers);
+							}
+						}
+						else if (status == 111)
 						{
 							BinaryFormatter formatter = new BinaryFormatter();
 							roomsList = (List<Room>)formatter.Deserialize(networkStream);
@@ -198,9 +208,27 @@ namespace SimpleClient
 						{
 							roomsListForm.WaitingRoom.GetMembersLeavingChange(msg.Split(',')[2], msg.Split(',')[3]);
 						}
+						else if (status == 121)
+						{
+							AddNewConnectedUser(msg.Split(',')[2]);
+						}
+						else if (status == 1212)
+						{
+							RemoveNewConnectedUser(msg.Split(',')[2]);
+						}
 					}
 				}
 			}
+		}
+
+		private void RemoveNewConnectedUser(string user)
+		{
+			roomsListForm.RoomsUsersListBoxControl.Items.Remove(user);
+		}
+
+		private void AddNewConnectedUser(string user)
+		{
+			roomsListForm.RoomsUsersListBoxControl.Items.Add(user);
 		}
 
 		private void SwitchToRoomsList()
@@ -269,19 +297,36 @@ namespace SimpleClient
 			responseStream.Dispose();
 			return bmp;
 		}
-        private void Form1_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (UserNameField.Text == "")            {                UserNameField.Text = "Enter Username";                UserNameField.ForeColor = Color.Gray;            }
+		private void Form1_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (UserNameField.Text == "")
+			{
+				UserNameField.Text = "Enter Username";
+				UserNameField.ForeColor = Color.Gray;
+			}
+		}
 
-        }
+		private void UserNameField_MouseClick(object sender, MouseEventArgs e)
+		{
+			UserNameField.ForeColor = Color.Black;
+			if (UserNameField.Text == "Enter Username")
+			{
+				UserNameField.Text = "";
+			}
+		}
 
-        private void UserNameField_MouseClick(object sender, MouseEventArgs e)
-        {
-            UserNameField.ForeColor = Color.Black;            if (UserNameField.Text == "Enter Username")            {                UserNameField.Text = "";            }
+		public void RemoveText(object sender, EventArgs e)
+		{
+			if (UserNameField.Text == "Enter text here...")
+			{
+				UserNameField.Text = "";
+			}
+		}
 
-        }
-
-        public void RemoveText(object sender, EventArgs e)        {            if (UserNameField.Text == "Enter text here...")            {                UserNameField.Text = "";            }        }        public void AddText(object sender, EventArgs e)        {            if (string.IsNullOrWhiteSpace(UserNameField.Text))                UserNameField.Text = "Enter text here...";        }
-
-    }
+		public void AddText(object sender, EventArgs e)
+		{
+			if (string.IsNullOrWhiteSpace(UserNameField.Text))
+				UserNameField.Text = "Enter text here...";
+		}
+	}
 }
