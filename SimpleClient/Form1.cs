@@ -81,6 +81,9 @@ namespace SimpleClient
 				{
 					SwitchResponseToForm(responseRes.Split(',')[1]);
 					this.UserName = UserNameField.Text;
+					BinaryFormatter formatter = new BinaryFormatter();
+					var conUs = (List<User>)formatter.Deserialize(networkStream);
+					AddRoomsToRoomsListView(roomsList, conUs);
 				}
 				else if (status == 11)
 				{
@@ -89,11 +92,24 @@ namespace SimpleClient
 					BinaryFormatter formatter = new BinaryFormatter();
 					roomsList = (List<Room>)formatter.Deserialize(networkStream);
 					AddRoomsToRoomsListView(roomsList);
+					GetConnectedUsers();
 				}
 				else
 				{
 					MessageBox.Show(responseRes.Split(',')[1]);
 				}
+			}
+		}
+
+		private void GetConnectedUsers()
+		{
+			bWriter = new BinaryWriter(networkStream);
+			bWriter.Write("12,Send Connect Users");
+			BinaryFormatter formatter = new BinaryFormatter();
+			var conUs = (List<User>)formatter.Deserialize(networkStream);
+			if (conUs.Count > 1)
+			{
+				AddRoomsToRoomsListView(null, conUs);
 			}
 		}
 
@@ -126,7 +142,14 @@ namespace SimpleClient
 						{
 							BinaryFormatter formatter = new BinaryFormatter();
 							roomsList = (List<Room>)formatter.Deserialize(networkStream);
-							AddRoomsToRoomsListView(roomsList);
+							var conUsers = (List<User>)formatter.Deserialize(networkStream);
+							AddRoomsToRoomsListView(roomsList, conUsers);
+						}
+						else if (status == 1111)
+						{
+							BinaryFormatter formatter = new BinaryFormatter();
+							var conUs = (List<User>)formatter.Deserialize(networkStream);
+							AddRoomsToRoomsListView(null, conUs);
 						}
 						else if (status == 44)
 						{
@@ -167,13 +190,13 @@ namespace SimpleClient
 						{
 							BinaryFormatter formatter = new BinaryFormatter();
 							roomsList = (List<Room>)formatter.Deserialize(networkStream);
+							var conUS = (List<User>)formatter.Deserialize(networkStream);
 							roomsListForm.GetAvaliableRoomsData(roomsList);
+							roomsListForm.GetConnectedUsers(conUS);
 						}
 						else if (status == 888)
 						{
-							BinaryFormatter formatter = new BinaryFormatter();
-							Room room = (Room)formatter.Deserialize(networkStream);
-							roomsListForm.WaitingRoom.GetMembersLeavingChange(room);
+							roomsListForm.WaitingRoom.GetMembersLeavingChange(msg.Split(',')[2], msg.Split(',')[3]);
 						}
 					}
 				}
@@ -192,37 +215,48 @@ namespace SimpleClient
 			// TO-DO
 		}
 
-		private void AddRoomsToRoomsListView(List<Room> list)
+		private void AddRoomsToRoomsListView(List<Room> list = null, List<User> users = null)
 		{
-			roomsListForm.RoomsListControl.Items.Clear();
-			var imageList = new ImageList();
-			imageList.Images.Add("RoomIcon", LoadImage(@"https://www.ala.org/lita/sites/ala.org.lita/files/content/learning/webinars/gamelogo.png"));
-			roomsListForm.RoomsListControl.SmallImageList = imageList;
-			foreach (Room room in list)
+			if (list != null)
 			{
-				ListViewItem item = new ListViewItem();
-				item.Text = room.RoomName;
-				if (room.Players.Count == 2)
+				roomsListForm.RoomsListControl.Items.Clear();
+				//var imageList = new ImageList();
+				//imageList.Images.Add("RoomIcon", LoadImage(@"https://www.ala.org/lita/sites/ala.org.lita/files/content/learning/webinars/gamelogo.png"));
+				//roomsListForm.RoomsListControl.SmallImageList = imageList;
+				foreach (Room room in list)
 				{
-					item.SubItems.Add("Watch Only");
+					ListViewItem item = new ListViewItem();
+					item.Text = "🎮 " + room.RoomName;
+					if (room.Players.Count == 2)
+					{
+						item.SubItems.Add("Watch Only");
+					}
+					else
+					{
+						item.SubItems.Add("Available");
+					}
+					string players = String.Empty;
+					for (int i = 0; i < room.Players.Count; i++)
+					{
+						players += room.Players[i].UserName + ", ";
+					}
+					item.SubItems.Add(players);
+					string specs = String.Empty;
+					for (int i = 0; i < room.Spectators.Count; i++)
+					{
+						specs += room.Spectators[i].UserName + ", ";
+					}
+					item.SubItems.Add(specs);
+					roomsListForm.RoomsListControl.Items.Add(item);
 				}
-				else
+			}
+			if (users != null)
+			{
+				roomsListForm.RoomsUsersListBoxControl.Items.Clear();
+				foreach (var user in users)
 				{
-					item.SubItems.Add("Available");
+					roomsListForm.RoomsUsersListBoxControl.Items.Add("🤵 " + user.UserName);
 				}
-				string players = String.Empty;
-				for (int i = 0; i < room.Players.Count; i++)
-				{
-					players += room.Players[i].UserName + ", ";
-				}
-				item.SubItems.Add(players);
-				string specs = String.Empty;
-				for (int i = 0; i < room.Spectators.Count; i++)
-				{
-					specs += room.Spectators[i].UserName + ", ";
-				}
-				item.SubItems.Add(specs);
-				roomsListForm.RoomsListControl.Items.Add(item);
 			}
 		}
 
@@ -235,9 +269,6 @@ namespace SimpleClient
 			responseStream.Dispose();
 			return bmp;
 		}
-
-       
-
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             if (UserNameField.Text == "")            {                UserNameField.Text = "Enter Username";                UserNameField.ForeColor = Color.Gray;            }

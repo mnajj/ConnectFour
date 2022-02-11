@@ -168,5 +168,8 @@
   <ItemGroup>
     <None Include="Resources\islamic-arabic-arabesque-ornament-border-luxury-ab.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\333-3337240_showing-gallery-for-vintage-overlay-pngvintage-overlay-transparent.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

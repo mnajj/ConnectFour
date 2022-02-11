@@ -87,9 +87,18 @@ namespace SimpleServer.ClassLib
 							SaveMoveData();
 							CheckForWinner();
 							break;
+						case 12:
+							SendConnectedUsersToNewLogin();
+							break;
 					}
 				}
 			}
+		}
+
+		private void SendConnectedUsersToNewLogin()
+		{
+			BinaryFormatter bf = new BinaryFormatter();
+			bf.Serialize(networkStream, DataLayer.ConnectedUsers);
 		}
 
 		private void UpdateAllMembersToOthers(int roomIdx)
@@ -145,6 +154,7 @@ namespace SimpleServer.ClassLib
 
 			BinaryFormatter bf = new BinaryFormatter();
 			bf.Serialize(networkStream, DataLayer.Rooms);
+			bf.Serialize(networkStream, DataLayer.ConnectedUsers);
 		}
 
 		private void LogClientOut()
@@ -249,12 +259,28 @@ namespace SimpleServer.ClassLib
 					else
 					{
 						bWriter.Write($"1,{Views.RoomsList}");
+						BinaryFormatter bf = new BinaryFormatter();
+						bf.Serialize(networkStream, DataLayer.ConnectedUsers);
 					}
 				}
 			}
 			else
 			{
 				bWriter.Write("-1,Can't find username.");
+			}
+		}
+
+		private void SendNewConnectedUserToExistingUsers()
+		{
+			foreach (var cln in DataLayer.Clients)
+			{
+				if (cln.UserName != this.UserName)
+				{
+					bWriter = new BinaryWriter(cln.Socket.GetStream());
+					//bWriter.Write("1111,append new connected users");
+					BinaryFormatter bf = new BinaryFormatter();
+					bf.Serialize(cln.Socket.GetStream(), DataLayer.ConnectedUsers);
+				}
 			}
 		}
 
@@ -305,6 +331,7 @@ namespace SimpleServer.ClassLib
 
 					BinaryFormatter clinetBF = new BinaryFormatter();
 					clinetBF.Serialize(clientNetWorkStream, DataLayer.Rooms);
+					clinetBF.Serialize(clientNetWorkStream, DataLayer.ConnectedUsers);
 				}
 			}
 		}

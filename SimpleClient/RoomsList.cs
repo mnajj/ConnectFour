@@ -18,6 +18,7 @@ namespace SimpleClient
 
 		public Room SpacRoomData { get; set; }
 		public ListView RoomsListControl { get => RoomsListView; }
+		public ListBox RoomsUsersListBoxControl { get => ConnectedUsersListBox; }
 		public Form1 ClientForm { get => clientForm; }
 		public WaitingRoom WaitingRoom { get; set; }
 		public string CreatedWaitingdRoomName { get; set; }
@@ -29,7 +30,6 @@ namespace SimpleClient
 		{
 			InitializeComponent();
 			this.clientForm = clinetForm;
-			this.FormBorderStyle = FormBorderStyle.None;
 		}
 
 		private void RoomsList_Load(object sender, EventArgs e)
@@ -169,6 +169,15 @@ namespace SimpleClient
 			this.Close();
 		}
 
+		public void GetConnectedUsers(List<User> conUS)
+		{
+			ConnectedUsersListBox.Items.Clear();
+			foreach (var user in conUS)
+			{
+				ConnectedUsersListBox.Items.Add("🤵 " + user.UserName);
+			}
+		}
+
 		public void GetAvaliableRoomsData(List<Room> roomsList)
 		{
 			RoomsListView.Items.Clear();
@@ -201,7 +210,6 @@ namespace SimpleClient
 				item.SubItems.Add(specs);
 				RoomsListView.Items.Add(item);
 			}
-
 		}
-    }
+	}
 }

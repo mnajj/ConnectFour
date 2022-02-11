@@ -78,6 +78,7 @@
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.DestroyServer);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ClosingForm";
 			this.Text = "ClosingForm";
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
