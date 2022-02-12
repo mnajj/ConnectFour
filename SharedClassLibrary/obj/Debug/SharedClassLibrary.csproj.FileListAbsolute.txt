@@ -27,3 +27,9 @@ C:\Users\DELL\Repos\ConnectFour\ConnectFour\SharedClassLibrary\obj\Debug\SharedC
 C:\Users\DELL\Repos\ConnectFour\ConnectFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.csproj.CoreCompileInputs.cache
 C:\Users\DELL\Repos\ConnectFour\ConnectFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.dll
 C:\Users\DELL\Repos\ConnectFour\ConnectFour\SharedClassLibrary\obj\Debug\SharedClassLibrary.pdb
+C:\Users\DELL\OneDrive\سطح المكتب\BASE\SharedClassLibrary\bin\Debug\SharedClassLibrary.dll
+C:\Users\DELL\OneDrive\سطح المكتب\BASE\SharedClassLibrary\bin\Debug\SharedClassLibrary.pdb
+C:\Users\DELL\OneDrive\سطح المكتب\BASE\SharedClassLibrary\obj\Debug\SharedClassLibrary.csproj.AssemblyReference.cache
+C:\Users\DELL\OneDrive\سطح المكتب\BASE\SharedClassLibrary\obj\Debug\SharedClassLibrary.csproj.CoreCompileInputs.cache
+C:\Users\DELL\OneDrive\سطح المكتب\BASE\SharedClassLibrary\obj\Debug\SharedClassLibrary.dll
+C:\Users\DELL\OneDrive\سطح المكتب\BASE\SharedClassLibrary\obj\Debug\SharedClassLibrary.pdb

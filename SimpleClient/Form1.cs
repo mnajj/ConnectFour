@@ -261,6 +261,12 @@ namespace SimpleClient
 								roomsListForm.WaitingRoom.AppendNewWatchOnlySpec(msg.Split(',')[2]);
 							});
 						}
+						else if (status == 99)
+						{
+							roomsListForm
+								.WaitingRoom.GamingPlayGroundForm
+								.RecieveCounterMove(int.Parse(msg.Split(',')[2]));
+						}
 					}
 				}
 			}

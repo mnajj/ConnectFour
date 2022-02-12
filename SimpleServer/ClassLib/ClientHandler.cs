@@ -19,6 +19,7 @@ namespace SimpleServer.ClassLib
 		public bool IsOwner { get; set; }
 		public bool IsPlayer { get; set; }
 		public Color DiskColor { get; set; }
+		public int PlayerNumber { get; set; }	
 
 		NetworkStream networkStream;
 		BinaryWriter bWriter;
@@ -91,8 +92,8 @@ namespace SimpleServer.ClassLib
 							UpdateAllMembersToOthers(int.Parse(reqRes.Split(',')[2]));
 							break;
 						case 9:
-							SaveMoveData();
-							CheckForWinner();
+							SaveMoveData(int.Parse(reqRes.Split(',')[2]));
+							CheckForWinner(int.Parse(reqRes.Split(',')[2]));
 							break;
 						case 12:
 							SendConnectedUsersToNewLogin();
@@ -194,14 +195,204 @@ namespace SimpleServer.ClassLib
 			}
 		}
 
-		private void CheckForWinner()
+		private void CheckForWinner(int col)
 		{
-			throw new NotImplementedException();
+			Game game = DataLayer.Rooms[this.CurrentRoomNumber].Game;
+			int winNum = -1;
+			for (int i = 0; i < 6; i++)
+			{
+				for (int j = 0; j < 7; j++)
+				{
+					if (j <= 3)//for the horizantal either left or right from this point
+					{
+
+						//player 1
+						if (game.BoardData[i][j] == 1 && game.BoardData[i][j + 1] == 1 && game.BoardData[i][j + 2] == 1 && game.BoardData[i][j + 3] == 1)
+						{
+							winNum = 1;
+						}
+
+						//player 2
+						else if (game.BoardData[i][j] == 2 && game.BoardData[i][j + 1] == 2 && game.BoardData[i][j + 2] == 2 && game.BoardData[i][j + 3] == 2)
+						{
+							winNum = 2;
+						}
+
+
+					}
+					if (i == 0 || i == 1 || i == 2)//verticalll
+					{
+						if (game.BoardData[i][j] == 1 && game.BoardData[i + 1][j] == 1 && game.BoardData[i + 2][j] == 1 && game.BoardData[i + 3][j] == 1)//vertical side player1
+						{
+							winNum = 1;
+						}
+						else if (game.BoardData[i][j] == 2 && game.BoardData[i + 1][j] == 2 && game.BoardData[i + 2][j] == 2 && game.BoardData[i + 3][j] == 2)//vertical side player1
+						{
+							winNum = 2;
+						}
+					}
+					else
+					{
+
+
+						// ascendingDiagonalCheck 
+						if (i >= 3 && j <= 3)//in the upper half of thee game.BoardData
+						{
+							//player 1
+							if (game.BoardData[i][j] == 1 && game.BoardData[i - 1][j + 1] == 1 && game.BoardData[i - 2][j + 2] == 1 && game.BoardData[i - 3][j + 3] == 1)//digonal asc  player1
+							{
+								winNum = 1;
+							}
+							//player 2
+							else if (game.BoardData[i][j] == 2 && game.BoardData[i - 1][j + 1] == 2 && game.BoardData[i - 2][j + 2] == 2 && game.BoardData[i - 3][j + 3] == 2)//digonal asc  player2
+							{
+								winNum = 2;
+							}
+
+						}
+
+						// descendingDiagonalCheck 
+						if (i >= 3 && j >= 3 && j < 7)//in the lower half of thee game.BoardData
+						{
+
+							//player 1
+							if (game.BoardData[i][j] == 1 && game.BoardData[i - 1][j - 1] == 1 && game.BoardData[i - 2][j - 2] == 1 && game.BoardData[i - 3][j - 3] == 1)//digonal desc  player1
+							{
+								winNum = 1;
+							}
+							//player 2
+							else if (game.BoardData[i][j] == 2 && game.BoardData[i - 1][j - 1] == 2 && game.BoardData[i - 2][j - 2] == 2 && game.BoardData[i - 3][j - 3] == 2)//digonal desc  player2
+							{
+								winNum = 2;
+							}
+						}
+					}
+				}
+			}
+			ClientHandler counterCln = null;
+			foreach (var cln in DataLayer.Clients)
+			{
+				if (cln.CurrentRoomNumber == this.CurrentRoomNumber
+					&& cln.UserName == this.Counter)
+				{
+					counterCln = cln;
+				}
+			}
+			if (winNum != -1)
+			{
+				if (winNum == 1)
+				{
+					// TODO
+				}
+				else if (winNum == 2)
+				{
+					// TODO
+				}
+			}
+			else
+			{
+				bWriter = new BinaryWriter(counterCln.Socket.GetStream());
+				bWriter.Write($"99,Send move to counter,{col}");
+			}
 		}
 
-		private void SaveMoveData()
+		private void SaveMoveData(int col)
 		{
-			throw new NotImplementedException();
+			int currRoomIdx = this.CurrentRoomNumber;
+			Room currRoom = DataLayer.Rooms[currRoomIdx];
+			Game currGame = currRoom.Game;
+
+			if (col == 0)
+			{
+				if (this.PlayerNumber == 1)
+				{
+					currGame.BoardData[currGame.Board1X][0] = 1;
+					currGame.Board1X--;
+				}
+				else
+				{
+					currGame.BoardData[currGame.Board1X][0] = 2;
+					currGame.Board1X--;
+				}
+			}
+			else if (col == 1)
+			{
+				if (this.PlayerNumber == 1)
+				{
+					currGame.BoardData[currGame.Board2X][1] = 1;
+					currGame.Board2X--;
+				}
+				else
+				{
+					currGame.BoardData[currGame.Board2X][1] = 2;
+					currGame.Board2X--;
+				}
+			}
+			else if (col == 2)
+			{
+				if (this.PlayerNumber == 1)
+				{
+					currGame.BoardData[currGame.Board3X][2] = 1;
+					currGame.Board3X--;
+				}
+				else
+				{
+					currGame.BoardData[currGame.Board3X][2] = 2;
+					currGame.Board3X--;
+				}
+			}
+			else if (col == 3)
+			{
+				if (this.PlayerNumber == 1)
+				{
+					currGame.BoardData[currGame.Board4X][3] = 1;
+					currGame.Board4X--;
+				}
+				else
+				{
+					currGame.BoardData[currGame.Board4X][3] = 2;
+					currGame.Board4X--;
+				}
+			}
+			else if (col == 4)
+			{
+				if (this.PlayerNumber == 1)
+				{
+					currGame.BoardData[currGame.Board5X][4] = 1;
+					currGame.Board5X--;
+				}
+				else
+				{
+					currGame.BoardData[currGame.Board5X][4] = 2;
+					currGame.Board5X--;
+				}
+			}
+			else if (col == 5)
+			{
+				if (this.PlayerNumber == 1)
+				{
+					currGame.BoardData[currGame.Board6X][5] = 1;
+					currGame.Board6X--;
+				}
+				else
+				{
+					currGame.BoardData[currGame.Board6X][5] = 2;
+					currGame.Board6X--;
+				}
+			}
+			else if (col == 6)
+			{
+				if (this.PlayerNumber == 1)
+				{
+					currGame.BoardData[currGame.Board7X][6] = 1;
+					currGame.Board7X--;
+				}
+				else
+				{
+					currGame.BoardData[currGame.Board7X][6] = 2;
+					currGame.Board7X--;
+				}
+			}
 		}
 
 		private void LogOutFrom(int roomIdx)
@@ -245,13 +436,16 @@ namespace SimpleServer.ClassLib
 				{
 					if (cln.UserName != this.UserName)
 					{
+						this.PlayerNumber = 2;
 						this.Counter = cln.UserName;
+						cln.PlayerNumber = 1;
 						cln.Counter = this.UserName;
 
 						bWriter = new BinaryWriter(cln.Socket.GetStream());
 						if (header == 7)
 						{
 							bWriter.Write($"77,Your request accepted,{this.UserName},{currRoom.RoomBoardSize}");
+							CreateAndInitGame(roomIdx);
 						}
 						else
 						{
@@ -270,6 +464,31 @@ namespace SimpleServer.ClassLib
 			//		clinetBF.Serialize(cln.Socket.GetStream(), DataLayer.Rooms);
 			//	}
 			//}
+		}
+
+		private void CreateAndInitGame(int roomIdx)
+		{
+			DataLayer.Rooms[roomIdx].Game = new Game();
+			if (DataLayer.Rooms[this.CurrentRoomNumber].RoomBoardSize == "6×7")
+			{
+				DataLayer.Rooms[roomIdx].Game.Board1X = 5;
+				DataLayer.Rooms[roomIdx].Game.Board2X = 5;
+				DataLayer.Rooms[roomIdx].Game.Board3X = 5;
+				DataLayer.Rooms[roomIdx].Game.Board4X = 5;
+				DataLayer.Rooms[roomIdx].Game.Board5X = 5;
+				DataLayer.Rooms[roomIdx].Game.Board6X = 5;
+				DataLayer.Rooms[roomIdx].Game.Board7X = 5;
+			}
+			else if (DataLayer.Rooms[this.CurrentRoomNumber].RoomBoardSize == "4×5")
+			{
+				DataLayer.Rooms[roomIdx].Game.Board1X = 3;
+				DataLayer.Rooms[roomIdx].Game.Board2X = 3;
+				DataLayer.Rooms[roomIdx].Game.Board3X = 3;
+				DataLayer.Rooms[roomIdx].Game.Board4X = 3;
+				DataLayer.Rooms[roomIdx].Game.Board5X = 3;
+				DataLayer.Rooms[roomIdx].Game.Board6X = 3;
+				DataLayer.Rooms[roomIdx].Game.Board7X = 3;
+			}
 		}
 
 		private void PickColor(string strColor)
