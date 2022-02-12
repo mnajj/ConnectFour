@@ -23,7 +23,8 @@ namespace SimpleClient
 		List<Room> roomsList;
 		bool quit;
 
-
+		// Msg Vars
+		public string AskCounterDialogMessage { get; set; }
 		// Rooms
 		RoomsList roomsListForm;
 		public NetworkStream ClientNetworkStream { get => networkStream; set => networkStream = value; }
@@ -187,17 +188,23 @@ namespace SimpleClient
 						}
 						else if (status == 66)
 						{
-							roomsListForm.WaitingRoom.ShowCounterDialogForm(
-								msg.Split(',')[2],
-								msg.Split(',')[3]);
+							roomsListForm.WaitingRoom.Invoke((Action)delegate
+							{
+								roomsListForm.WaitingRoom.ShowCounterDialogForm(
+									msg.Split(',')[2],
+									msg.Split(',')[3]);
+							});
 						}
 						else if (status == 77 || status == -77)
 						{
-							roomsListForm.WaitingRoom.RecieveMyReqResponse(
-								int.Parse(msg.Split(',')[0]),
-								msg.Split(',')[2],
-								msg.Split(',')[3]
-								);
+							roomsListForm.WaitingRoom.Invoke((Action)delegate
+							{
+								roomsListForm.WaitingRoom.RecieveMyReqResponse(
+									int.Parse(msg.Split(',')[0]),
+									msg.Split(',')[2],
+									msg.Split(',')[3]
+									);
+							});
 						}
 						else if (status == 88)
 						{

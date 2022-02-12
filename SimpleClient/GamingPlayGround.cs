@@ -58,11 +58,11 @@ namespace SimpleClient
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			if (waitingRoom.RoomsListForm.CreatedWaitingdRoomBoardSize == "6×7")
+			if (BoardSize == "6×7")
 			{
 				DrawSixBySeven();
 			}
-			else if (waitingRoom.RoomsListForm.CreatedWaitingdRoomBoardSize == "4×5")
+			else if (BoardSize == "4×5")
 			{
 				DrawFourByFive();
 			}
@@ -158,20 +158,20 @@ namespace SimpleClient
 			IsMyTurn = false;
 		}
 
-		private void GamingPlayGround_Load(object sender, System.EventArgs e)
-		{
-			string size = waitingRoom.RoomsListForm.CreatedWaitingdRoomBoardSize;
-			switch (size)
-			{
-				case "4×5":
-					DrawFourByFive();
-					break;
-				case "6×7":
-					DrawSixBySeven();
-					break;
-			}
-			ClearArray();
-		}
+		//private void GamingPlayGround_Load(object sender, System.EventArgs e)
+		//{
+		//	string size = waitingRoom.RoomsListForm.CreatedWaitingdRoomBoardSize;
+		//	switch (size)
+		//	{
+		//		case "4×5":
+		//			DrawFourByFive();
+		//			break;
+		//		case "6×7":
+		//			DrawSixBySeven();
+		//			break;
+		//	}
+		//	ClearArray();
+		//}
 
 		private void DrawSixBySeven()
 		{

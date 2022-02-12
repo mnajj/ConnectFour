@@ -37,7 +37,6 @@
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Name = "GamingPlayGround";
 			this.Text = "GamingPlayGround";
-			this.Load += new System.EventHandler(this.GamingPlayGround_Load);
 			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GamingPlayGround_MouseDown);
 			this.ResumeLayout(false);
 
