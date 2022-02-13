@@ -272,8 +272,7 @@ namespace SimpleServer.ClassLib
 			ClientHandler counterCln = null;
 			foreach (var cln in DataLayer.Clients)
 			{
-				if (cln.CurrentRoomNumber == this.CurrentRoomNumber
-					&& cln.UserName == this.Counter)
+				if (cln.UserName == this.Counter)
 				{
 					counterCln = cln;
 				}

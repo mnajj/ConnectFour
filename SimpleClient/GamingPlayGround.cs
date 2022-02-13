@@ -76,11 +76,11 @@ namespace SimpleClient
 
 		private void GamingPlayGround_MouseDown(object sender, MouseEventArgs e)
 		{
-			int col = -1;
-			while (!IsGameOver)
+			if (!IsGameOver)
 			{
 				if (IsMyTurn)
 				{
+					int col = -1;
 					IsMyTurn = false;
 					// Darw Disk Move
 					if (BoardSize == "6×7")

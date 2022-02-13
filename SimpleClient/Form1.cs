@@ -212,7 +212,7 @@ namespace SimpleClient
 						}
 						else if (status == 77 || status == -77)
 						{
-							roomsListForm.WaitingRoom.Invoke((Action)delegate
+							roomsListForm.Invoke((Action)delegate
 							{
 								roomsListForm.WaitingRoom.RecieveMyReqResponse(
 									int.Parse(msg.Split(',')[0]),
@@ -263,6 +263,12 @@ namespace SimpleClient
 						}
 						else if (status == 99)
 						{
+							//roomsListForm.Invoke((Action)delegate
+							//{
+							//	roomsListForm
+							//	.WaitingRoom.GamingPlayGroundForm
+							//	.RecieveCounterMove(int.Parse(msg.Split(',')[2]));
+							//});
 							roomsListForm
 								.WaitingRoom.GamingPlayGroundForm
 								.RecieveCounterMove(int.Parse(msg.Split(',')[2]));
