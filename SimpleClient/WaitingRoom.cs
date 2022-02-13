@@ -3,8 +3,6 @@ using SimpleClient.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SimpleClient
@@ -15,6 +13,7 @@ namespace SimpleClient
 		RoomsList roomsListForm;
 		BinaryWriter bWriter;
 
+		public string PlayerColor { get; set; }
 		public bool IsGuest { get; set; }
 		public bool IsPlayer { get; set; }
 		public int RoomIdx { get; set; }
@@ -31,6 +30,21 @@ namespace SimpleClient
 			this.IsPlayer = isPlayer;
 
 			bWriter = new BinaryWriter(roomsListForm.ClientForm.ClientNetworkStream);
+			if (roomsListForm.OwnerClr != null)
+			{
+				switch (roomsListForm.OwnerClr)
+				{
+					case "Red":
+						this.ChooseDiskColorComboBox.Text = "Red";
+						break;
+					case "Blue":
+						this.ChooseDiskColorComboBox.SelectedIndex = ChooseDiskColorComboBox.FindString("Blue");
+						break;
+					case "Yellow":
+						this.ChooseDiskColorComboBox.SelectedIndex = ChooseDiskColorComboBox.FindString("Yellow");
+						break;
+				}
+			}
 		}
 
 		private void WaitingRoom_Load(object sender, EventArgs e)
@@ -182,6 +196,7 @@ namespace SimpleClient
 					}
 					else
 					{
+						this.PlayerColor = ChooseDiskColorComboBox.Text;
 						string diskColor = ChooseDiskColorComboBox.Text;
 						bWriter.Write($"6,send start game request for the counter,{diskColor},{RoomIdx},Bla!");
 					}

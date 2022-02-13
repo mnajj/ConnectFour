@@ -26,6 +26,7 @@ namespace SimpleClient
 		public string CreatedWaitingdRoomBoardSize { get; set; }
 		public Room GuestRoomData { get; set; }
 		public bool IsRoomCreator { get; set; }
+		public string OwnerClr { get; set; }
 
 		public RoomsList(Form1 clinetForm)
 		{
@@ -109,6 +110,7 @@ namespace SimpleClient
 
 				CreatedWaitingdRoomName = RoomDlg.RoomName;
 				CreatedWaitingdRoomOwnerDiskColor = RoomDlg.RoomOwnerDiskColor;
+				OwnerClr = RoomDlg.RoomOwnerDiskColor;
 				CreatedWaitingdRoomBoardSize = RoomDlg.RoomBoardSize;
 				CreateNewRoom(CreatedWaitingdRoomName);
 

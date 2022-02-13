@@ -64,6 +64,12 @@
     <Compile Include="Dialogs\CounterResponseMsgDialog.Designer.cs">
       <DependentUpon>CounterResponseMsgDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\DeclareDialg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DeclareDialg.Designer.cs">
+      <DependentUpon>DeclareDialg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\CounterResponseMsgDialog.resx">
       <DependentUpon>CounterResponseMsgDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DeclareDialg.resx">
+      <DependentUpon>DeclareDialg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

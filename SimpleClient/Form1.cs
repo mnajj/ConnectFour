@@ -271,7 +271,14 @@ namespace SimpleClient
 							//});
 							roomsListForm
 								.WaitingRoom.GamingPlayGroundForm
-								.RecieveCounterMove(int.Parse(msg.Split(',')[2]));
+								.RecieveCounterMove(int.Parse(msg.Split(',')[2]),
+									msg.Split(',')[3]);
+						}
+						else if (status == 991 || status == 990)
+						{
+							roomsListForm
+							.WaitingRoom.GamingPlayGroundForm
+							.DeclareWinnerOrLoser(status);
 						}
 					}
 				}

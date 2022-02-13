@@ -216,3 +216,4 @@ C:\Users\DELL\OneDrive\سطح المكتب\BASE\SimpleClient\obj\Debug\SimpleCli
 C:\Users\DELL\OneDrive\سطح المكتب\BASE\SimpleClient\obj\Debug\SimpleClient.csproj.CopyComplete
 C:\Users\DELL\OneDrive\سطح المكتب\BASE\SimpleClient\obj\Debug\SimpleClient.exe
 C:\Users\DELL\OneDrive\سطح المكتب\BASE\SimpleClient\obj\Debug\SimpleClient.pdb
+C:\Users\DELL\OneDrive\سطح المكتب\BASE\SimpleClient\obj\Debug\SimpleClient.Dialogs.DeclareDialg.resources

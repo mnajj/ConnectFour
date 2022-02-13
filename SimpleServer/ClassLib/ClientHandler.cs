@@ -93,7 +93,7 @@ namespace SimpleServer.ClassLib
 							break;
 						case 9:
 							SaveMoveData(int.Parse(reqRes.Split(',')[2]));
-							CheckForWinner(int.Parse(reqRes.Split(',')[2]));
+							CheckForWinner(int.Parse(reqRes.Split(',')[2]), reqRes.Split(',')[3]);
 							break;
 						case 12:
 							SendConnectedUsersToNewLogin();
@@ -195,7 +195,7 @@ namespace SimpleServer.ClassLib
 			}
 		}
 
-		private void CheckForWinner(int col)
+		private void CheckForWinner(int col, string counterClr)
 		{
 			Game game = DataLayer.Rooms[this.CurrentRoomNumber].Game;
 			int winNum = -1;
@@ -279,19 +279,35 @@ namespace SimpleServer.ClassLib
 			}
 			if (winNum != -1)
 			{
+				ClientHandler playerOne = DataLayer.Clients
+					.Where(c => c.PlayerNumber == 1)
+					.Where(c => c.CurrentRoomNumber == this.CurrentRoomNumber)
+					.FirstOrDefault();
+				ClientHandler playerTwo = DataLayer.Clients
+					.Where(c => c.PlayerNumber == 2)
+					.Where(c => c.CurrentRoomNumber == this.CurrentRoomNumber)
+					.FirstOrDefault();
 				if (winNum == 1)
 				{
-					// TODO
+					bWriter = new BinaryWriter(playerOne.Socket.GetStream());
+					bWriter.Write("991,YouWinTheGame");
+					bWriter = new BinaryWriter(playerTwo.Socket.GetStream());
+					bWriter.Write($"99,Send move to counter,{col},{counterClr}");
+					bWriter.Write("990,YouLoseTheGame");
 				}
 				else if (winNum == 2)
 				{
-					// TODO
+					bWriter = new BinaryWriter(playerTwo.Socket.GetStream());
+					bWriter.Write("991,YouWinTheGame");
+					bWriter = new BinaryWriter(playerOne.Socket.GetStream());
+					bWriter.Write($"99,Send move to counter,{col},{counterClr}");
+					bWriter.Write("990,YouLoseTheGame");
 				}
 			}
 			else
 			{
 				bWriter = new BinaryWriter(counterCln.Socket.GetStream());
-				bWriter.Write($"99,Send move to counter,{col}");
+				bWriter.Write($"99,Send move to counter,{col},{counterClr}");
 			}
 		}
 

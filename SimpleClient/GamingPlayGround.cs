@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using SimpleClient.Dialogs;
 
 namespace SimpleClient
 {
@@ -11,6 +12,7 @@ namespace SimpleClient
 		WaitingRoom waitingRoom;
     BinaryWriter bWriter;
 		public Color PlayerClr { get; set; }
+		public Color CounterClr { get; set; }
 		public bool IsSpectator { get; set; }
 		public bool IsMyTurn { get; set; }
     public bool IsInvitationSender { get; set; }
@@ -51,14 +53,54 @@ namespace SimpleClient
 			}
 			IsGameOver = false;
       bWriter = new BinaryWriter(waitingRoom.RoomsListForm.ClientForm.ClientNetworkStream);
+			if (waitingRoom.PlayerColor == null)
+			{
+				PickOwnerColor();
+			}
+			else
+			{
+				PickMyColor();
+			}
 
 			// GFX
 			blackPen = new Pen(Color.Black, 1);
 			g = CreateGraphics();
 			drawFont = new Font("Arial", 12);
 			drawBrush = new SolidBrush(Color.Black);
-			playerBrush = new SolidBrush(Color.Black);
-			counterPlayerBrush = new SolidBrush(Color.Red);
+			playerBrush = new SolidBrush(PlayerClr);
+			counterPlayerBrush = new SolidBrush(CounterClr);
+		}
+
+		private void PickOwnerColor()
+		{
+			switch (waitingRoom.RoomsListForm.OwnerClr)
+			{
+				case "Red":
+					this.PlayerClr = Color.Red;
+					break;
+				case "Blue":
+					this.PlayerClr = Color.Blue;
+					break;
+				case "Yellow":
+					this.PlayerClr = Color.Yellow;
+					break;
+			}
+		}
+
+		private void PickMyColor()
+		{
+			switch (waitingRoom.PlayerColor)
+			{
+				case "Red":
+					this.PlayerClr = Color.Red;
+					break;
+				case "Blue":
+					this.PlayerClr = Color.Blue;
+					break;
+				case "Yellow":
+					this.PlayerClr = Color.Yellow;
+					break;
+			}
 		}
 
 		protected override void OnPaint(PaintEventArgs e)
@@ -215,7 +257,7 @@ namespace SimpleClient
 
 		private void SendMyMoveToServer(int col)
 		{
-			bWriter.Write($"9,Send Move to Server,{col}");
+			bWriter.Write($"9,Send Move to Server,{col},{PlayerClr.Name}");
 			this.IsMyTurn = false;
 		}
 
@@ -305,6 +347,21 @@ namespace SimpleClient
 			}
 		}
 
+		public void DeclareWinnerOrLoser(int status)
+		{
+			if (status == 991)
+			{
+				DeclareDialg declareDialg = new DeclareDialg(true);
+				DialogResult dlgRes = declareDialg.ShowDialog();
+			}
+			else
+			{
+				DeclareDialg declareDialg = new DeclareDialg(false);
+				DialogResult dlgRes = declareDialg.ShowDialog();
+			}
+			IsGameOver = true;
+		}
+
 		private void ClearArray()
 		{
 			int boxCountX1 = 0;
@@ -331,8 +388,21 @@ namespace SimpleClient
 			}
 		}
 
-		public void RecieveCounterMove(int col)
+		public void RecieveCounterMove(int col, string counterClr)
 		{
+			switch (counterClr)
+			{
+				case "Red":
+					this.CounterClr = Color.Red;
+					break;
+				case "Blue":
+					this.CounterClr = Color.Blue;
+					break;
+				case "Yellow":
+					this.CounterClr = Color.Yellow;
+					break;
+			}
+			counterPlayerBrush.Color = CounterClr;
 			if (BoardSize == "6×7")
 			{
 				if (col == 0)
