@@ -409,6 +409,12 @@ namespace SimpleServer.ClassLib
 					bWriter = new BinaryWriter(playerTwo.Socket.GetStream());
 					bWriter.Write($"99,Send move to counter,{col},{counterClr}");
 					bWriter.Write("990,YouLoseTheGame");
+
+					string record = $"{playerOne.UserName} beat {playerTwo.UserName}";
+					File.AppendAllText(
+						Path.Combine(Environment.CurrentDirectory, "RecordLog.txt"),
+						record + Environment.NewLine
+						);
 				}
 				else if (winNum == 2)
 				{
@@ -417,6 +423,12 @@ namespace SimpleServer.ClassLib
 					bWriter = new BinaryWriter(playerOne.Socket.GetStream());
 					bWriter.Write($"99,Send move to counter,{col},{counterClr}");
 					bWriter.Write("990,YouLoseTheGame");
+
+					string record = $"{playerTwo.UserName} beat {playerOne.UserName}";
+					File.AppendAllText(
+						Path.Combine(Environment.CurrentDirectory, "RecordLog.txt"),
+						record + Environment.NewLine
+						);
 				}
 			}
 			else
