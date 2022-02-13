@@ -106,14 +106,25 @@ namespace SimpleServer.ClassLib
 						case 909:
 							RefuseoPlayAgain();
 							break;
+
+						case 156:
+							RedirectSpecToLiveGame(int.Parse(reqRes.Split(',')[2]));
+							break;
+						//case 255:
+						//	AddNewSpectatorToRoom(int.Parse(reqRes.Split(',')[2]));
+						//	SendRoomData(int.Parse(reqRes.Split(',')[2]));
+						//	AddWatchOnlySpec(int.Parse(reqRes.Split(',')[2]));
+						//	DirectRedirectSpecToGaming(int.Parse(reqRes.Split(',')[2]));
+						//	break;
 					}
 				}
 			}
 		}
 
-		private void SavePlayerColor(string clr)
+		private void RedirectSpecToLiveGame(int roomIdx)
 		{
-			
+			bWriter = new BinaryWriter(networkStream);
+			bWriter.Write($"707,View For Spec,{DataLayer.Rooms[roomIdx].RoomBoardSize}");
 		}
 
 		private void RefuseoPlayAgain()
@@ -123,7 +134,7 @@ namespace SimpleServer.ClassLib
 				.Where(c => c.IsPlayer == true)
 				.Where(c => c.CurrentRoomNumber == this.CurrentRoomNumber)
 				.FirstOrDefault();
-			if (counterCln.PlayAgain == 0 ||counterCln.PlayAgain == -1)
+			if (counterCln.PlayAgain == 0 || counterCln.PlayAgain == -1)
 			{
 				this.Counter = "";
 			}
@@ -132,6 +143,34 @@ namespace SimpleServer.ClassLib
 				bWriter = new BinaryWriter(counterCln.Socket.GetStream());
 				bWriter.Write("9090,Other player refuse to play Again");
 				DataLayer.Rooms[this.CurrentRoomNumber].Game.ResetTheBoard();
+				SendCancelationToSpecs();
+				DataLayer.Rooms[this.CurrentRoomNumber].Status = "Waiting";
+			}
+		}
+
+		private void SendCancelationToSpecs()
+		{
+			Room currRoom = DataLayer.Rooms[this.CurrentRoomNumber];
+			List<string> specNames = new List<string>();
+			List<ClientHandler> specClients = new List<ClientHandler>();
+			foreach (var spec in currRoom.Spectators)
+			{
+				specNames.Add(spec.UserName);
+			}
+			for (int i = 0; i < specNames.Count; i++)
+			{
+				for (int j = 0; j < DataLayer.Clients.Count; j++)
+				{
+					if (specNames[i] == DataLayer.Clients[j].UserName)
+					{
+						specClients.Add(DataLayer.Clients[j]);
+					}
+				}
+			}
+			foreach (var cln in specClients)
+			{
+				bWriter = new BinaryWriter(cln.Socket.GetStream());
+				bWriter.Write($"88008,stop game the session");
 			}
 		}
 
@@ -149,6 +188,33 @@ namespace SimpleServer.ClassLib
 				bWriter.Write("9191,Other player want to play Again");
 				bWriter = new BinaryWriter(networkStream);
 				bWriter.Write("9191,Other player want to play Again");
+				SendAcceptationToSpecs();
+			}
+		}
+
+		private void SendAcceptationToSpecs()
+		{
+			Room currRoom = DataLayer.Rooms[this.CurrentRoomNumber];
+			List<string> specNames = new List<string>();
+			List<ClientHandler> specClients = new List<ClientHandler>();
+			foreach (var spec in currRoom.Spectators)
+			{
+				specNames.Add(spec.UserName);
+			}
+			for (int i = 0; i < specNames.Count; i++)
+			{
+				for (int j = 0; j < DataLayer.Clients.Count; j++)
+				{
+					if (specNames[i] == DataLayer.Clients[j].UserName)
+					{
+						specClients.Add(DataLayer.Clients[j]);
+					}
+				}
+			}
+			foreach (var cln in specClients)
+			{
+				bWriter = new BinaryWriter(cln.Socket.GetStream());
+				bWriter.Write($"88258,Resume the session");
 			}
 		}
 
@@ -538,6 +604,7 @@ namespace SimpleServer.ClassLib
 							bWriter.Write($"77,Your request accepted,{this.UserName},{currRoom.RoomBoardSize}");
 							CreateAndInitGame(roomIdx);
 							SendvIewDataToSpecs(roomIdx);
+							currRoom.Status = "Playing Now!";
 						}
 						else
 						{
@@ -546,16 +613,6 @@ namespace SimpleServer.ClassLib
 					}
 				}
 			}
-			//foreach (ClientHandler cln in DataLayer.Clients)
-			//{
-			//	if (cln.CurrentRoomNumber == roomIdx && (!IsPlayer))
-			//	{
-			//		bWriter = new BinaryWriter(cln.Socket.GetStream());
-			//		bWriter.Write($"77,Your request accepted,{this.UserName}");
-			//		BinaryFormatter clinetBF = new BinaryFormatter();
-			//		clinetBF.Serialize(cln.Socket.GetStream(), DataLayer.Rooms);
-			//	}
-			//}
 		}
 
 		private void SendvIewDataToSpecs(int roomIdx)
@@ -667,6 +724,7 @@ namespace SimpleServer.ClassLib
 						BinaryFormatter bf = new BinaryFormatter();
 						bf.Serialize(networkStream, DataLayer.ConnectedUsers);
 					}
+					networkStream.Flush();
 				}
 			}
 			else
@@ -705,6 +763,7 @@ namespace SimpleServer.ClassLib
 				{
 					Index = idx,
 					RoomName = splitedData[1],
+					Status = "Waiting",
 					RoomBoardSize = splitedData[3],
 					RoomOwnerDiskColor = splitedData[4],
 					Players = new List<User>(),

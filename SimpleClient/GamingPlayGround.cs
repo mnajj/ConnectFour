@@ -1,7 +1,5 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 using SimpleClient.Dialogs;
 
@@ -501,6 +499,21 @@ namespace SimpleClient
 					}
 				}
 			}
+		}
+
+		public void EndSession()
+		{
+			waitingRoom.RoomsListForm.IsGameLive = false;
+			MessageBox.Show("This Session Ended, You Can Leave Now");
+			waitingRoom.Show();
+			this.Close();
+		}
+
+		public void ResumeSession()
+		{
+			MessageBox.Show("Players Will Play Game Again");
+			ClearArray();
+			Invalidate();
 		}
 
 		public void DeclareWinnerOrLoser(int status)

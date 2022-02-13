@@ -9,6 +9,7 @@ namespace ShardClassLibrary
 	{
 		public int Index { get; set; }
 		public string RoomName { get; set; }
+		public string Status { get; set; }
 		public User RoomOwner { get; set; }
 		public string RoomOwnerDiskColor { get; set; }
 		public string RoomBoardSize { get; set; }

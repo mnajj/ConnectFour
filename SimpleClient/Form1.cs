@@ -135,176 +135,193 @@ namespace SimpleClient
 				if (networkStream.DataAvailable)
 				{
 					bReader = new BinaryReader(networkStream);
-					string msg = bReader.ReadString();
-					if (msg != String.Empty)
-					{
-						int status = int.Parse(msg.Split(',')[0]);
-						if (status == -11)
+					if (bReader.PeekChar() > 0)
+					{ 
+						string msg = bReader.ReadString();
+						if (msg != String.Empty)
 						{
-							if (roomsListForm.WaitingRoom == null
-								|| roomsListForm.WaitingRoom.GamingPlayGroundForm == null)
+							int status = int.Parse(msg.Split(',')[0]);
+							if (status == -11)
+							{
+								if (roomsListForm.WaitingRoom == null
+									|| roomsListForm.WaitingRoom.GamingPlayGroundForm == null)
+								{
+									BinaryFormatter formatter = new BinaryFormatter();
+									var conUsers = (List<User>)formatter.Deserialize(networkStream);
+									this.Invoke((Action)delegate
+									{
+										this.AddRoomsToRoomsListView(null, conUsers);
+									});
+								}
+							}
+							else if (status == 111)
 							{
 								BinaryFormatter formatter = new BinaryFormatter();
+								roomsList = (List<Room>)formatter.Deserialize(networkStream);
 								var conUsers = (List<User>)formatter.Deserialize(networkStream);
 								this.Invoke((Action)delegate
 								{
-									this.AddRoomsToRoomsListView(null, conUsers);
+									this.AddRoomsToRoomsListView(roomsList, conUsers);
 								});
 							}
-						}
-						else if (status == 111)
-						{
-							BinaryFormatter formatter = new BinaryFormatter();
-							roomsList = (List<Room>)formatter.Deserialize(networkStream);
-							var conUsers = (List<User>)formatter.Deserialize(networkStream);
-							this.Invoke((Action)delegate
+							else if (status == 1111)
 							{
-								this.AddRoomsToRoomsListView(roomsList, conUsers);
-							});
-						}
-						else if (status == 1111)
-						{
-							BinaryFormatter formatter = new BinaryFormatter();
-							var conUs = (List<User>)formatter.Deserialize(networkStream);
-							this.Invoke((Action)delegate
+								BinaryFormatter formatter = new BinaryFormatter();
+								var conUs = (List<User>)formatter.Deserialize(networkStream);
+								this.Invoke((Action)delegate
+								{
+									this.AddRoomsToRoomsListView(null, conUs);
+								});
+							}
+							else if (status == 44)
 							{
-								this.AddRoomsToRoomsListView(null, conUs);
-							});
-						}
-						else if (status == 44)
-						{
-							BinaryFormatter formatter = new BinaryFormatter();
-							Room roomData = (Room)formatter.Deserialize(networkStream);
-							roomsListForm.GuestRoomData = roomData;
-						}
-						else if (status == 444)
-						{
-							BinaryFormatter formatter = new BinaryFormatter();
-							var newPlayers = (List<string>)formatter.Deserialize(networkStream);
-							roomsListForm.WaitingRoom.Invoke((Action)delegate
+								BinaryFormatter formatter = new BinaryFormatter();
+								Room roomData = (Room)formatter.Deserialize(networkStream);
+								roomsListForm.GuestRoomData = roomData;
+							}
+							else if (status == 444)
 							{
-								roomsListForm.WaitingRoom.GetMemberChanges(newPlayers);
-							});
-						}
-						else if (status == 55)
-						{
-							BinaryFormatter formatter = new BinaryFormatter();
-							Room spacData = (Room)formatter.Deserialize(networkStream);
-							roomsListForm.SpacRoomData = spacData;
-						}
-						else if (status == 555)
-						{
-							BinaryFormatter formatter = new BinaryFormatter();
-							var newPlayers = (List<string>)formatter.Deserialize(networkStream);
-							roomsListForm.WaitingRoom.Invoke((Action)delegate
+								BinaryFormatter formatter = new BinaryFormatter();
+								var newPlayers = (List<string>)formatter.Deserialize(networkStream);
+								roomsListForm.WaitingRoom.Invoke((Action)delegate
+								{
+									roomsListForm.WaitingRoom.GetMemberChanges(newPlayers);
+								});
+							}
+							else if (status == 55)
 							{
-								roomsListForm.WaitingRoom.GetSpacMemberChanges(newPlayers);
-							});
-						}
-						else if (status == 66)
-						{
-							roomsListForm.WaitingRoom.Invoke((Action)delegate
+								BinaryFormatter formatter = new BinaryFormatter();
+								Room spacData = (Room)formatter.Deserialize(networkStream);
+								roomsListForm.SpacRoomData = spacData;
+							}
+							else if (status == 555)
 							{
-								roomsListForm.WaitingRoom.ShowCounterDialogForm(
-									msg.Split(',')[2],
-									msg.Split(',')[3]);
-							});
-						}
-						else if (status == 77 || status == -77)
-						{
-							roomsListForm.Invoke((Action)delegate
+								BinaryFormatter formatter = new BinaryFormatter();
+								var newPlayers = (List<string>)formatter.Deserialize(networkStream);
+								roomsListForm.WaitingRoom.Invoke((Action)delegate
+								{
+									roomsListForm.WaitingRoom.GetSpacMemberChanges(newPlayers);
+								});
+							}
+							else if (status == 66)
 							{
-								roomsListForm.WaitingRoom.RecieveMyReqResponse(
-									int.Parse(msg.Split(',')[0]),
-									msg.Split(',')[2],
-									msg.Split(',')[3]
-									);
-							});
-						}
-						else if (status == 88)
-						{
-							BinaryFormatter formatter = new BinaryFormatter();
-							roomsList = (List<Room>)formatter.Deserialize(networkStream);
-							var conUS = (List<User>)formatter.Deserialize(networkStream);
-							roomsListForm.Invoke((Action)delegate
+								roomsListForm.WaitingRoom.Invoke((Action)delegate
+								{
+									roomsListForm.WaitingRoom.ShowCounterDialogForm(
+										msg.Split(',')[2],
+										msg.Split(',')[3]);
+								});
+							}
+							else if (status == 77 || status == -77)
 							{
-								roomsListForm.GetAvaliableRoomsData(roomsList);
-								roomsListForm.GetConnectedUsers(conUS);
-							});
+								roomsListForm.Invoke((Action)delegate
+								{
+									roomsListForm.WaitingRoom.RecieveMyReqResponse(
+										int.Parse(msg.Split(',')[0]),
+										msg.Split(',')[2],
+										msg.Split(',')[3]
+										);
+								});
+							}
+							else if (status == 88)
+							{
+								BinaryFormatter formatter = new BinaryFormatter();
+								roomsList = (List<Room>)formatter.Deserialize(networkStream);
+								var conUS = (List<User>)formatter.Deserialize(networkStream);
+								roomsListForm.Invoke((Action)delegate
+								{
+									roomsListForm.GetAvaliableRoomsData(roomsList);
+									roomsListForm.GetConnectedUsers(conUS);
+								});
 
-						}
-						else if (status == 888)
-						{
-							roomsListForm.WaitingRoom.Invoke((Action)delegate
+							}
+							else if (status == 888)
 							{
-								roomsListForm.WaitingRoom.GetMembersLeavingChange(msg.Split(',')[2], msg.Split(',')[3]);
-							});
-						}
-						else if (status == 121)
-						{
-							this.Invoke((Action)delegate
+								roomsListForm.WaitingRoom.Invoke((Action)delegate
+								{
+									roomsListForm.WaitingRoom.GetMembersLeavingChange(msg.Split(',')[2], msg.Split(',')[3]);
+								});
+							}
+							else if (status == 121)
 							{
-								this.AddNewConnectedUser(msg.Split(',')[2]);
-							});
-						}
-						else if (status == 1212)
-						{
-							this.Invoke((Action)delegate
+								this.Invoke((Action)delegate
+								{
+									this.AddNewConnectedUser(msg.Split(',')[2]);
+								});
+							}
+							else if (status == 1212)
 							{
-								RemoveNewConnectedUser(msg.Split(',')[2]);
-							});
-						}
-						else if (status == 454)
-						{
-							roomsListForm.WaitingRoom.Invoke((Action)delegate
+								this.Invoke((Action)delegate
+								{
+									RemoveNewConnectedUser(msg.Split(',')[2]);
+								});
+							}
+							else if (status == 454)
 							{
-								roomsListForm.WaitingRoom.AppendNewWatchOnlySpec(msg.Split(',')[2]);
-							});
-						}
-						else if (status == 99)
-						{
-							//roomsListForm.Invoke((Action)delegate
-							//{
-							//	roomsListForm
-							//	.WaitingRoom.GamingPlayGroundForm
-							//	.RecieveCounterMove(int.Parse(msg.Split(',')[2]));
-							//});
-							roomsListForm
+								roomsListForm.WaitingRoom.Invoke((Action)delegate
+								{
+									roomsListForm.WaitingRoom.AppendNewWatchOnlySpec(msg.Split(',')[2]);
+								});
+							}
+							else if (status == 99)
+							{
+								//roomsListForm.Invoke((Action)delegate
+								//{
+								//	roomsListForm
+								//	.WaitingRoom.GamingPlayGroundForm
+								//	.RecieveCounterMove(int.Parse(msg.Split(',')[2]));
+								//});
+								roomsListForm
+									.WaitingRoom.GamingPlayGroundForm
+									.RecieveCounterMove(int.Parse(msg.Split(',')[2]),
+										msg.Split(',')[3]);
+							}
+							else if (status == 991 || status == 990)
+							{
+								roomsListForm
 								.WaitingRoom.GamingPlayGroundForm
-								.RecieveCounterMove(int.Parse(msg.Split(',')[2]),
-									msg.Split(',')[3]);
-						}
-						else if (status == 991 || status == 990)
-						{
-							roomsListForm
-							.WaitingRoom.GamingPlayGroundForm
-							.DeclareWinnerOrLoser(status);
-						}
-						else if (status == 9090)
-						{
-							roomsListForm
-							.WaitingRoom.GamingPlayGroundForm
-							.OtherPlayerRefuseToPlayAgain();
-						}
-						else if (status == 9191)
-						{
-							roomsListForm
-							.WaitingRoom.GamingPlayGroundForm
-							.OtherPlayerAcceptToPlayAgain();
-						}
-						else if (status == 707)
-						{
-							roomsListForm.WaitingRoom.Invoke((Action)delegate
+								.DeclareWinnerOrLoser(status);
+							}
+							else if (status == 9090)
 							{
-								roomsListForm.WaitingRoom.RecieveMyReqResponse(77, "NOCOUNTER", msg.Split(',')[2]);
-							});
-						}
-						else if (status == 88088)
-						{
-							roomsListForm
-							.WaitingRoom.GamingPlayGroundForm
-							.RecieveCounterMoveAsSpec(int.Parse(msg.Split(',')[2]),
-								msg.Split(',')[3]);
+								roomsListForm
+								.WaitingRoom.GamingPlayGroundForm
+								.OtherPlayerRefuseToPlayAgain();
+							}
+							else if (status == 9191)
+							{
+								roomsListForm
+								.WaitingRoom.GamingPlayGroundForm
+								.OtherPlayerAcceptToPlayAgain();
+							}
+							else if (status == 707)
+							{
+								roomsListForm.WaitingRoom.Invoke((Action)delegate
+								{
+									roomsListForm.WaitingRoom.RecieveMyReqResponse(77, "NOCOUNTER", msg.Split(',')[2]);
+								});
+							}
+							else if (status == 88088)
+							{
+								roomsListForm
+								.WaitingRoom.GamingPlayGroundForm
+								.RecieveCounterMoveAsSpec(int.Parse(msg.Split(',')[2]),
+									msg.Split(',')[3]);
+							}
+							else if (status == 88258)
+							{
+								roomsListForm
+									.WaitingRoom
+									.GamingPlayGroundForm
+									.ResumeSession();
+							}
+							else if (status == 88008)
+							{
+								roomsListForm
+									.WaitingRoom
+									.GamingPlayGroundForm
+									.EndSession();
+							}
 						}
 					}
 				}
@@ -365,6 +382,7 @@ namespace SimpleClient
 						specs += room.Spectators[i].UserName + ", ";
 					}
 					item.SubItems.Add(specs);
+					item.SubItems.Add(room.Status);
 					roomsListForm.RoomsListControl.Items.Add(item);
 				}
 			}

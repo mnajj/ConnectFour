@@ -27,6 +27,7 @@ namespace SimpleClient
 		public Room GuestRoomData { get; set; }
 		public bool IsRoomCreator { get; set; }
 		public string OwnerClr { get; set; }
+		public bool IsGameLive { get; set; }
 
 		public RoomsList(Form1 clinetForm)
 		{
@@ -38,9 +39,10 @@ namespace SimpleClient
 		{
 			RoomsListView.View = View.Details;
 			RoomsListView.Columns.Add("Group Name", 100);
-			RoomsListView.Columns.Add("Status", 100);
+			RoomsListView.Columns.Add("Availability", 100);
 			RoomsListView.Columns.Add("Players", 100);
 			RoomsListView.Columns.Add("Spectators", 100);
+			RoomsListView.Columns.Add("Status", 100);
 			var imageList = new ImageList();
 			try
 			{
@@ -70,6 +72,9 @@ namespace SimpleClient
 													.SelectedItems[0]
 													.SubItems[2].Text
 													.Split(',');
+			var status = RoomsListView
+										.SelectedItems[0]
+										.SubItems[4].Text;
 			if (splitedPlayers.Length < 3)
 			{
 				bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
@@ -83,11 +88,23 @@ namespace SimpleClient
 				DialogResult dlgRes = continueAsSpecDlg.ShowDialog();
 				if (dlgRes == DialogResult.OK)
 				{
-					bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
-					bWriter.Write($"45,Get room data and add me as spec,{RoomsListView.SelectedIndices[0]}");
-					while (GuestRoomData == null) Thread.Sleep(100);
-					//SendWatchRequest();
-					RedirectWatchOnlySpec(RoomsListView.SelectedIndices[0]);
+					if (status == "Playing Now!")
+					{
+						bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
+						//bWriter.Write($"255,Show Me Live Game,{RoomsListView.SelectedIndices[0]}");
+						bWriter.Write($"45,Get room data and add me as spec,{RoomsListView.SelectedIndices[0]}");
+						IsGameLive = true;
+						RedirectWatchOnlySpec(RoomsListView.SelectedIndices[0]);
+					}
+					else
+					{
+						bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
+						bWriter.Write($"45,Get room data and add me as spec,{RoomsListView.SelectedIndices[0]}");
+						while (GuestRoomData == null) Thread.Sleep(100);
+						IsGameLive = false;
+						RedirectWatchOnlySpec(RoomsListView.SelectedIndices[0]);
+						
+					}
 				}
 			}
 		}
@@ -138,6 +155,7 @@ namespace SimpleClient
 			listViewItem.SubItems.Add("Available");
 			listViewItem.SubItems.Add(clientForm.UserName);
 			listViewItem.SubItems.Add("0");
+			listViewItem.SubItems.Add("Waiting");
 			listViewItem.ImageKey = "RoomIcon";
 			RoomsListView.Items.Add(listViewItem);
 			roomIdx = listViewItem.Index;
@@ -221,6 +239,7 @@ namespace SimpleClient
 					specs += room.Spectators[i].UserName + ", ";
 				}
 				item.SubItems.Add(specs);
+				item.SubItems.Add(room.Status);
 				RoomsListView.Items.Add(item);
 			}
 		}

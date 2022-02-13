@@ -45,6 +45,10 @@ namespace SimpleClient
 						break;
 				}
 			}
+			if (roomsListForm.IsGameLive)
+			{
+				LiveGameButton.Enabled = true;
+			}
 		}
 
 		private void WaitingRoom_Load(object sender, EventArgs e)
@@ -241,6 +245,12 @@ namespace SimpleClient
 			{
 				SpectatorsBox.Items.Add(specName);
 			}
+		}
+
+		private void LiveGameButton_Click(object sender, EventArgs e)
+		{
+			bWriter = new BinaryWriter(roomsListForm.ClientForm.ClientNetworkStream);
+			bWriter.Write($"156,Take me to Live Game,{RoomIdx}");
 		}
 	}
 }
