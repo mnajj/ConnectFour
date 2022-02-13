@@ -20,7 +20,7 @@ namespace SimpleServer.ClassLib
 		public bool IsPlayer { get; set; }
 		public Color DiskColor { get; set; }
 		public int PlayerNumber { get; set; }
-		public int PlayAgain { get; set; }	
+		public int PlayAgain { get; set; }
 
 		NetworkStream networkStream;
 		BinaryWriter bWriter;
@@ -111,19 +111,28 @@ namespace SimpleServer.ClassLib
 			}
 		}
 
+		private void SavePlayerColor(string clr)
+		{
+			
+		}
+
 		private void RefuseoPlayAgain()
 		{
 			this.PlayAgain = 0;
 			ClientHandler counterCln = DataLayer.Clients
-				.Where(c => c.UserName == this.Counter)
+				.Where(c => c.IsPlayer == true)
 				.Where(c => c.CurrentRoomNumber == this.CurrentRoomNumber)
 				.FirstOrDefault();
-			counterCln.PlayAgain = 0;
-			this.Counter = "";
-			counterCln.Counter = "";
-			bWriter = new BinaryWriter(counterCln.Socket.GetStream());
-			bWriter.Write("9090,Other player refuse to play Again");
-			DataLayer.Rooms[this.CurrentRoomNumber].Game.ResetTheBoard();
+			if (counterCln.PlayAgain == 0 ||counterCln.PlayAgain == -1)
+			{
+				this.Counter = "";
+			}
+			else
+			{
+				bWriter = new BinaryWriter(counterCln.Socket.GetStream());
+				bWriter.Write("9090,Other player refuse to play Again");
+				DataLayer.Rooms[this.CurrentRoomNumber].Game.ResetTheBoard();
+			}
 		}
 
 		private void AccepToPlayAgain()
@@ -137,6 +146,8 @@ namespace SimpleServer.ClassLib
 			{
 				DataLayer.Rooms[this.CurrentRoomNumber].Game.ResetTheBoard();
 				bWriter = new BinaryWriter(counterCln.Socket.GetStream());
+				bWriter.Write("9191,Other player want to play Again");
+				bWriter = new BinaryWriter(networkStream);
 				bWriter.Write("9191,Other player want to play Again");
 			}
 		}
@@ -346,6 +357,33 @@ namespace SimpleServer.ClassLib
 			{
 				bWriter = new BinaryWriter(counterCln.Socket.GetStream());
 				bWriter.Write($"99,Send move to counter,{col},{counterClr}");
+				SendMoveToSpecs(col);
+			}
+		}
+
+		private void SendMoveToSpecs(int col)
+		{
+			Room currRoom = DataLayer.Rooms[this.CurrentRoomNumber];
+			List<string> specNames = new List<string>();
+			List<ClientHandler> specClients = new List<ClientHandler>();
+			foreach (var spec in currRoom.Spectators)
+			{
+				specNames.Add(spec.UserName);
+			}
+			for (int i = 0; i < specNames.Count; i++)
+			{
+				for (int j = 0; j < DataLayer.Clients.Count; j++)
+				{
+					if (specNames[i] == DataLayer.Clients[j].UserName)
+					{
+						specClients.Add(DataLayer.Clients[j]);
+					}
+				}
+			}
+			foreach (var cln in specClients)
+			{
+				bWriter = new BinaryWriter(cln.Socket.GetStream());
+				bWriter.Write($"88088,take my move For Spec,{col},{this.DiskColor.Name}");
 			}
 		}
 
@@ -499,6 +537,7 @@ namespace SimpleServer.ClassLib
 						{
 							bWriter.Write($"77,Your request accepted,{this.UserName},{currRoom.RoomBoardSize}");
 							CreateAndInitGame(roomIdx);
+							SendvIewDataToSpecs(roomIdx);
 						}
 						else
 						{
@@ -517,6 +556,32 @@ namespace SimpleServer.ClassLib
 			//		clinetBF.Serialize(cln.Socket.GetStream(), DataLayer.Rooms);
 			//	}
 			//}
+		}
+
+		private void SendvIewDataToSpecs(int roomIdx)
+		{
+			Room currRoom = DataLayer.Rooms[roomIdx];
+			List<string> specNames = new List<string>();
+			List<ClientHandler> specClients = new List<ClientHandler>();
+			foreach (var spec in currRoom.Spectators)
+			{
+				specNames.Add(spec.UserName);
+			}
+			for (int i = 0; i < specNames.Count; i++)
+			{
+				for (int j = 0; j < DataLayer.Clients.Count; j++)
+				{
+					if (specNames[i] == DataLayer.Clients[j].UserName)
+					{
+						specClients.Add(DataLayer.Clients[j]);
+					}
+				}
+			}
+			foreach (var cln in specClients)
+			{
+				bWriter = new BinaryWriter(cln.Socket.GetStream());
+				bWriter.Write($"707,View For Spec,{currRoom.RoomBoardSize}");
+			}
 		}
 
 		private void CreateAndInitGame(int roomIdx)

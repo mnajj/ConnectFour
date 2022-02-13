@@ -18,6 +18,7 @@ namespace SimpleClient
     public bool IsInvitationSender { get; set; }
 		public bool IsGameOver { get; set; }
 		public string BoardSize { get; set; }
+		public bool IsWinner { get; set; }
 
 		//Member data GFX
 		Pen blackPen;//pen for lines
@@ -351,6 +352,15 @@ namespace SimpleClient
 		{
 			this.IsGameOver = false;
 			ClearArray();
+			Invalidate();
+			if (IsWinner)
+			{
+				IsMyTurn = true;
+			}
+			else
+			{
+				IsMyTurn = false;
+			}
 		}
 
 		public void OtherPlayerRefuseToPlayAgain()
@@ -360,16 +370,152 @@ namespace SimpleClient
 			this.Close();
 		}
 
+		public void RecieveCounterMoveAsSpec(int col, string clr)
+		{
+			switch (clr)
+			{
+				case "Red":
+					this.CounterClr = Color.Red;
+					break;
+				case "Blue":
+					this.CounterClr = Color.Blue;
+					break;
+				case "Yellow":
+					this.CounterClr = Color.Yellow;
+					break;
+			}
+			counterPlayerBrush.Color = CounterClr;
+			if (BoardSize == "6×7")
+			{
+				if (col == 0)
+				{
+					if (boxY1[0] != 55)//to mentain the circles inside the board
+					{
+						//draw the circle here
+						g.FillEllipse(counterPlayerBrush, new Rectangle(boxX1[0], boxY1[0], 40, 40));
+						boxY1[0] -= 50;//increase the height of the circle
+					}
+				}
+				else if (col == 1)
+				{
+					if (boxY1[1] != 55)//to mentain the circles inside the board
+					{
+						//draw the circle here
+						g.FillEllipse(counterPlayerBrush, new Rectangle(boxX1[1], boxY1[1], 40, 40));
+						boxY1[1] -= 50;//increase the height of the circle
+					}
+				}
+				else if (col == 2)
+				{
+					if (boxY1[2] != 55)//to mentain the circles inside the board
+					{
+						//draw the circle here
+						g.FillEllipse(counterPlayerBrush, new Rectangle(boxX1[2], boxY1[2], 40, 40));
+						boxY1[2] -= 50;//increase the height of the circle
+					}
+				}
+				else if (col == 3)
+				{
+					if (boxY1[3] != 55)//to mentain the circles inside the board
+					{
+						//draw the circle here
+						g.FillEllipse(counterPlayerBrush, new Rectangle(boxX1[3], boxY1[3], 40, 40));
+						boxY1[3] -= 50;//increase the height of the circle
+					}
+				}
+				else if (col == 4)
+				{
+					if (boxY1[4] != 55)//to mentain the circles inside the board
+					{
+						//draw the circle here
+						g.FillEllipse(counterPlayerBrush, new Rectangle(boxX1[4], boxY1[4], 40, 40));
+						boxY1[4] -= 50;//increase the height of the circle
+					}
+				}
+				else if (col == 5)
+				{
+					if (boxY1[5] != 55)//to mentain the circles inside the board
+					{
+						//draw the circle here
+						g.FillEllipse(counterPlayerBrush, new Rectangle(boxX1[5], boxY1[5], 40, 40));
+						boxY1[5] -= 50;//increase the height of the circle
+					}
+				}
+				else if (col == 6)
+				{
+					if (boxY1[6] != 55)//to mentain the circles inside the board
+					{
+						//draw the circle here
+						g.FillEllipse(counterPlayerBrush, new Rectangle(boxX1[6], boxY1[6], 40, 40));
+						boxY1[6] -= 50;//increase the height of the circle
+					}
+				}
+			}
+			else if (BoardSize == "4×5")
+			{
+				if (col == 0)
+				{
+					if (boxY3[0] != 50)//to mentain the circles inside the board
+					{
+						//draw the circle here
+						g.FillEllipse(counterPlayerBrush, new Rectangle(boxX3[0], boxY3[0], 40, 40));
+
+						boxY3[0] -= 70;//increase the height of the circle
+					}
+				}
+				else if (col == 1)
+				{
+					if (boxY3[1] != 50)//to mentain the circles inside the board
+					{
+						//draw the circle here
+						g.FillEllipse(counterPlayerBrush, new Rectangle(boxX3[1], boxY3[1], 40, 40));
+
+						boxY3[1] -= 70;//increase the height of the circle
+					}
+				}
+				else if (col == 2)
+				{
+					if (boxY3[2] != 50)//to mentain the circles inside the board
+					{
+						//draw the circle here
+						g.FillEllipse(counterPlayerBrush, new Rectangle(boxX3[2], boxY3[2], 40, 40));
+						boxY3[2] -= 70;//increase the height of the circle
+					}
+				}
+				else if (col == 3)
+				{
+					if (boxY3[3] != 50)//to mentain the circles inside the board
+					{
+						//draw the circle here
+						g.FillEllipse(counterPlayerBrush, new Rectangle(boxX3[3], boxY3[3], 40, 40));
+						boxY3[3] -= 70;//increase the height of the circle
+					}
+				}
+				else if (col == 4)
+				{
+					if (boxY3[4] != 50)//to mentain the circles inside the board
+					{
+						//draw the circle here
+						g.FillEllipse(counterPlayerBrush, new Rectangle(boxX3[4], boxY3[4], 40, 40));
+						boxY3[4] -= 70;//increase the height of the circle
+					}
+				}
+			}
+		}
+
 		public void DeclareWinnerOrLoser(int status)
 		{
 			DeclareDialg declareDialg;
 			if (status == 991)
 			{
 				declareDialg = new DeclareDialg(true);
+				IsWinner = true;
 			}
 			else
 			{
 				declareDialg = new DeclareDialg(false);
+				IsWinner = false;
+
 			}
 			DialogResult dlgRes = declareDialg.ShowDialog();
 			if (dlgRes == DialogResult.OK)
@@ -381,6 +527,8 @@ namespace SimpleClient
 			{
 				bWriter.Write("909,Refuse to play Again");
 				IsGameOver = true;
+				this.waitingRoom.Show();
+				this.Close();
 			}
 		}
 

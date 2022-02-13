@@ -84,8 +84,7 @@
 			this.BoardSizeComboBox.FormattingEnabled = true;
 			this.BoardSizeComboBox.Items.AddRange(new object[] {
             "4×5",
-            "6×7",
-            "7×9"});
+            "6×7"});
 			this.BoardSizeComboBox.Location = new System.Drawing.Point(100, 125);
 			this.BoardSizeComboBox.Name = "BoardSizeComboBox";
 			this.BoardSizeComboBox.Size = new System.Drawing.Size(181, 21);
@@ -103,6 +102,7 @@
 			this.Controls.Add(this.CancelButton);
 			this.Controls.Add(this.CreateButton);
 			this.Controls.Add(this.textBox1);
+			this.DoubleBuffered = true;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "RoomDialog";
 			this.Text = "Form2";

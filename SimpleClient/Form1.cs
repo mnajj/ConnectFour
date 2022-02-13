@@ -292,6 +292,20 @@ namespace SimpleClient
 							.WaitingRoom.GamingPlayGroundForm
 							.OtherPlayerAcceptToPlayAgain();
 						}
+						else if (status == 707)
+						{
+							roomsListForm.WaitingRoom.Invoke((Action)delegate
+							{
+								roomsListForm.WaitingRoom.RecieveMyReqResponse(77, "NOCOUNTER", msg.Split(',')[2]);
+							});
+						}
+						else if (status == 88088)
+						{
+							roomsListForm
+							.WaitingRoom.GamingPlayGroundForm
+							.RecieveCounterMoveAsSpec(int.Parse(msg.Split(',')[2]),
+								msg.Split(',')[3]);
+						}
 					}
 				}
 			}
