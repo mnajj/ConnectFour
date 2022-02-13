@@ -24,5 +24,16 @@ namespace SimpleServer.ClassLib
 			BoardData[4] = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
 			BoardData[5] = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
 		}
+
+		public void ResetTheBoard()
+		{
+			for (int i = 0; i < 6; i++)
+			{
+				for (int j = 0; j < 7; j++)
+				{
+					BoardData[i][j] = 0;
+				}
+			}
+		}
 	}
 }

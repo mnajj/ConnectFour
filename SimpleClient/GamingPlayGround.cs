@@ -347,19 +347,41 @@ namespace SimpleClient
 			}
 		}
 
+		public void OtherPlayerAcceptToPlayAgain()
+		{
+			this.IsGameOver = false;
+			ClearArray();
+		}
+
+		public void OtherPlayerRefuseToPlayAgain()
+		{
+			this.IsGameOver = true;
+			waitingRoom.Show();
+			this.Close();
+		}
+
 		public void DeclareWinnerOrLoser(int status)
 		{
+			DeclareDialg declareDialg;
 			if (status == 991)
 			{
-				DeclareDialg declareDialg = new DeclareDialg(true);
-				DialogResult dlgRes = declareDialg.ShowDialog();
+				declareDialg = new DeclareDialg(true);
 			}
 			else
 			{
-				DeclareDialg declareDialg = new DeclareDialg(false);
-				DialogResult dlgRes = declareDialg.ShowDialog();
+				declareDialg = new DeclareDialg(false);
 			}
-			IsGameOver = true;
+			DialogResult dlgRes = declareDialg.ShowDialog();
+			if (dlgRes == DialogResult.OK)
+			{
+				bWriter.Write("919,Accept to play Again");
+				IsGameOver = false;
+			}
+			else
+			{
+				bWriter.Write("909,Refuse to play Again");
+				IsGameOver = true;
+			}
 		}
 
 		private void ClearArray()

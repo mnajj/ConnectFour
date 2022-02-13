@@ -19,7 +19,8 @@ namespace SimpleServer.ClassLib
 		public bool IsOwner { get; set; }
 		public bool IsPlayer { get; set; }
 		public Color DiskColor { get; set; }
-		public int PlayerNumber { get; set; }	
+		public int PlayerNumber { get; set; }
+		public int PlayAgain { get; set; }	
 
 		NetworkStream networkStream;
 		BinaryWriter bWriter;
@@ -30,6 +31,7 @@ namespace SimpleServer.ClassLib
 			Socket = soc;
 			Thread clientThread = new Thread(this.AcceptRequests);
 			clientThread.Start();
+			PlayAgain = -1;
 		}
 
 		public void AcceptRequests()
@@ -98,8 +100,44 @@ namespace SimpleServer.ClassLib
 						case 12:
 							SendConnectedUsersToNewLogin();
 							break;
+						case 919:
+							AccepToPlayAgain();
+							break;
+						case 909:
+							RefuseoPlayAgain();
+							break;
 					}
 				}
+			}
+		}
+
+		private void RefuseoPlayAgain()
+		{
+			this.PlayAgain = 0;
+			ClientHandler counterCln = DataLayer.Clients
+				.Where(c => c.UserName == this.Counter)
+				.Where(c => c.CurrentRoomNumber == this.CurrentRoomNumber)
+				.FirstOrDefault();
+			counterCln.PlayAgain = 0;
+			this.Counter = "";
+			counterCln.Counter = "";
+			bWriter = new BinaryWriter(counterCln.Socket.GetStream());
+			bWriter.Write("9090,Other player refuse to play Again");
+			DataLayer.Rooms[this.CurrentRoomNumber].Game.ResetTheBoard();
+		}
+
+		private void AccepToPlayAgain()
+		{
+			this.PlayAgain = 1;
+			ClientHandler counterCln = DataLayer.Clients
+				.Where(c => c.UserName == this.Counter)
+				.Where(c => c.CurrentRoomNumber == this.CurrentRoomNumber)
+				.FirstOrDefault();
+			if (this.PlayAgain == 1 && counterCln.PlayAgain == 1)
+			{
+				DataLayer.Rooms[this.CurrentRoomNumber].Game.ResetTheBoard();
+				bWriter = new BinaryWriter(counterCln.Socket.GetStream());
+				bWriter.Write("9191,Other player want to play Again");
 			}
 		}
 

@@ -280,6 +280,18 @@ namespace SimpleClient
 							.WaitingRoom.GamingPlayGroundForm
 							.DeclareWinnerOrLoser(status);
 						}
+						else if (status == 9090)
+						{
+							roomsListForm
+							.WaitingRoom.GamingPlayGroundForm
+							.OtherPlayerRefuseToPlayAgain();
+						}
+						else if (status == 9191)
+						{
+							roomsListForm
+							.WaitingRoom.GamingPlayGroundForm
+							.OtherPlayerAcceptToPlayAgain();
+						}
 					}
 				}
 			}
