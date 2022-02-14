@@ -251,7 +251,7 @@ namespace SimpleClient
 		{
 			LiveGameButton.Enabled = false;
 			bWriter = new BinaryWriter(roomsListForm.ClientForm.ClientNetworkStream);
-			bWriter.Write($"156,Take me to Live Game,{RoomIdx}");
+			bWriter.Write($"156,Take me to Live Game and send current game data,{RoomIdx}");
 		}
 	}
 }

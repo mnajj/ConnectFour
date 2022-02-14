@@ -79,7 +79,7 @@ namespace SimpleClient
 			{
 				bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
 				bWriter.Write($"4,Get room data,{RoomsListView.SelectedIndices[0]}");
-				while (GuestRoomData == null) Thread.Sleep(100);
+				while (GuestRoomData == null) Thread.Sleep(500);
 				RedirectGuestToRoom(RoomsListView.SelectedIndices[0]);
 			}
 			else

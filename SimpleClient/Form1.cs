@@ -322,6 +322,19 @@ namespace SimpleClient
 									.GamingPlayGroundForm
 									.EndSession();
 							}
+							else if (status == 85058)
+							{
+								BinaryFormatter formatter = new BinaryFormatter();
+								var gameBoardData = (int[][])formatter.Deserialize(networkStream);
+								roomsListForm
+									.WaitingRoom
+									.GamingPlayGroundForm
+									.DrawCurrentGameBoardData(
+										gameBoardData,
+										msg.Split(',')[2],
+										msg.Split(',')[3]
+										);
+							}
 						}
 					}
 				}

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using SimpleClient.Dialogs;
@@ -17,6 +18,10 @@ namespace SimpleClient
 		public bool IsGameOver { get; set; }
 		public string BoardSize { get; set; }
 		public bool IsWinner { get; set; }
+
+		//
+		public Color PlayerOneClr { get; set; }
+		public Color PlayerTwoClr { get; set; }
 
 		//Member data GFX
 		Pen blackPen;//pen for lines
@@ -61,6 +66,8 @@ namespace SimpleClient
 				PickMyColor();
 			}
 
+			CheckIfThereIsLiveGame();
+
 			// GFX
 			blackPen = new Pen(Color.Black, 1);
 			g = CreateGraphics();
@@ -68,6 +75,14 @@ namespace SimpleClient
 			drawBrush = new SolidBrush(Color.Black);
 			playerBrush = new SolidBrush(PlayerClr);
 			counterPlayerBrush = new SolidBrush(CounterClr);
+		}
+
+		private void CheckIfThereIsLiveGame()
+		{
+			if (waitingRoom.RoomsListForm.IsGameLive)
+			{
+				bWriter.Write("8069, give me current game data");
+			}
 		}
 
 		private void PickOwnerColor()
@@ -498,6 +513,59 @@ namespace SimpleClient
 						boxY3[4] -= 70;//increase the height of the circle
 					}
 				}
+			}
+		}
+
+		public void DrawCurrentGameBoardData(int[][] gameBoardData, string plyOneClr, string plyTwoClr)
+		{
+			AssignColorsToPlayers(plyOneClr, plyTwoClr);
+			Brush playerOneBrush = new SolidBrush(PlayerOneClr);
+			Brush playerTwoBrush = new SolidBrush(PlayerTwoClr);
+			//6*7
+			for (int i = 0; i < 7; i++)//col 
+			{
+				for (int j = 5; j >= 0; j--)//row
+				{
+					//player 1
+					if (gameBoardData[j][i] == 1)
+					{
+						g.FillEllipse(playerOneBrush, new Rectangle(boxX1[i], boxY1[i], 40, 40));
+					}
+					//player 2
+					else if (gameBoardData[j][i] == 2)
+					{
+						g.FillEllipse(playerTwoBrush, new Rectangle(boxX1[i], boxY1[i], 40, 40));
+					}
+					boxY1[i] -= 50;//must dec always
+				}
+			}
+		}
+
+		private void AssignColorsToPlayers(string plyOneClr, string plyTwoClr)
+		{
+			switch (plyOneClr)
+			{
+				case "Red":
+					this.PlayerOneClr = Color.Red;
+					break;
+				case "Blue":
+					this.PlayerOneClr = Color.Blue;
+					break;
+				case "Yellow":
+					this.PlayerOneClr = Color.Yellow;
+					break;
+			}
+			switch (plyTwoClr)
+			{
+				case "Red":
+					this.PlayerTwoClr = Color.Red;
+					break;
+				case "Blue":
+					this.PlayerTwoClr = Color.Blue;
+					break;
+				case "Yellow":
+					this.PlayerTwoClr = Color.Yellow;
+					break;
 			}
 		}
 

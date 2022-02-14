@@ -106,9 +106,11 @@ namespace SimpleServer.ClassLib
 						case 909:
 							RefuseoPlayAgain();
 							break;
-
 						case 156:
 							RedirectSpecToLiveGame(int.Parse(reqRes.Split(',')[2]));
+							break;
+						case 8069:
+							SendCurrentGameDataToSpec();
 							break;
 						//case 255:
 						//	AddNewSpectatorToRoom(int.Parse(reqRes.Split(',')[2]));
@@ -119,6 +121,24 @@ namespace SimpleServer.ClassLib
 					}
 				}
 			}
+		}
+
+		private void SendCurrentGameDataToSpec()
+		{
+			ClientHandler playerOne = DataLayer.Clients
+				.Where(c => c.PlayerNumber == 1)
+				.Where(c => c.CurrentRoomNumber == this.CurrentRoomNumber)
+				.FirstOrDefault();
+			ClientHandler playerTwo = DataLayer.Clients
+				.Where(c => c.PlayerNumber == 2)
+				.Where(c => c.CurrentRoomNumber == this.CurrentRoomNumber)
+				.FirstOrDefault();
+			bWriter = new BinaryWriter(networkStream);
+			bWriter.Write($"85058, Take your game data,{playerOne.DiskColor.Name},{playerTwo.DiskColor.Name}");
+			BinaryFormatter bf = new BinaryFormatter();
+			bf.Serialize(networkStream,
+				DataLayer.Rooms[this.CurrentRoomNumber].Game.BoardData
+				);
 		}
 
 		private void RedirectSpecToLiveGame(int roomIdx)
@@ -818,6 +838,7 @@ namespace SimpleServer.ClassLib
 
 			// SEND Msg Header
 			bWriter = new BinaryWriter(networkStream);
+
 			bWriter.Write("44,Accept");
 
 			// SEND Room Object
