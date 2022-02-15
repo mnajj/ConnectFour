@@ -434,7 +434,7 @@ namespace SimpleServer.ClassLib
 					string record = $"{playerOne.UserName} beat {playerTwo.UserName}";
 					File.AppendAllText(
 						Path.Combine(Environment.CurrentDirectory, "RecordLog.txt"),
-						record + Environment.NewLine
+						$"{record} on {DateTime.Now.ToString("dd/MM/yyyy")}" + Environment.NewLine
 						);
 				}
 				else if (winNum == 2)
@@ -448,7 +448,7 @@ namespace SimpleServer.ClassLib
 					string record = $"{playerTwo.UserName} beat {playerOne.UserName}";
 					File.AppendAllText(
 						Path.Combine(Environment.CurrentDirectory, "RecordLog.txt"),
-						record + Environment.NewLine
+						$"{record} on {DateTime.Now.ToString("dd/MM/yyyy")}" + Environment.NewLine
 						);
 				}
 			}
