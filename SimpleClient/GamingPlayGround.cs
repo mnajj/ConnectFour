@@ -81,6 +81,7 @@ namespace SimpleClient
 		{
 			if (waitingRoom.RoomsListForm.IsGameLive)
 			{
+				ClearArray();
 				bWriter.Write("8069, give me current game data");
 			}
 		}
@@ -127,7 +128,10 @@ namespace SimpleClient
 			{
 				DrawFourByFive();
 			}
-			ClearArray();
+			if (!waitingRoom.RoomsListForm.IsGameLive)
+			{
+				ClearArray();
+			}
 		}
 
 		private void GamingPlayGround_MouseDown(object sender, MouseEventArgs e)
@@ -580,6 +584,7 @@ namespace SimpleClient
 		public void ResumeSession()
 		{
 			MessageBox.Show("Players Will Play Game Again");
+			if (waitingRoom.RoomsListForm.IsGameLive)
 			ClearArray();
 			Invalidate();
 		}
