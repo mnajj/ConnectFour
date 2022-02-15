@@ -217,3 +217,28 @@ C:\Users\DELL\OneDrive\سطح المكتب\BASE\SimpleClient\obj\Debug\SimpleCli
 C:\Users\DELL\OneDrive\سطح المكتب\BASE\SimpleClient\obj\Debug\SimpleClient.exe
 C:\Users\DELL\OneDrive\سطح المكتب\BASE\SimpleClient\obj\Debug\SimpleClient.pdb
 C:\Users\DELL\OneDrive\سطح المكتب\BASE\SimpleClient\obj\Debug\SimpleClient.Dialogs.DeclareDialg.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\bin\Debug\SimpleClient.exe.config
+C:\Users\DELL\repos\ConnectFour\SimpleClient\bin\Debug\SimpleClient.exe
+C:\Users\DELL\repos\ConnectFour\SimpleClient\bin\Debug\SimpleClient.pdb
+C:\Users\DELL\repos\ConnectFour\SimpleClient\bin\Debug\SharedClassLibrary.dll
+C:\Users\DELL\repos\ConnectFour\SimpleClient\bin\Debug\SimpleServer.exe
+C:\Users\DELL\repos\ConnectFour\SimpleClient\bin\Debug\SharedClassLibrary.pdb
+C:\Users\DELL\repos\ConnectFour\SimpleClient\bin\Debug\SimpleServer.pdb
+C:\Users\DELL\repos\ConnectFour\SimpleClient\bin\Debug\SimpleServer.exe.config
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.AssemblyReference.cache
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.SuggestedBindingRedirects.cache
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.ContinueAsSpec.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.CounterRequestDialog.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.CounterResponseMsgDialog.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.DeclareDialg.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Form1.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.GamingPlayGround.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Properties.Resources.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.RoomDialog.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.RoomsList.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.WaitingRoom.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.GenerateResource.cache
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.CoreCompileInputs.cache
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.csproj.CopyComplete
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.exe
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.pdb

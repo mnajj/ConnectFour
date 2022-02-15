@@ -534,13 +534,14 @@ namespace SimpleClient
 					if (gameBoardData[j][i] == 1)
 					{
 						g.FillEllipse(playerOneBrush, new Rectangle(boxX1[i], boxY1[i], 40, 40));
+						boxY1[i] -= 50;//must dec always
 					}
 					//player 2
 					else if (gameBoardData[j][i] == 2)
 					{
 						g.FillEllipse(playerTwoBrush, new Rectangle(boxX1[i], boxY1[i], 40, 40));
+						boxY1[i] -= 50;//must dec always
 					}
-					boxY1[i] -= 50;//must dec always
 				}
 			}
 		}

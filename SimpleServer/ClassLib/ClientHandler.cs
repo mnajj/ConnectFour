@@ -281,6 +281,7 @@ namespace SimpleServer.ClassLib
 					{
 						bWriter = new BinaryWriter(cln.Socket.GetStream());
 						bWriter.Write($"121,New User Connected,{this.UserName}");
+						bWriter.Write($"121,New User Connected,{this.UserName}");
 					}
 				}
 			}
