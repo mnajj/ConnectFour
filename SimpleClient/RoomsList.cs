@@ -91,9 +91,9 @@ namespace SimpleClient
 					if (status == "Playing Now!")
 					{
 						bWriter = new BinaryWriter(clientForm.ClientNetworkStream);
-						//bWriter.Write($"255,Show Me Live Game,{RoomsListView.SelectedIndices[0]}");
 						bWriter.Write($"45,Get room data and add me as spec,{RoomsListView.SelectedIndices[0]}");
 						IsGameLive = true;
+						while (GuestRoomData == null) Thread.Sleep(100);
 						RedirectWatchOnlySpec(RoomsListView.SelectedIndices[0]);
 					}
 					else

@@ -98,6 +98,8 @@ namespace SimpleClient
 				else
 				{
 					MessageBox.Show(responseRes.Split(',')[1]);
+					quit = true;
+					this.Dispose();
 				}
 			}
 		}
@@ -135,8 +137,8 @@ namespace SimpleClient
 				if (networkStream.DataAvailable)
 				{
 					bReader = new BinaryReader(networkStream);
-					if (bReader.PeekChar() > 0)
-					{ 
+					//if (bReader.PeekChar() > 0)
+					//{ 
 						string msg = bReader.ReadString();
 						if (msg != String.Empty)
 						{
@@ -326,17 +328,28 @@ namespace SimpleClient
 							{
 								BinaryFormatter formatter = new BinaryFormatter();
 								var gameBoardData = (int[][])formatter.Deserialize(networkStream);
-								roomsListForm
-									.WaitingRoom
-									.GamingPlayGroundForm
-									.DrawCurrentGameBoardData(
-										gameBoardData,
-										msg.Split(',')[2],
-										msg.Split(',')[3]
-										);
+								roomsListForm.WaitingRoom.GamingPlayGroundForm.Invoke((Action)delegate
+								{
+									roomsListForm
+											.WaitingRoom
+											.GamingPlayGroundForm
+											.DrawCurrentGameBoardData(
+												gameBoardData,
+												msg.Split(',')[2],
+												msg.Split(',')[3]
+												);
+								});
+							//roomsListForm
+							//		.WaitingRoom
+							//		.GamingPlayGroundForm
+							//		.DrawCurrentGameBoardData(
+							//			gameBoardData,
+							//			msg.Split(',')[2],
+							//			msg.Split(',')[3]
+							//			);
 							}
 						}
-					}
+					//}
 				}
 			}
 		}

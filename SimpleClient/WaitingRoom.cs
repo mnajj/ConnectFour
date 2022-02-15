@@ -47,7 +47,7 @@ namespace SimpleClient
 			}
 			if (roomsListForm.IsGameLive)
 			{
-				LiveGameButton.Enabled = true;
+				LiveGameButton.Visible = true;
 			}
 		}
 

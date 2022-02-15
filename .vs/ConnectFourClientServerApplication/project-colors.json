@@ -10,7 +10,12 @@
       "ProjectGuid": "5111695b-e6aa-4da7-b5bb-0d31239c970a",
       "DisplayName": "SimpleServer",
       "ColorIndex": 1
+    },
+    "503d82d2-d1d0-4f32-89df-95af431cd71b": {
+      "ProjectGuid": "503d82d2-d1d0-4f32-89df-95af431cd71b",
+      "DisplayName": "SharedClassLibrary",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 3
 }

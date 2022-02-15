@@ -21,6 +21,7 @@ namespace SimpleServer.ClassLib
 		public Color DiskColor { get; set; }
 		public int PlayerNumber { get; set; }
 		public int PlayAgain { get; set; }
+		public bool IsOnline { get; set; }
 
 		NetworkStream networkStream;
 		BinaryWriter bWriter;
@@ -756,7 +757,6 @@ namespace SimpleServer.ClassLib
 						BinaryFormatter bf = new BinaryFormatter();
 						bf.Serialize(networkStream, DataLayer.ConnectedUsers);
 					}
-					networkStream.Flush();
 				}
 			}
 			else
@@ -838,7 +838,6 @@ namespace SimpleServer.ClassLib
 
 			// SEND Msg Header
 			bWriter = new BinaryWriter(networkStream);
-
 			bWriter.Write("44,Accept");
 
 			// SEND Room Object
