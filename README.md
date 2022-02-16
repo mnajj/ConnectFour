@@ -32,4 +32,4 @@ A project submitted in partial fulfillment of the requirement to complete Visual
 
 ## Usage Example
 
-![Usage Xample](https://imgur.com/KaErjwA.gif)
+[Imgur](https://imgur.com/KaErjwA)
