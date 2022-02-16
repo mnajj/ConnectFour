@@ -29,3 +29,7 @@ A project submitted in partial fulfillment of the requirement to complete Visual
 ## Application Workflow Diagram
 
 ![Workflow](https://imgur.com/MPf0jNG.jpg)
+
+## Usage Example
+
+![Usage Xample](https://imgur.com/KaErjwA)
