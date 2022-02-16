@@ -40,7 +40,7 @@
 			// MsgLable
 			// 
 			this.MsgLable.AutoSize = true;
-			this.MsgLable.Location = new System.Drawing.Point(150, 52);
+			this.MsgLable.Location = new System.Drawing.Point(188, 62);
 			this.MsgLable.Name = "MsgLable";
 			this.MsgLable.Size = new System.Drawing.Size(35, 13);
 			this.MsgLable.TabIndex = 0;
@@ -50,7 +50,7 @@
 			// 
 			this.AcceptRequestButton.BackColor = System.Drawing.Color.White;
 			this.AcceptRequestButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.AcceptRequestButton.Location = new System.Drawing.Point(92, 85);
+			this.AcceptRequestButton.Location = new System.Drawing.Point(130, 95);
 			this.AcceptRequestButton.Name = "AcceptRequestButton";
 			this.AcceptRequestButton.Size = new System.Drawing.Size(75, 23);
 			this.AcceptRequestButton.TabIndex = 1;
@@ -62,7 +62,7 @@
 			// 
 			this.DeclinesRequestButton.BackColor = System.Drawing.Color.White;
 			this.DeclinesRequestButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.DeclinesRequestButton.Location = new System.Drawing.Point(173, 85);
+			this.DeclinesRequestButton.Location = new System.Drawing.Point(211, 95);
 			this.DeclinesRequestButton.Name = "DeclinesRequestButton";
 			this.DeclinesRequestButton.Size = new System.Drawing.Size(75, 23);
 			this.DeclinesRequestButton.TabIndex = 2;
@@ -74,7 +74,7 @@
 			// 
 			this.label1.AutoSize = true;
 			this.label1.ForeColor = System.Drawing.Color.Black;
-			this.label1.Location = new System.Drawing.Point(75, 134);
+			this.label1.Location = new System.Drawing.Point(26, 204);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(378, 13);
 			this.label1.TabIndex = 3;
@@ -84,7 +84,7 @@
 			// pictureBox1
 			// 
 			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-			this.pictureBox1.Location = new System.Drawing.Point(18, 106);
+			this.pictureBox1.Location = new System.Drawing.Point(183, 138);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(51, 63);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -97,12 +97,13 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackgroundImage = global::SimpleClient.Properties.Resources.patterns_ornaments_art_deco_style_calligraphy_page__2_;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.ClientSize = new System.Drawing.Size(361, 233);
+			this.ClientSize = new System.Drawing.Size(427, 291);
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.DeclinesRequestButton);
 			this.Controls.Add(this.AcceptRequestButton);
 			this.Controls.Add(this.MsgLable);
+			this.DoubleBuffered = true;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "CounterRequestDialog";
 			this.Text = "CounterRequestDialog";

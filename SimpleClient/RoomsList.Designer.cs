@@ -37,6 +37,8 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.ConnectedUsersListBox = new System.Windows.Forms.ListBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.LogOutButton)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
 			this.SuspendLayout();
@@ -124,6 +126,28 @@
 			this.ConnectedUsersListBox.Size = new System.Drawing.Size(128, 251);
 			this.ConnectedUsersListBox.TabIndex = 15;
 			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.ForeColor = System.Drawing.Color.Red;
+			this.label4.Location = new System.Drawing.Point(382, 143);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(138, 13);
+			this.label4.TabIndex = 16;
+			this.label4.Text = "Double-lift-click to Join";
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.ForeColor = System.Drawing.Color.Red;
+			this.label5.Location = new System.Drawing.Point(382, 159);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(124, 13);
+			this.label5.TabIndex = 17;
+			this.label5.Text = "Right-click to Watch";
+			// 
 			// RoomsList
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -131,6 +155,8 @@
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(201)))), ((int)(((byte)(244)))));
 			this.BackgroundImage = global::SimpleClient.Properties.Resources.Blue_Gradient_Blur_Background_For_Free;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.label4);
 			this.Controls.Add(this.ConnectedUsersListBox);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
@@ -160,5 +186,7 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.ListBox ConnectedUsersListBox;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label label5;
 	}
 }
