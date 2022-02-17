@@ -12,6 +12,8 @@ namespace SimpleServer.ClassLib
 {
 	public class ClientHandler
 	{
+		public static readonly object WriterLocker = new object();
+
 		public TcpClient Socket { get; set; }
 		public string UserName { get; set; }
 		public string Counter { get; set; }
@@ -141,10 +143,13 @@ namespace SimpleServer.ClassLib
 			bWriter.Write("1001, other play quit the game");
 
 			string record = $"{counterCln.UserName} beat {this.UserName}";
-			File.AppendAllText(
-				Path.Combine(Environment.CurrentDirectory, "RecordLog.txt"),
-				$"{record} on {DateTime.Now.ToString("dd/MM/yyyy")}" + Environment.NewLine
-				);
+			lock(WriterLocker)
+			{
+				File.AppendAllText(
+					Path.Combine(Environment.CurrentDirectory, "RecordLog.txt"),
+					$"{record} on {DateTime.Now.ToString("dd/MM/yyyy")}" + Environment.NewLine
+					);
+			}
 		}
 
 		private void SendCurrentGameDataToSpec()
@@ -456,10 +461,14 @@ namespace SimpleServer.ClassLib
 					bWriter.Write("990,YouLoseTheGame");
 
 					string record = $"{playerOne.UserName} beat {playerTwo.UserName}";
-					File.AppendAllText(
-						Path.Combine(Environment.CurrentDirectory, "RecordLog.txt"),
-						$"{record} on {DateTime.Now.ToString("dd/MM/yyyy")}" + Environment.NewLine
-						);
+					lock(WriterLocker)
+					{
+						File.AppendAllText(
+							Path.Combine(Environment.CurrentDirectory, "RecordLog.txt"),
+							$"{record} on {DateTime.Now.ToString("dd/MM/yyyy")}" + Environment.NewLine
+							);
+					}
+
 				}
 				else if (winNum == 2)
 				{
@@ -470,10 +479,13 @@ namespace SimpleServer.ClassLib
 					bWriter.Write("990,YouLoseTheGame");
 
 					string record = $"{playerTwo.UserName} beat {playerOne.UserName}";
-					File.AppendAllText(
-						Path.Combine(Environment.CurrentDirectory, "RecordLog.txt"),
-						$"{record} on {DateTime.Now.ToString("dd/MM/yyyy")}" + Environment.NewLine
-						);
+					lock(WriterLocker)
+					{
+						File.AppendAllText(
+							Path.Combine(Environment.CurrentDirectory, "RecordLog.txt"),
+							$"{record} on {DateTime.Now.ToString("dd/MM/yyyy")}" + Environment.NewLine
+							);
+					}
 				}
 			}
 			else

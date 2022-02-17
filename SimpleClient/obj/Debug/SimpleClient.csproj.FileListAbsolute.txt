@@ -244,3 +244,5 @@ C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.exe
 C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.pdb
 C:\Users\DELL\OneDrive\سطح المكتب\BASE\SimpleClient\obj\Debug\SimpleClient.Dialogs.QuitGameDialog.resources
 C:\Users\DELL\OneDrive\سطح المكتب\BASE\SimpleClient\obj\Debug\SimpleClient.Dialogs.QuitWinnerDialog.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.QuitGameDialog.resources
+C:\Users\DELL\repos\ConnectFour\SimpleClient\obj\Debug\SimpleClient.Dialogs.QuitWinnerDialog.resources
