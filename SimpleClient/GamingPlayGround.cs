@@ -520,6 +520,13 @@ namespace SimpleClient
 			}
 		}
 
+		public void OtherPlayerQuitTheGame()
+		{
+			QuitWinnerDialog quitWinnerDialog = new QuitWinnerDialog();
+			quitWinnerDialog.ShowDialog();
+			OtherPlayerRefuseToPlayAgain();
+		}
+
 		public void DrawCurrentGameBoardData(int[][] gameBoardData, string plyOneClr, string plyTwoClr)
 		{
 			AssignColorsToPlayers(plyOneClr, plyTwoClr);
@@ -777,6 +784,19 @@ namespace SimpleClient
 				}
 			}
 			IsMyTurn = true;
+		}
+
+		private void QuitGameButton_Click(object sender, EventArgs e)
+		{
+			QuitGameDialog quitGameDialog = new QuitGameDialog();
+			DialogResult dlgRes = quitGameDialog.ShowDialog();
+			if (dlgRes == DialogResult.OK)
+			{
+				bWriter.Write("0111, quit the game");
+				IsGameOver = true;
+				this.waitingRoom.Show();
+				this.Close();
+			}
 		}
 	}
 }

@@ -339,15 +339,17 @@ namespace SimpleClient
 												msg.Split(',')[3]
 												);
 								});
-							//roomsListForm
-							//		.WaitingRoom
-							//		.GamingPlayGroundForm
-							//		.DrawCurrentGameBoardData(
-							//			gameBoardData,
-							//			msg.Split(',')[2],
-							//			msg.Split(',')[3]
-							//			);
 							}
+							else if (status == 1001)
+							{
+							roomsListForm.WaitingRoom.GamingPlayGroundForm.Invoke((Action)delegate
+							{
+								roomsListForm
+										.WaitingRoom
+										.GamingPlayGroundForm
+										.OtherPlayerQuitTheGame();
+							});
+						}
 						}
 					//}
 				}

@@ -113,6 +113,9 @@ namespace SimpleServer.ClassLib
 						case 8069:
 							SendCurrentGameDataToSpec();
 							break;
+						case 0111:
+							PlayerQuitTheGame();
+							break;
 						//case 255:
 						//	AddNewSpectatorToRoom(int.Parse(reqRes.Split(',')[2]));
 						//	SendRoomData(int.Parse(reqRes.Split(',')[2]));
@@ -122,6 +125,26 @@ namespace SimpleServer.ClassLib
 					}
 				}
 			}
+		}
+
+		private void PlayerQuitTheGame()
+		{
+			ClientHandler counterCln = DataLayer.Clients
+				.Where(c => c.IsPlayer == true)
+				.Where(c => c.CurrentRoomNumber == this.CurrentRoomNumber)
+				.FirstOrDefault();
+
+			this.Counter = "";
+			counterCln.Counter = "";
+
+			bWriter = new BinaryWriter(counterCln.Socket.GetStream());
+			bWriter.Write("1001, other play quit the game");
+
+			string record = $"{counterCln.UserName} beat {this.UserName}";
+			File.AppendAllText(
+				Path.Combine(Environment.CurrentDirectory, "RecordLog.txt"),
+				$"{record} on {DateTime.Now.ToString("dd/MM/yyyy")}" + Environment.NewLine
+				);
 		}
 
 		private void SendCurrentGameDataToSpec()

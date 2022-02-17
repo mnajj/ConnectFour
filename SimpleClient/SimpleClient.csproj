@@ -70,6 +70,18 @@
     <Compile Include="Dialogs\DeclareDialg.Designer.cs">
       <DependentUpon>DeclareDialg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\QuitGameDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\QuitGameDialog.Designer.cs">
+      <DependentUpon>QuitGameDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\QuitWinnerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\QuitWinnerDialog.Designer.cs">
+      <DependentUpon>QuitWinnerDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +125,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DeclareDialg.resx">
       <DependentUpon>DeclareDialg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\QuitGameDialog.resx">
+      <DependentUpon>QuitGameDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\QuitWinnerDialog.resx">
+      <DependentUpon>QuitWinnerDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -188,6 +206,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\patterns-ornaments-art-deco-style-calligraphy-page %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\startstopbuttondribbble_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ss_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\temp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
