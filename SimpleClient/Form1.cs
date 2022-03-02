@@ -140,7 +140,7 @@ namespace SimpleClient
 					//if (bReader.PeekChar() > 0)
 					//{ 
 						string msg = bReader.ReadString();
-						if (msg != String.Empty)
+						if (msg != String.Empty && msg.Length > 3)
 						{
 							int status = int.Parse(msg.Split(',')[0]);
 							if (status == -11)
