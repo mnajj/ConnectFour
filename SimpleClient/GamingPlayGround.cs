@@ -616,6 +616,7 @@ namespace SimpleClient
 			{
 				bWriter.Write("919,Accept to play Again");
 				IsGameOver = false;
+				ClearArray();
 			}
 			else
 			{
