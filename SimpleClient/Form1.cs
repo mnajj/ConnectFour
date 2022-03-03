@@ -187,7 +187,10 @@ namespace SimpleClient
 								var newPlayers = (List<string>)formatter.Deserialize(networkStream);
 								roomsListForm.WaitingRoom.Invoke((Action)delegate
 								{
-									roomsListForm.WaitingRoom.GetMemberChanges(newPlayers);
+									if (roomsListForm.WaitingRoom != null)
+									{
+										roomsListForm.WaitingRoom.GetMemberChanges(newPlayers);
+									}
 								});
 							}
 							else if (status == 55)
