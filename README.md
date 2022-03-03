@@ -7,6 +7,12 @@ A project submitted in partial fulfillment of the requirement to complete Visual
 
 ![Logo](https://www.connect4.app/wp-content/themes/connect4/img/media/Connect4_logo_regular.png)
 
+## Architecture Overview
+
+### Server
+![ServerArch](https://imgur.com/hYXVhkr.png)
+### Client
+![ClientArch](https://imgur.com/H7hHnr6.png)
 
 ## How to Play
 
