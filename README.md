@@ -14,6 +14,9 @@ A project submitted in partial fulfillment of the requirement to complete Visual
 ### Client
 ![ClientArch](https://imgur.com/H7hHnr6.png)
 
+## Features
+1. Create a waiting room to wait for players and spectators.
+2. Playing a round between two players with the presence of spectators for the game.
 ## How to Play
 
 1. Use one of these username to login:
